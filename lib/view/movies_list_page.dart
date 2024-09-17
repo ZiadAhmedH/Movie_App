@@ -1,15 +1,45 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/model/widgets/Movie_List_Widget.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../controller/Movie_Cubit/Movie_Cubit.dart';
+import '../model/widgets/Movie_List_Widget.dart';
 
-import '../controller/movies_controller.dart';
+class MoviesScreen extends StatefulWidget {
+  @override
+  _MoviesScreenState createState() => _MoviesScreenState();
+}
 
+class _MoviesScreenState extends State<MoviesScreen> {
+  final ScrollController _scrollController = ScrollController();
 
-class MoviesScreen extends StatelessWidget {
+  @override
+  void initState() {
+    super.initState();
+
+    // Listen to the scroll controller
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels >=
+          _scrollController.position.maxScrollExtent - 200) {
+        _loadMoreMovies();
+      }
+    });
+  }
+
+  void _loadMoreMovies() {
+    final movieCubit = context.read<MovieCubit>();
+    if (movieCubit.state.hasMorePages && !movieCubit.state.isLoading) {
+      movieCubit.fetchMoreMovies();
+    }
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final state = context.watch<MovieCubit>().state;
+    var state = context.watch<MovieCubit>().state;
 
     return Scaffold(
       backgroundColor: Color.fromRGBO(44, 43, 43, 1),
@@ -17,23 +47,25 @@ class MoviesScreen extends StatelessWidget {
         backgroundColor: Color.fromRGBO(44, 43, 43, 1),
         title: Text('Movies'),
       ),
-      body: NotificationListener<ScrollNotification>(
-            onNotification: (ScrollNotification scrollInfo) {
-              if (scrollInfo.metrics.pixels ==
-                  scrollInfo.metrics.maxScrollExtent &&
-                  !state.isLoading) {
-                context.read<MovieCubit>().loadNextPage();
-              }
-              return false;
-            },
-            child: ListView.builder(
-              itemCount: state?.movies.length,
-              itemBuilder: (context, index) {
-                final movie = state.movies[index];
-                return  MovieWidget(movie: movie);
-              },
-            ),
-
+      body: GridView.builder(
+        controller: _scrollController, // Attach scroll controller
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3, // Number of columns
+          crossAxisSpacing: 10.0, // Space between columns
+          mainAxisSpacing: 10.0, // Space between rows
+          childAspectRatio: 0.7, // Aspect ratio for each movie card
+        ),
+        padding:const  EdgeInsets.all(10.0), // Padding around the grid
+        itemCount: state.movies.length + (state.hasMorePages ? 1 : 0), // Extra item for loading indicator
+        itemBuilder: (context, index) {
+          if (index == state.movies.length) {
+            return state.hasMorePages
+                ? const Center(child: CircularProgressIndicator())
+                : const SizedBox.shrink();
+          }
+          final movie = state.movies[index];
+          return MovieWidget(movie: movie);
+        },
       ),
     );
   }

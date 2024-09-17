@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../controller/Movie_State.dart';
+import '../controller/Movie_Cubit/Movie_State.dart';
 import '../model/widgets/Movie_List_Widget.dart';
-import '../controller/movies_controller.dart';
+import '../controller/Movie_Cubit/Movie_Cubit.dart';
 class FavoriteMoviesPage extends StatelessWidget {
   const FavoriteMoviesPage({super.key});
 
@@ -19,14 +19,14 @@ class FavoriteMoviesPage extends StatelessWidget {
       body: Column(
         children: [
 
-          Expanded(
-            child: ListView.builder(
-              itemCount: state.favoriteMovies.length,
-              itemBuilder: (context, index) {
-                return  MovieWidget(movie:state.favoriteMovies[index]);
-              },
-            ),
-          ),
+          // Expanded(
+          //   child: ListView.builder(
+          //     itemCount: state..length,
+          //     itemBuilder: (context, index) {
+          //       return  MovieWidget(movie:state.favoriteMovies[index]);
+          //     },
+          //   ),
+          // ),
         ],
       ),
     );
