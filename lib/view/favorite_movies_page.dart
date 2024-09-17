@@ -2,14 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'movies_controller.dart';
-import 'movies_list_page.dart';
+import '../controller/Movie_State.dart';
+import '../model/widgets/Movie_List_Widget.dart';
+import '../controller/movies_controller.dart';
 class FavoriteMoviesPage extends StatelessWidget {
   const FavoriteMoviesPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final controller = context.watch<MoviesController>();
+    final state = context.watch<MovieCubit>().state;
 
     return  Scaffold(
       appBar: AppBar(
@@ -20,9 +21,9 @@ class FavoriteMoviesPage extends StatelessWidget {
 
           Expanded(
             child: ListView.builder(
-              itemCount: controller.favoriteMovies.length,
+              itemCount: state.favoriteMovies.length,
               itemBuilder: (context, index) {
-                return  MovieWidget(movie:controller.favoriteMovies[index]);
+                return  MovieWidget(movie:state.favoriteMovies[index]);
               },
             ),
           ),
