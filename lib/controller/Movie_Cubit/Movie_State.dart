@@ -1,11 +1,11 @@
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
-
 import '../../model/models/Movie_Model.dart';
 
 class MovieState {
   final IList<Movie> movies;
-  final IList<Movie> favoriteMovies; // Added
-  final IList<Movie> watchedMovies;  // Added
+  final IList<Movie> favoriteMovies;
+  final IList<Movie> watchedMovies;
+  final IList<Movie> threeDMovies;
   final bool isLoading;
   final bool hasMorePages;
   final int currentPage;
@@ -13,8 +13,9 @@ class MovieState {
 
   MovieState({
     required this.movies,
-    required this.favoriteMovies, // Added
-    required this.watchedMovies,  // Added
+    required this.favoriteMovies,
+    required this.watchedMovies,
+    required this.threeDMovies,
     required this.isLoading,
     required this.hasMorePages,
     required this.currentPage,
@@ -25,8 +26,9 @@ class MovieState {
   factory MovieState.initial() {
     return MovieState(
       movies: IList([]),
-      favoriteMovies: IList([]), // Initialize empty list
-      watchedMovies: IList([]),  // Initialize empty list
+      favoriteMovies: IList([]),
+      watchedMovies: IList([]),
+      threeDMovies: IList([]),
       isLoading: false,
       hasMorePages: true,
       currentPage: 1,
@@ -37,8 +39,9 @@ class MovieState {
   // CopyWith method to clone and modify state immutably
   MovieState copyWith({
     IList<Movie>? movies,
-    IList<Movie>? favoriteMovies, // Added
-    IList<Movie>? watchedMovies,  // Added
+    IList<Movie>? favoriteMovies,
+    IList<Movie>? watchedMovies,
+    IList<Movie>? threeDMovies,
     bool? isLoading,
     bool? hasMorePages,
     int? currentPage,
@@ -46,8 +49,9 @@ class MovieState {
   }) {
     return MovieState(
       movies: movies ?? this.movies,
-      favoriteMovies: favoriteMovies ?? this.favoriteMovies, // Added
-      watchedMovies: watchedMovies ?? this.watchedMovies,   // Added
+      favoriteMovies: favoriteMovies ?? this.favoriteMovies,
+      watchedMovies: watchedMovies ?? this.watchedMovies,
+      threeDMovies: threeDMovies ?? this.threeDMovies,  // Added for 3D movies
       isLoading: isLoading ?? this.isLoading,
       hasMorePages: hasMorePages ?? this.hasMorePages,
       currentPage: currentPage ?? this.currentPage,
@@ -55,13 +59,13 @@ class MovieState {
     );
   }
 
-  // Optional: Override equality and hashCode to compare MovieState instances correctly
   @override
   bool operator ==(Object o) =>
       o is MovieState &&
           o.movies == movies &&
-          o.favoriteMovies == favoriteMovies && // Added
-          o.watchedMovies == watchedMovies &&   // Added
+          o.favoriteMovies == favoriteMovies &&
+          o.watchedMovies == watchedMovies &&
+          o.threeDMovies == threeDMovies &&  // Compare 3D movies
           o.isLoading == isLoading &&
           o.hasMorePages == hasMorePages &&
           o.currentPage == currentPage &&
@@ -70,8 +74,9 @@ class MovieState {
   @override
   int get hashCode =>
       movies.hashCode ^
-      favoriteMovies.hashCode ^ // Added
-      watchedMovies.hashCode ^  // Added
+      favoriteMovies.hashCode ^
+      watchedMovies.hashCode ^
+      threeDMovies.hashCode ^  // Hash for 3D movies
       isLoading.hashCode ^
       hasMorePages.hashCode ^
       currentPage.hashCode ^

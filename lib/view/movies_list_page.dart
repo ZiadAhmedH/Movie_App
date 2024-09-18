@@ -50,10 +50,10 @@ class _MoviesScreenState extends State<MoviesScreen> {
       body: GridView.builder(
         controller: _scrollController, // Attach scroll controller
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3, // Number of columns
-          crossAxisSpacing: 10.0, // Space between columns
-          mainAxisSpacing: 10.0, // Space between rows
-          childAspectRatio: 0.7, // Aspect ratio for each movie card
+          crossAxisCount: 3,
+          crossAxisSpacing: 10.0,
+          mainAxisSpacing: 10.0,
+          childAspectRatio: 0.7,
         ),
         padding:const  EdgeInsets.all(10.0), // Padding around the grid
         itemCount: state.movies.length + (state.hasMorePages ? 1 : 0), // Extra item for loading indicator
@@ -64,7 +64,7 @@ class _MoviesScreenState extends State<MoviesScreen> {
                 : const SizedBox.shrink();
           }
           final movie = state.movies[index];
-          return MovieWidget(movie: movie);
+          return MovieWidget(movie: movie );
         },
       ),
     );

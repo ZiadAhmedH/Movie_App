@@ -21,13 +21,16 @@ class MovieWidget extends StatelessWidget {
       create: (context) => MoviesDetailsCubit(movie.id, context.read<MoviesRepo>()),
       child: BlocBuilder<MoviesDetailsCubit, MoviesDetailsState>(
         builder: (context, state) {
-          return InkWell(
+          return GestureDetector(
+
             onTap: () {
+
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) => MovieDetailsPage(movieId: movie.id),
                 ),
               );
+
             },
             child: Padding(
               padding: const EdgeInsets.all(8),
@@ -55,7 +58,7 @@ class MovieWidget extends StatelessWidget {
                         return Container(
                           width: 100,
                           height: 150,
-                          child: const Icon(Icons.error, color: Colors.white),
+                          child: const Icon(Icons.sms_failed_outlined, color: Colors.white),
                           decoration: BoxDecoration(
                             color: Colors.grey,
                             borderRadius: BorderRadius.circular(8),

@@ -1,16 +1,25 @@
+import 'dart:async';
+
 import 'package:dio/dio.dart';
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../model/models/Movie_Model.dart';
 
 class MoviesRepo extends ChangeNotifier {
   MoviesRepo();
-
+static MoviesRepo of(BuildContext context) {
+    return Provider.of<MoviesRepo>(context, listen: false);
+  }
   final _dio = Dio();
   List<Movie> _movies = [];
   Set<int> _favoriteMovies = {};
   Set<int> _watchedMovies = {};
+
+  // 3d movies
+  List<Movie> _3dMovies = [];
+
 
   bool _hasMorePages = true; // Track if there are more pages to fetch
 
@@ -27,7 +36,7 @@ class MoviesRepo extends ChangeNotifier {
   Future<IList<Movie>> fetchMovies({required int page}) async {
     final res = await _dio.get(
       "https://yts.mx/api/v2/list_movies.json",
-      queryParameters: {"limit": 50, "page": page},
+      queryParameters: {"limit": 20, "page": page},
     );
 
     final movies = (res.data["data"]["movies"] as Iterable<dynamic>)
@@ -49,8 +58,38 @@ class MoviesRepo extends ChangeNotifier {
     return movies.toIList(); // Ensure it returns an immutable list
   }
 
+
+  Future<IList<Movie>> fetch3DMovies({required int page}) async {
+    final res = await _dio.get(
+      "https://yts.mx/api/v2/list_movies.json?quality=3D",
+      queryParameters: {"limit": 20, "page": page,},
+    );
+
+    final movies = (res.data["data"]["movies"] as Iterable<dynamic>)
+        .map((i) => Movie(
+      id: i["id"],
+      title: i["title"],
+      imageUrl: i["large_cover_image"],
+      backgroundImageUrl: i["background_image"],
+      year: i["year"],
+      rating: i["rating"].toDouble(),
+      runtime: i["runtime"],
+      isFavorite: false,
+      isWatched: false,
+    ))
+        .toList();
+
+    _3dMovies = [..._3dMovies, ...movies]; // Append new movies to the list
+
+    return movies.toIList(); // Ensure it returns an immutable list
+  }
+
   Movie? getMovieById(int movieId) {
     return _movies.where((m) => m.id == movieId).firstOrNull;
+  }
+
+  Movie? get3DMovieById(int movieId ) {
+    return _3dMovies.where((m) => m.id == movieId).firstOrNull;
   }
 
   void toggleFavorite(int movieId) {

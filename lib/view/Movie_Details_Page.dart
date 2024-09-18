@@ -33,6 +33,7 @@ class MovieDetailsPage extends StatelessWidget {
           }
 
           return Scaffold(
+            backgroundColor: const Color.fromRGBO(44, 43, 43, 1),
             appBar: AppBar(
               title: const Text('Movie Details'),
               backgroundColor: Colors.transparent,
