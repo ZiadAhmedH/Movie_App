@@ -1,60 +1,15 @@
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:provider/provider.dart';
+import '../../controller/Movie_Details_Cubit/detials_movie_cubit.dart';
+import '../../controller/Movie_Details_Cubit/detials_movie_state.dart';
+import '../../model/models/Movie_Model.dart';
 
-import '../controller/Movie_Details_Cubit/detials_movie_cubit.dart';
-import '../controller/Movie_Details_Cubit/detials_movie_state.dart';
-import '../controller/Movies_Repo.dart';
-import '../model/models/Movie_Model.dart';
-
-class MovieDetailsPage extends StatelessWidget {
-  final int movieId;
-  const MovieDetailsPage({super.key, required this.movieId});
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => MoviesDetailsCubit(
-        movieId,
-        context.read<MoviesRepo>(),
-      ),
-      child: BlocBuilder<MoviesDetailsCubit, MoviesDetailsState>(
-        builder: (context, state) {
-          final Widget body;
-          switch (state) {
-            case MoviesDetailsLoading():
-              body = const Center(child: CircularProgressIndicator());
-            case MoviesDetailsError():
-              body = const Center(child: Icon(Icons.error, color: Colors.red));
-            case MoviesDetailsLoaded():
-              body = _MovieDetailsPageContent(moviesDetailsState: state);
-          }
-
-          return Scaffold(
-            backgroundColor: const Color.fromRGBO(44, 43, 43, 1),
-            appBar: AppBar(
-              title: const Text('Movie Details'),
-              backgroundColor: Colors.transparent,
-              iconTheme: const IconThemeData(color: Colors.white),
-              titleTextStyle: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold),
-            ),
-            extendBodyBehindAppBar: true,
-            body: body,
-          );
-        },
-      ),
-    );
-  }
-}
-
-class _MovieDetailsPageContent extends StatelessWidget {
+class MovieDetailsPageContent extends StatelessWidget {
   final MoviesDetailsLoaded moviesDetailsState;
-  const _MovieDetailsPageContent({
+  const MovieDetailsPageContent({
     super.key,
     required this.moviesDetailsState,
   });
@@ -67,8 +22,9 @@ class _MovieDetailsPageContent extends StatelessWidget {
       fit: StackFit.expand,
       children: [
         CachedNetworkImage(
-          imageUrl: movie.backgroundImageUrl,
+          imageUrl: movie.backgroundImageUrl ,
           fit: BoxFit.cover,
+          errorWidget: (context, url, error) => const Icon(Icons.error),
         ),
         ListView(
           padding: MediaQuery.of(context).padding +
@@ -86,7 +42,7 @@ class _MovieDetailsPageContent extends StatelessWidget {
                   ),
                   clipBehavior: Clip.antiAlias,
                   child: CachedNetworkImage(
-                    imageUrl: movie.imageUrl,
+                    imageUrl: movie.imageUrl ,
                     fit: BoxFit.cover,
                   ),
                 ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../controller/Movie_Cubit/Movie_Cubit.dart';
+import '../controller/Movie_Details_Cubit/detials_movie_cubit.dart';
 import '../model/widgets/Movie_List_Widget.dart';
 
 class MoviesScreen extends StatefulWidget {

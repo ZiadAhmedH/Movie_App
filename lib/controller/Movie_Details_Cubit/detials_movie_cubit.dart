@@ -1,18 +1,19 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../model/models/Movie_Model.dart';
 import '../Movies_Repo.dart';
 import 'detials_movie_state.dart';
 
-
-
 class MoviesDetailsCubit extends Cubit<MoviesDetailsState> {
-  MoviesDetailsCubit(int movieId, this._repo) : super(MoviesDetailsLoading()) {
-    fetchMovieDetails(movieId);
-
+  MoviesDetailsCubit(movie, this._repo) : super(MoviesDetailsLoading()) {
+    fetchMovieDetails(movie);
     _repo.addListener(_repoStateChanged);
   }
 
   final MoviesRepo _repo;
+
+  static MoviesDetailsCubit of(context) => BlocProvider.of<MoviesDetailsCubit>(context);
 
   void _repoStateChanged() {
     if (state is MoviesDetailsLoaded) {
@@ -25,21 +26,29 @@ class MoviesDetailsCubit extends Cubit<MoviesDetailsState> {
     }
   }
 
-  void fetchMovieDetails(int movieId) {
-    final movie = _repo.getMovieById(movieId);
-    if (movie == null) {
-      emit(MoviesDetailsError("Movie not found"));
-      return;
+  void fetchMovieDetails(Movie movie) {
+    if (movie.is3DMovie) {
+      _fetch3dMovieDetails(movie);
+    } else {
+      _fetchRegularMovieDetails(movie);
     }
+  }
 
-
-    final isFavorite = _repo.isFavorite(movieId);
-    final isWatched = _repo.isWatched(movieId);
+  void _fetchRegularMovieDetails(Movie movie) {
+    final isFavorite = _repo.isFavorite(movie.id);
+    final isWatched = _repo.isWatched(movie.id);
 
     emit(MoviesDetailsLoaded(movie, isFavorite, isWatched));
   }
 
-  void toggleFavorite(int movieId) {
+  void _fetch3dMovieDetails(Movie movie) {
+    final isFavorite = _repo.isFavorite(movie.id);
+    final isWatched = _repo.isWatched(movie.id);
+
+    emit(MoviesDetailsLoaded(movie, isFavorite, isWatched));
+  }
+
+]  void toggleFavorite(int movieId) {
     if (state is! MoviesDetailsLoaded) return;
     _repo.toggleFavorite(movieId);
     emit((state as MoviesDetailsLoaded)

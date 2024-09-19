@@ -76,11 +76,13 @@ class MovieCubit extends Cubit<MovieState> {
     try {
       final movies = await moviesRepo.fetch3DMovies(page: 1);
       emit(state.copyWith(
-        movies: movies,
+        threeDMovies:movies ,
         isLoading: false,
         hasMorePages: moviesRepo.hasMorePages,
         currentPage: 1,
+
       ));
+      print("3D Movies fetched");
     } catch (e) {
       emit(state.copyWith(isLoading: false, error: e.toString()));
     }

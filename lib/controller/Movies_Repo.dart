@@ -50,6 +50,7 @@ static MoviesRepo of(BuildContext context) {
       runtime: i["runtime"],
       isFavorite: false,
       isWatched: false,
+      is3DMovie: false, // Set is3DMovie to false
     ))
         .toList();
 
@@ -76,11 +77,12 @@ static MoviesRepo of(BuildContext context) {
       runtime: i["runtime"],
       isFavorite: false,
       isWatched: false,
+      is3DMovie: true, // Set is3DMovie to true
     ))
         .toList();
 
     _3dMovies = [..._3dMovies, ...movies]; // Append new movies to the list
-
+   print("${_3dMovies.toString()} ddddddddddddddddddddddddddddd3333");
     return movies.toIList(); // Ensure it returns an immutable list
   }
 

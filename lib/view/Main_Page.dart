@@ -3,12 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/controller/Movie_Cubit/Movie_State.dart';
-import 'package:movies_app/model/Components/Custom_Text.dart';
 import 'package:movies_app/model/widgets/Movie_List_Widget.dart';
-
 import '../controller/Movie_Cubit/Movie_Cubit.dart';
 import '../controller/Movies_Repo.dart';
-import '../model/widgets/Movie_Widget.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({super.key});
@@ -18,7 +15,7 @@ class MainPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(44, 43, 43, 1),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
 
           BlocProvider(
@@ -26,7 +23,7 @@ class MainPage extends StatelessWidget {
               child:  BlocBuilder<MovieCubit, MovieState>(
             builder: (context, state) {
               return SizedBox(
-                height: MediaQuery.of(context).size.height * 0.3,
+                height: MediaQuery.of(context).size.height * 0.25,
                 child: Row(
                   children: [
                     Expanded(
@@ -35,7 +32,7 @@ class MainPage extends StatelessWidget {
                         itemCount: 8,
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
-                          return MovieWidget(movie: state.movies[index]);
+                          return MovieWidget(movie: state.movies[index],);
                         },
                       ),
                     ),
@@ -46,15 +43,12 @@ class MainPage extends StatelessWidget {
           ),
           ),
 
-
-          const SizedBox(height: 20),
-
           BlocProvider(
             create: (context) => MovieCubit(context.read<MoviesRepo>())..fetchSample3DMovies(),
             child:  BlocBuilder<MovieCubit, MovieState>(
               builder: (context, state) {
                 return SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.3,
+                  height: MediaQuery.of(context).size.height * 0.25,
                   child: Row(
                     children: [
                       Expanded(
@@ -63,7 +57,7 @@ class MainPage extends StatelessWidget {
                           itemCount: 8,
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
-                            return Movie3DWidget(movie: state.movies[index]);
+                            return MovieWidget(movie: state.threeDMovies[index] ,);
                           },
                         ),
                       ),
