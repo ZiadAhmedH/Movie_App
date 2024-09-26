@@ -48,6 +48,7 @@ class MoviesDetailsCubit extends Cubit<MoviesDetailsState> {
     emit(MoviesDetailsLoaded(movie, isFavorite, isWatched));
   }
 
+
   void toggleFavorite(int movieId) {
     if (state is! MoviesDetailsLoaded) return;
     _repo.toggleFavorite(movieId);

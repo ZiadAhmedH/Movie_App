@@ -4,7 +4,7 @@ import 'package:meta/meta.dart';
 
 import '../../view/Favorite_Page/favorite_movies_page.dart';
 import '../../view/List_Page/ListFav_Movie_Page.dart';
-import '../../view/Main_Page.dart';
+import '../../view/Main_Page/Main_Page.dart';
 
 part 'page_state.dart';
 

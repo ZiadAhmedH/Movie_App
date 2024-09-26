@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 import 'controller/BlocObserver.dart';
 import 'controller/Movie_Cubit/Movie_State.dart';
 import 'controller/Movies_Repo.dart';
-import 'view/movies_list_page.dart';
+import 'view/Main_Page/Movie_Section/movies_list_page.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

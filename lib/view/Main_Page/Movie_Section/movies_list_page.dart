@@ -1,10 +1,19 @@
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../controller/Movie_Cubit/Movie_Cubit.dart';
-import '../controller/Movie_Details_Cubit/detials_movie_cubit.dart';
-import '../model/widgets/Movie_List_Widget.dart';
+import '../../../controller/Movie_Cubit/Movie_Cubit.dart';
+import '../../../controller/commenMovieState.dart';
+import '../../../model/models/Movie_Model.dart';
+import '../../../model/widgets/Movie_List_Widget.dart';
+
+
 
 class MoviesScreen extends StatefulWidget {
+  final MovieStateInterface movieState; // Use interface here
+   Function fetchMoreMovies; // Function to fetch more movies
+
+   MoviesScreen({Key? key, required this.movieState, required this.fetchMoreMovies}) : super(key: key);
+
   @override
   _MoviesScreenState createState() => _MoviesScreenState();
 }
@@ -26,9 +35,8 @@ class _MoviesScreenState extends State<MoviesScreen> {
   }
 
   void _loadMoreMovies() {
-    final movieCubit = context.read<MovieCubit>();
-    if (movieCubit.state.hasMorePages && !movieCubit.state.isLoading) {
-      movieCubit.fetchMoreMovies();
+    if (widget.movieState.hasMoreMovies && !widget.movieState.isLoading) {
+      widget.fetchMoreMovies();
     }
   }
 
@@ -56,16 +64,19 @@ class _MoviesScreenState extends State<MoviesScreen> {
           mainAxisSpacing: 10.0,
           childAspectRatio: 0.7,
         ),
-        padding:const  EdgeInsets.all(10.0), // Padding around the grid
-        itemCount: state.movies.length + (state.hasMorePages ? 1 : 0), // Extra item for loading indicator
+        padding: const EdgeInsets.all(10.0), // Padding around the grid
+        itemCount: state.movies.length + (state.hasMoreMovies ? 1 : 0), // Extra item for loading indicator
         itemBuilder: (context, index) {
+          // If the index is the last and we have more movies to load
           if (index == state.movies.length) {
-            return state.hasMorePages
+            return state.hasMoreMovies
                 ? const Center(child: CircularProgressIndicator())
                 : const SizedBox.shrink();
           }
+
+          // Get the movie from the list
           final movie = state.movies[index];
-          return MovieWidget(movie: movie );
+          return MovieWidget(movie: movie);
         },
       ),
     );

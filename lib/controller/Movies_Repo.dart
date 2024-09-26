@@ -25,6 +25,8 @@ static MoviesRepo of(BuildContext context) {
 
   IList<Movie> get movies => _movies.lock;
 
+  IList<Movie> get threeDMovies => _3dMovies.lock;
+
   IList<Movie> get favoriteMovies =>
       _movies.where((m) => _favoriteMovies.contains(m.id)).toIList();
 
@@ -82,7 +84,7 @@ static MoviesRepo of(BuildContext context) {
         .toList();
 
     _3dMovies = [..._3dMovies, ...movies]; // Append new movies to the list
-   print("${_3dMovies.toString()} ddddddddddddddddddddddddddddd3333");
+
     return movies.toIList(); // Ensure it returns an immutable list
   }
 
