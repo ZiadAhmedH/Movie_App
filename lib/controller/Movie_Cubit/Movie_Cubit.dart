@@ -7,14 +7,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:state_notifier/state_notifier.dart';
 
 import '../../model/models/Movie_Model.dart';
-import '../Movies_Repo.dart';
+import '../Repos/Movies_Repo.dart';
+import '../Repos/Movies_ThreeD_Repo.dart';
+import '../Shared_Cubit/favorites_and_watched_cubit.dart';
 import 'Movie_State.dart';
 
 
 class MovieCubit extends Cubit<MovieState> {
   final MoviesRepo moviesRepo;
 
-  MovieCubit(this.moviesRepo) : super(MovieState.initial());
+  final FavoritesAndWatchedCubit favoritesCubit ;
+  MovieCubit(this.moviesRepo, this.favoritesCubit) : super(MovieState.initial());
 
   static MovieCubit of(BuildContext context) => context.read<MovieCubit>();
 
@@ -52,7 +55,21 @@ class MovieCubit extends Cubit<MovieState> {
     }
   }
 
+  void toggleFavorite(Movie movie) {
+    if (favoritesCubit.state.favs.contains(movie)) {
+      favoritesCubit.toggleFavorite(movie);
+    } else {
+      favoritesCubit.toggleFavorite(movie);
+    }
+  }
 
+  void markAsWatched(Movie movie) {
+    if (favoritesCubit.state.watched.contains(movie)) {
+      favoritesCubit.toggleWatched(movie);
+    } else {
+      favoritesCubit.toggleWatched(movie);
+    }
+  }
 
 
 

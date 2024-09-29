@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_app/controller/Repos/Movies_ThreeD_Repo.dart';
 import 'package:movies_app/view/Main_Page/3d_Movies_Section/LoadMore_Section.dart';
 
-import '../../../controller/Movies_Repo.dart';
+import '../../../controller/Repos/Movies_Repo.dart';
+import '../../../controller/Shared_Cubit/favorites_and_watched_cubit.dart';
 import '../../../controller/ThreeDCubit/three_dcubit_cubit.dart';
 import '../../../controller/ThreeDCubit/three_dcubit_state.dart';
 import '../../../model/Components/Custom_Text.dart';
@@ -26,7 +28,6 @@ class ThreeDMoviesSection extends StatelessWidget {
         runtime: 0,
         isFavorite: false,
         isWatched: false,
-        is3DMovie: false,
       ),
     );
     return  Column(
@@ -46,7 +47,7 @@ class ThreeDMoviesSection extends StatelessWidget {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => BlocProvider(
-  create: (context) => ThreeDcubitCubit(context.read<MoviesRepo>()),
+  create: (context) => ThreeDcubitCubit(context.read<ThreeDMovieRepository>(),context.read<FavoritesAndWatchedCubit>())..fetchSample3DMovies(),
   child: BlocBuilder<ThreeDcubitCubit, ThreeDState>(
                       builder: (context, state) {
                         return LoadMoviesScreen();

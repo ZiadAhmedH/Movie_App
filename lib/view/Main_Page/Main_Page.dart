@@ -10,7 +10,7 @@ import 'package:movies_app/view/Main_Page/3d_Movies_Section/ThreeD_Movies_Sectio
 import 'package:movies_app/view/Main_Page/Movie_Section/movies_list_page.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import '../../controller/Movie_Cubit/Movie_Cubit.dart';
-import '../../controller/Movies_Repo.dart';
+import '../../controller/Repos/Movies_Repo.dart';
 import '../../model/models/Movie_Model.dart';
 import 'Movie_Section/Movie_Section.dart';
 

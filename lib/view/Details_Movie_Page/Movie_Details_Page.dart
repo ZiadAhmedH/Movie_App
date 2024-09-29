@@ -4,7 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/controller/Movie_Details_Cubit/detials_movie_state.dart';
 import 'package:provider/provider.dart';
 import '../../controller/Movie_Details_Cubit/detials_movie_cubit.dart';
-import '../../controller/Movies_Repo.dart';
+import '../../controller/Repos/Movies_Repo.dart';
+import '../../controller/Repos/Movies_ThreeD_Repo.dart';
+import '../../controller/Shared_Cubit/favorites_and_watched_cubit.dart';
 import '../../model/models/Movie_Model.dart';
 import 'ContentPage.dart';
 
@@ -17,7 +19,7 @@ class MovieDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => MoviesDetailsCubit(movieId , context.read<MoviesRepo>()),
+      create: (context) => MoviesDetailsCubit(movieId , context.read<MoviesRepo>(), context.read<ThreeDMovieRepository>(), context.read<FavoritesAndWatchedCubit>())..fetchMovieDetails(movieId),
       child: BlocBuilder<MoviesDetailsCubit, MoviesDetailsState>(
         builder: (context, state) {
           final Widget body;

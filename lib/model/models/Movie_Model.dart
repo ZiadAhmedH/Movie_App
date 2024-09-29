@@ -8,7 +8,6 @@ class Movie {
   final int runtime;
   final bool isFavorite;
   final bool isWatched;
-  final bool is3DMovie; // New property to indicate if it's a 3D movie
 
   Movie({
     required this.id,
@@ -20,7 +19,6 @@ class Movie {
     required this.runtime,
     required this.isFavorite,
     required this.isWatched,
-    required this.is3DMovie,  // Include is3DMovie in constructor
   });
 
   Movie copyWith({
@@ -33,7 +31,6 @@ class Movie {
     int? runtime,
     bool? isFavorite,
     bool? isWatched,
-    bool? is3DMovie, // Add is3DMovie to copyWith
   }) =>
       Movie(
         id: id ?? this.id,
@@ -45,12 +42,11 @@ class Movie {
         runtime: runtime ?? this.runtime,
         isFavorite: isFavorite ?? this.isFavorite,
         isWatched: isWatched ?? this.isWatched,
-        is3DMovie: is3DMovie ?? this.is3DMovie,  // Copy the new field
       );
 
   @override
   String toString() =>
-      "Movie(id: $id, title: $title, imageUrl: $imageUrl, isFavorite: $isFavorite, isWatched: $isWatched, is3DMovie: $is3DMovie)";
+      "Movie(id: $id, title: $title, imageUrl: $imageUrl, isFavorite: $isFavorite, isWatched: $isWatched)";
 
   @override
   bool operator ==(Object other) =>
@@ -65,8 +61,7 @@ class Movie {
               rating == other.rating &&
               runtime == other.runtime &&
               isFavorite == other.isFavorite &&
-              isWatched == other.isWatched &&
-              is3DMovie == other.is3DMovie; // Update equality check
+              isWatched == other.isWatched ; // Update equality check
 
   @override
   int get hashCode =>
@@ -78,6 +73,5 @@ class Movie {
       rating.hashCode ^
       runtime.hashCode ^
       isFavorite.hashCode ^
-      isWatched.hashCode ^
-      is3DMovie.hashCode; // Update hashCode
+      isWatched.hashCode ; // Update hashCode
 }

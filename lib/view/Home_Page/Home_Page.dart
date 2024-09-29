@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/controller/Movie_Cubit/Movie_Cubit.dart';
-import 'package:movies_app/controller/Movies_Repo.dart';
+import 'package:movies_app/controller/Repos/Movies_Repo.dart';
 import 'package:movies_app/controller/ThreeDCubit/three_dcubit_cubit.dart';
 
 import '../../controller/Page_Cubit/page_cubit.dart';
+import '../../controller/Repos/Movies_ThreeD_Repo.dart';
+import '../../controller/Shared_Cubit/favorites_and_watched_cubit.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -25,12 +27,10 @@ class _HomePageState extends State<HomePage> {
           providers: [
             BlocProvider(
               create: (context) =>
-              MovieCubit(context.read<MoviesRepo>())
-                ..fetchMovies(),
+              MovieCubit(context.read<MoviesRepo>(), context.read<FavoritesAndWatchedCubit>())..fetchMovies(),
             ),
             BlocProvider(
-              create: (context) => ThreeDcubitCubit(context.read<MoviesRepo>())
-                ..fetchSample3DMovies(),
+              create: (context) => ThreeDcubitCubit(context.read<ThreeDMovieRepository>(), context.read<FavoritesAndWatchedCubit>())..fetchSample3DMovies(),
             ),
           ],
           child: Scaffold(

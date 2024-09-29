@@ -80,7 +80,7 @@ class MovieDetailsPageContent extends StatelessWidget {
               children: [
                 IconButton(
                   onPressed: () {
-                    context.read<MoviesDetailsCubit>().toggleWatched(movie.id);
+                    context.read<MoviesDetailsCubit>().toggleWatched(movie);
                   },
                   icon: Icon(
                     moviesDetailsState.isWatched
@@ -91,7 +91,7 @@ class MovieDetailsPageContent extends StatelessWidget {
                 ),
                 IconButton(
                   onPressed: () {
-                    context.read<MoviesDetailsCubit>().toggleFavorite(movie.id);
+                    context.read<MoviesDetailsCubit>().toggleFavorite(movie);
                   },
                   icon: Icon(
                     moviesDetailsState.isFavorite

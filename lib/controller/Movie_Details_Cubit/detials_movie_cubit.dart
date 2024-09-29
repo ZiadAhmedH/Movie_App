@@ -1,66 +1,71 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_app/controller/Repos/Movies_ThreeD_Repo.dart';
+import 'package:movies_app/controller/Shared_Cubit/favorites_and_watched_cubit.dart';
 
 import '../../model/models/Movie_Model.dart';
-import '../Movies_Repo.dart';
+import '../Repos/Movies_Repo.dart';
 import 'detials_movie_state.dart';
 
 class MoviesDetailsCubit extends Cubit<MoviesDetailsState> {
-  MoviesDetailsCubit(movie, this._repo) : super(MoviesDetailsLoading()) {
+  MoviesDetailsCubit(movie, this._repo, this._threeDRepo, this._sharedFavWatchedCubit) : super(MoviesDetailsLoading()) {
     fetchMovieDetails(movie);
     _repo.addListener(_repoStateChanged);
+    _threeDRepo.addListener(_repoStateChanged);
   }
 
   final MoviesRepo _repo;
+
+  final ThreeDMovieRepository _threeDRepo;
+
+  final FavoritesAndWatchedCubit _sharedFavWatchedCubit;
+
 
   static MoviesDetailsCubit of(context) => BlocProvider.of<MoviesDetailsCubit>(context);
 
   void _repoStateChanged() {
     if (state is MoviesDetailsLoaded) {
-      emit(
-        (state as MoviesDetailsLoaded).copyWith(
-          isFavorite: _repo.isFavorite((state as MoviesDetailsLoaded).movie.id),
-          isWatched: _repo.isWatched((state as MoviesDetailsLoaded).movie.id),
-        ),
-      );
+      final movie = (state as MoviesDetailsLoaded).movie; // changed to by Movie Not by movieId i not sure by there is some duplication id between 3D and regular movies
+
+      final isFavorite = _sharedFavWatchedCubit.isFavorite(movie);
+      final isWatched = _sharedFavWatchedCubit.isWatched(movie);
+
+      emit((state as MoviesDetailsLoaded).copyWith(
+        isFavorite: isFavorite,
+        isWatched: isWatched,
+      ));
     }
   }
+
+
 
   void fetchMovieDetails(Movie movie) {
-    if (movie.is3DMovie) {
-      _fetch3dMovieDetails(movie);
-    } else {
-      _fetchRegularMovieDetails(movie);
-    }
-  }
-
-  void _fetchRegularMovieDetails(Movie movie) {
-    final isFavorite = _repo.isFavorite(movie.id);
-    final isWatched = _repo.isWatched(movie.id);
-
-    emit(MoviesDetailsLoaded(movie, isFavorite, isWatched));
-  }
-
-  void _fetch3dMovieDetails(Movie movie) {
-    final isFavorite = _repo.isFavorite(movie.id);
-    final isWatched = _repo.isWatched(movie.id);
+    final isFavorite = _sharedFavWatchedCubit.isFavorite(movie);
+    final isWatched = _sharedFavWatchedCubit.isWatched(movie);
 
     emit(MoviesDetailsLoaded(movie, isFavorite, isWatched));
   }
 
 
-  void toggleFavorite(int movieId) {
+
+  void toggleFavorite(Movie movie) {
     if (state is! MoviesDetailsLoaded) return;
-    _repo.toggleFavorite(movieId);
-    emit((state as MoviesDetailsLoaded)
-        .copyWith(isFavorite: _repo.isFavorite(movieId)));
+
+    // Use the shared cubit to toggle favorite status
+    _sharedFavWatchedCubit.toggleWatched(movie);
+    emit((state as MoviesDetailsLoaded).copyWith(
+      isFavorite: _sharedFavWatchedCubit.isFavorite(movie),
+    ));
   }
 
-  void toggleWatched(int movieId) {
+  void toggleWatched(Movie movie) {
     if (state is! MoviesDetailsLoaded) return;
-    _repo.toggleWatched(movieId);
-    emit((state as MoviesDetailsLoaded)
-        .copyWith(isWatched: _repo.isWatched(movieId)));
+
+    // Use the shared cubit to toggle watched status
+    _sharedFavWatchedCubit.toggleWatched(movie);
+    emit((state as MoviesDetailsLoaded).copyWith(
+      isWatched: _sharedFavWatchedCubit.isWatched(movie),
+    ));
   }
 
   @override
