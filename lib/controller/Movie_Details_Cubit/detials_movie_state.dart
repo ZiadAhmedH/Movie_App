@@ -1,31 +1,72 @@
-
 import '../../model/models/Movie_Model.dart';
 
-sealed class MoviesDetailsState {}
+// Base class for movie details state
+abstract class MovieDetailsState {
+  final List<Movie> favoriteList; // List of favorite movies
+  final List<Movie> watchedList;   // List of watched movies
 
-class MoviesDetailsLoading extends MoviesDetailsState {}
+  // Constructor
+  MovieDetailsState({
+    this.favoriteList = const [],
+    this.watchedList = const [],
+  });
 
-class MoviesDetailsError extends MoviesDetailsState {
-  final String message;
-
-  MoviesDetailsError(this.message);
+  MovieDetailsState copyWith({
+    List<Movie>? favoriteList,
+    List<Movie>? watchedList,
+  });
 }
 
-class MoviesDetailsLoaded extends MoviesDetailsState {
+// Loading state
+class MoviesDetailsLoading extends MovieDetailsState {
+  MoviesDetailsLoading() : super();
+
+  @override
+  MovieDetailsState copyWith({List<Movie>? favoriteList, List<Movie>? watchedList}) {
+    return MoviesDetailsLoading();
+  }
+}
+
+// Error state
+class MoviesDetailsError extends MovieDetailsState {
+  final String message;
+
+  MoviesDetailsError(this.message) : super();
+
+  @override
+  MovieDetailsState copyWith({List<Movie>? favoriteList, List<Movie>? watchedList}) {
+    return MoviesDetailsError(message);
+  }
+}
+
+// Loaded state with movie details
+class MoviesDetailsLoaded extends MovieDetailsState {
   final Movie movie;
   final bool isFavorite;
   final bool isWatched;
 
-  MoviesDetailsLoaded(this.movie, this.isFavorite, this.isWatched);
+  MoviesDetailsLoaded({
+    required this.movie,
+    required this.isFavorite,
+    required this.isWatched,
+    List<Movie>? favoriteList,
+    List<Movie>? watchedList,
+  }) : super(favoriteList: favoriteList ?? [], watchedList: watchedList ?? []);
 
+  @override
   MoviesDetailsLoaded copyWith({
     Movie? movie,
     bool? isFavorite,
     bool? isWatched,
-  }) =>
-      MoviesDetailsLoaded(
-        movie ?? this.movie,
-        isFavorite ?? this.isFavorite,
-        isWatched ?? this.isWatched,
-      );
+    List<Movie>? favoriteList,
+    List<Movie>? watchedList,
+  }) {
+    return MoviesDetailsLoaded(
+      movie: movie ?? this.movie,
+      isFavorite: isFavorite ?? this.isFavorite,
+      isWatched: isWatched ?? this.isWatched,
+      favoriteList: favoriteList ?? this.favoriteList,
+      watchedList: watchedList ?? this.watchedList,
+    );
+  }
 }

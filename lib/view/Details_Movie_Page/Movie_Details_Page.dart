@@ -1,35 +1,32 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/controller/Movie_Details_Cubit/detials_movie_state.dart';
-import 'package:provider/provider.dart';
 import '../../controller/Movie_Details_Cubit/detials_movie_cubit.dart';
-import '../../controller/Repos/Movies_Repo.dart';
-import '../../controller/Repos/Movies_ThreeD_Repo.dart';
-import '../../controller/Shared_Cubit/favorites_and_watched_cubit.dart';
+import '../../controller/Movie_Details_Cubit/detials_movie_state.dart';
 import '../../model/models/Movie_Model.dart';
 import 'ContentPage.dart';
 
 class MovieDetailsPage extends StatelessWidget {
   final Movie movieId;
 
-
-   MovieDetailsPage({super.key, required this.movieId,});
+  const MovieDetailsPage({super.key, required this.movieId});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => MoviesDetailsCubit(movieId , context.read<MoviesRepo>(), context.read<ThreeDMovieRepository>(), context.read<FavoritesAndWatchedCubit>())..fetchMovieDetails(movieId),
-      child: BlocBuilder<MoviesDetailsCubit, MoviesDetailsState>(
+      create: (context) => MoviesDetailsCubit()..fetchMovieDetails(movieId),
+      child: BlocBuilder<MoviesDetailsCubit, MovieDetailsState>(
         builder: (context, state) {
-          final Widget body;
-          switch (state) {
-            case MoviesDetailsLoading():
-              body = const Center(child: CircularProgressIndicator());
-            case MoviesDetailsError():
-              body = const Center(child: Icon(Icons.error, color: Colors.red));
-            case MoviesDetailsLoaded():
-              body = MovieDetailsPageContent(moviesDetailsState: state ,);
+          Widget body;
+
+          // Handle the different states of the movie details
+          if (state is MoviesDetailsLoading) {
+            body = const Center(child: CircularProgressIndicator());
+          } else if (state is MoviesDetailsError) {
+            body = _buildErrorBody(state.message);
+          } else if (state is MoviesDetailsLoaded) {
+            body = MovieDetailsPageContent(moviesDetailsState: state);
+          } else {
+            body = const Center(child: Text('Unexpected state'));
           }
 
           return Scaffold(
@@ -39,15 +36,41 @@ class MovieDetailsPage extends StatelessWidget {
               backgroundColor: Colors.transparent,
               iconTheme: const IconThemeData(color: Colors.white),
               titleTextStyle: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold),
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             extendBodyBehindAppBar: true,
             body: body,
           );
-
         },
+      ),
+    );
+  }
+
+  Widget _buildErrorBody(String message) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(Icons.error, color: Colors.red, size: 48),
+            const SizedBox(height: 16),
+            Text(
+              message,
+              textAlign: TextAlign.center,
+              style: const TextStyle(color: Colors.white, fontSize: 18),
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+              },
+              child: const Text('Retry'),
+            ),
+          ],
+        ),
       ),
     );
   }

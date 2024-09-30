@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../controller/Movie_Cubit/Movie_Cubit.dart';
 import '../../../controller/Movie_Cubit/Movie_State.dart';
 import '../../../controller/Repos/Movies_Repo.dart';
-import '../../../controller/Shared_Cubit/favorites_and_watched_cubit.dart';
 import '../../../model/Components/Custom_Text.dart';
 import '../../../model/models/Movie_Model.dart';
 import '../../../model/widgets/Movie_List_Widget.dart';
@@ -45,20 +44,24 @@ class MovieSection extends StatelessWidget {
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => BlocProvider(
-                      create: (context) =>
-                          MovieCubit(context.read<MoviesRepo>(), context.read<FavoritesAndWatchedCubit>())
-                            ..fetchMovies(),
-                      child: BlocBuilder<MovieCubit, MovieState>(
-                        builder: (context, state) {
-                          return MoviesScreen(
-                            fetchMoreMovies: () =>
-                                context.read<MovieCubit>().fetchMoreMovies(),
-                            movieState: state,
-                          );
-                        },
-                      ),
-                    ),
+                    builder: (context) {
+                      return BlocProvider(
+                        create: (context) =>
+                            MovieCubit()
+                              ..fetchMovies(),
+                        child: BlocBuilder<MovieCubit, MovieState>(
+                          builder: (context, state) {
+                            return MoviesScreen(
+                              fetchMoreMovies: () =>
+                                  context.read<MovieCubit>().fetchMoreMovies(),
+                              movieState: context
+                                  .watch<MovieCubit>()
+                                  .state, // Ensure you're watching the right state
+                            );
+                          },
+                        ),
+                      );
+                    },
                   ),
                 );
               },

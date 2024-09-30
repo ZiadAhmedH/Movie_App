@@ -9,4 +9,5 @@ final getIt = GetIt.instance;
 void setupDI() {
   getIt.registerLazySingleton<MoviesRepo>(() => MoviesRepo());
   getIt.registerLazySingleton<ThreeDMovieRepository>(() => ThreeDMovieRepository());
+
 }

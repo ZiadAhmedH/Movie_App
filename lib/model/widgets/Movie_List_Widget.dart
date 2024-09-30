@@ -7,7 +7,6 @@ import 'package:movies_app/controller/Movie_Details_Cubit/detials_movie_state.da
 import 'package:movies_app/view/Details_Movie_Page/Movie_Details_Page.dart';
 import '../../controller/Repos/Movies_Repo.dart';
 import '../../controller/Repos/Movies_ThreeD_Repo.dart';
-import '../../controller/Shared_Cubit/favorites_and_watched_cubit.dart';
 import '../models/Movie_Model.dart';
 
 class MovieWidget extends StatelessWidget {
@@ -21,11 +20,8 @@ class MovieWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => MoviesDetailsCubit(movie,
-          context.read<MoviesRepo>(),
-          context.read<ThreeDMovieRepository>(),
-          context.read<FavoritesAndWatchedCubit>()),
-      child: BlocBuilder<MoviesDetailsCubit, MoviesDetailsState>(
+      create: (context) => MoviesDetailsCubit(),
+      child: BlocBuilder<MoviesDetailsCubit, MovieDetailsState>(
         builder: (context, state) {
           return GestureDetector(
             onTap: () {
@@ -37,72 +33,52 @@ class MovieWidget extends StatelessWidget {
             },
             child: Padding(
               padding: const EdgeInsets.all(8),
-              child: Column(
-                children: [
-                  // Movie Image
-                  CachedNetworkImage(
-                    imageUrl: movie.imageUrl,
+              child: CachedNetworkImage(
+                imageUrl: movie.imageUrl,
+                width: 100,
+                height: 150,
+                imageBuilder: (context, imageProvider) {
+                  return Container(
                     width: 100,
                     height: 150,
-                    imageBuilder: (context, imageProvider) {
-                      return Container(
-                        width: 100,
-                        height: 150,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: imageProvider,
-                            fit: BoxFit.cover,
-                          ),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        clipBehavior: Clip.antiAlias,
-                      );
-                    },
-                    errorWidget: (context, error, stackTrace) {
-                      return Container(
-                        width: 100,
-                        height: 150,
-                        decoration: BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        clipBehavior: Clip.antiAlias,
-                        child: const Icon(Icons.sms_failed_outlined, color: Colors.white),
-                      );
-                    },
-                    placeholder: (context, url) {
-                      return Container(
-                        width: 100,
-                        height: 150,
-                        decoration: BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Center(
-                          child: LoadingAnimationWidget.staggeredDotsWave(
-                            color: Colors.white54,
-                            size: 20,
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                  const SizedBox(height: 8), // Space between image and title
-                  Text(
-                    movie.title, // Display the movie title
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.cover,
+                      ),
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                  ),
-                  // Optionally, show loading/error indicators based on state
-                  if (state is MoviesDetailsLoading)
-                    const CircularProgressIndicator(color: Colors.white),
-                  if (state is MoviesDetailsError)
-                    Text('Error loading details', style: TextStyle(color: Colors.red)),
-                ],
+                    clipBehavior: Clip.antiAlias,
+                  );
+                },
+                errorWidget: (context, error, stackTrace) {
+                  return Container(
+                    width: 100,
+                    height: 150,
+                    decoration: BoxDecoration(
+                      color: Colors.grey,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    clipBehavior: Clip.antiAlias,
+                    child: const Icon(Icons.sms_failed_outlined, color: Colors.white),
+                  );
+                },
+                placeholder: (context, url) {
+                  return Container(
+                    width: 100,
+                    height: 150,
+                    decoration: BoxDecoration(
+                      color: Colors.grey,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Center(
+                      child: LoadingAnimationWidget.staggeredDotsWave(
+                        color: Colors.white54,
+                        size: 20,
+                      ),
+                    ),
+                  );
+                },
               ),
             ),
           );

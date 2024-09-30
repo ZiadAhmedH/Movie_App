@@ -83,3 +83,8 @@ class MovieState implements MovieStateInterface{
       currentPage.hashCode ^
       error.hashCode;
 }
+
+
+class FavToggle extends MovieState {
+  FavToggle({required super.movies, required super.favoriteMovies, required super.watchedMovies, required super.threeDMovies, required super.isLoading, required super.hasMoreMovies, required super.currentPage});
+}

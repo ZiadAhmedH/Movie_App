@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/controller/Movie_Cubit/Movie_State.dart';
 import 'package:movies_app/controller/ThreeDCubit/three_dcubit_cubit.dart';
@@ -19,10 +20,6 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-
-    var state = context.watch<MovieCubit>().state;
-
     return Scaffold(
       backgroundColor: const Color.fromRGBO(44, 43, 43, 1),
       body: Column(
@@ -31,9 +28,11 @@ class MainPage extends StatelessWidget {
 
           MovieSection(),
 
+
           ThreeDMoviesSection()
 
-           ],
+
+        ],
       ),
     );
   }

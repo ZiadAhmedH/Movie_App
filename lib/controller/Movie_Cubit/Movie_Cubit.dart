@@ -3,21 +3,17 @@ import 'package:dio/dio.dart';
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 
-import 'package:state_notifier/state_notifier.dart';
-
-import '../../model/models/Movie_Model.dart';
 import '../Repos/Movies_Repo.dart';
 import '../Repos/Movies_ThreeD_Repo.dart';
-import '../Shared_Cubit/favorites_and_watched_cubit.dart';
 import 'Movie_State.dart';
 
 
 class MovieCubit extends Cubit<MovieState> {
-  final MoviesRepo moviesRepo;
+  final MoviesRepo _moviesRepo = GetIt.instance<MoviesRepo>();
 
-  final FavoritesAndWatchedCubit favoritesCubit ;
-  MovieCubit(this.moviesRepo, this.favoritesCubit) : super(MovieState.initial());
+  MovieCubit() : super(MovieState.initial());
 
   static MovieCubit of(BuildContext context) => context.read<MovieCubit>();
 
@@ -27,11 +23,11 @@ class MovieCubit extends Cubit<MovieState> {
     if (!state.hasMoreMovies || state.isLoading) return;
     try {
       emit(state.copyWith(isLoading: true));
-      final movies = await moviesRepo.fetchMovies(page: state.currentPage + 1);
+      final movies = await _moviesRepo.fetchMovies(page: state.currentPage + 1);
       emit(state.copyWith(
         movies: state.movies.addAll(movies),
         isLoading: false,
-        hasMorePages: moviesRepo.hasMorePages,
+        hasMorePages: _moviesRepo.hasMorePages,
         currentPage: state.currentPage + 1,
       ));
     } catch (e) {
@@ -43,11 +39,11 @@ class MovieCubit extends Cubit<MovieState> {
 
   Future<void> fetchMovies() async {
     try {
-      final movies = await moviesRepo.fetchMovies(page: 1);
+      final movies = await _moviesRepo.fetchMovies(page: 1);
       emit(state.copyWith(
         movies: movies,
         isLoading: false,
-        hasMorePages: moviesRepo.hasMorePages,
+        hasMorePages: _moviesRepo.hasMorePages,
         currentPage: 1,
       ));
     } catch (e) {
@@ -55,21 +51,8 @@ class MovieCubit extends Cubit<MovieState> {
     }
   }
 
-  void toggleFavorite(Movie movie) {
-    if (favoritesCubit.state.favs.contains(movie)) {
-      favoritesCubit.toggleFavorite(movie);
-    } else {
-      favoritesCubit.toggleFavorite(movie);
-    }
-  }
 
-  void markAsWatched(Movie movie) {
-    if (favoritesCubit.state.watched.contains(movie)) {
-      favoritesCubit.toggleWatched(movie);
-    } else {
-      favoritesCubit.toggleWatched(movie);
-    }
-  }
+
 
 
 
