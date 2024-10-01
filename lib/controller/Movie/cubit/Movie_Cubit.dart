@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
-import '../Repos/Movies_Repo.dart';
-import '../Repos/Movies_ThreeD_Repo.dart';
+import '../Repo/Movies_Repo.dart';
+import '../../ThreeDMovies/Repo/Movies_ThreeD_Repo.dart';
 import 'Movie_State.dart';
 
 

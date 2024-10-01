@@ -1,6 +1,7 @@
-import '../../model/models/Movie_Model.dart';
 
 // Base class for movie details state
+import '../../../model/models/Movie_Model.dart';
+
 abstract class MovieDetailsState {
   final List<Movie> favoriteList; // List of favorite movies
   final List<Movie> watchedList;   // List of watched movies
@@ -41,17 +42,21 @@ class MoviesDetailsError extends MovieDetailsState {
 
 // Loaded state with movie details
 class MoviesDetailsLoaded extends MovieDetailsState {
-  final Movie movie;
-  final bool isFavorite;
-  final bool isWatched;
+  final Movie movie;             // The movie details
+  final bool isFavorite;         // Whether the movie is marked as favorite
+  final bool isWatched;          // Whether the movie is marked as watched
 
+  // Constructor
   MoviesDetailsLoaded({
     required this.movie,
     required this.isFavorite,
     required this.isWatched,
-    List<Movie>? favoriteList,
-    List<Movie>? watchedList,
-  }) : super(favoriteList: favoriteList ?? [], watchedList: watchedList ?? []);
+    List<Movie>? favoriteList,  // List of favorite movies
+    List<Movie>? watchedList,    // List of watched movies
+  }) : super(
+    favoriteList: favoriteList ?? [],
+    watchedList: watchedList ?? [],
+  );
 
   @override
   MoviesDetailsLoaded copyWith({
@@ -62,11 +67,11 @@ class MoviesDetailsLoaded extends MovieDetailsState {
     List<Movie>? watchedList,
   }) {
     return MoviesDetailsLoaded(
-      movie: movie ?? this.movie,
-      isFavorite: isFavorite ?? this.isFavorite,
-      isWatched: isWatched ?? this.isWatched,
-      favoriteList: favoriteList ?? this.favoriteList,
-      watchedList: watchedList ?? this.watchedList,
+      movie: movie ?? this.movie, // Keep current movie if not provided
+      isFavorite: isFavorite ?? this.isFavorite, // Update isFavorite if provided
+      isWatched: isWatched ?? this.isWatched, // Update isWatched if provided
+      favoriteList: favoriteList ?? this.favoriteList, // Update favoriteList if provided
+      watchedList: watchedList ?? this.watchedList, // Update watchedList if provided
     );
   }
 }

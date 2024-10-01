@@ -5,12 +5,14 @@ import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../model/models/Movie_Model.dart';
-import 'Base_Movies_Repo.dart';
+import '../../../model/models/Movie_Model.dart';
+import '../../Repos/Base_Movies_Repo.dart';
 
-class MoviesRepo extends ChangeNotifier implements BaseMoviesRepo{
+
+
+class MoviesRepo  implements BaseMoviesRepo{
   MoviesRepo();
-static MoviesRepo of(BuildContext context) {
+  static MoviesRepo of(BuildContext context) {
     return Provider.of<MoviesRepo>(context, listen: false);
   }
   final _dio = Dio();
@@ -40,7 +42,7 @@ static MoviesRepo of(BuildContext context) {
       rating: i["rating"].toDouble(),
       runtime: i["runtime"],
       isFavorite: false,
-      isWatched: false,
+      isWatched: false, genres: [],
     ))
         .toList();
 

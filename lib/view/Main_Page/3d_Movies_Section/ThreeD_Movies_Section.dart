@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/controller/Repos/Movies_ThreeD_Repo.dart';
+import 'package:movies_app/controller/ThreeDMovies/Repo/Movies_ThreeD_Repo.dart';
 import 'package:movies_app/view/Main_Page/3d_Movies_Section/LoadMore_Section.dart';
 
-import '../../../controller/Repos/Movies_Repo.dart';
-import '../../../controller/ThreeDCubit/three_dcubit_cubit.dart';
-import '../../../controller/ThreeDCubit/three_dcubit_state.dart';
+import '../../../controller/Movie/Repo/Movies_Repo.dart';
+import '../../../controller/ThreeDMovies/cubit/three_dcubit_cubit.dart';
+import '../../../controller/ThreeDMovies/cubit/three_dcubit_state.dart';
 import '../../../model/Components/Custom_Text.dart';
 import '../../../model/models/Movie_Model.dart';
 import '../../../model/widgets/Movie_List_Widget.dart';
@@ -25,6 +25,7 @@ class ThreeDMoviesSection extends StatelessWidget {
         backgroundImageUrl: "https://via.placeholder.com/150",
         year: 0,
         rating: 0.0,
+        genres: [],
         runtime: 0,
         isFavorite: false,
         isWatched: false,

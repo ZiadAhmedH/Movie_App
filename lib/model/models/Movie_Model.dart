@@ -6,6 +6,7 @@ class Movie {
   final int year;
   final double rating;
   final int runtime;
+  final List<String> genres; // Added genres field
   final bool isFavorite;
   final bool isWatched;
 
@@ -17,6 +18,7 @@ class Movie {
     required this.year,
     required this.rating,
     required this.runtime,
+    required this.genres, // Added genres to constructor
     required this.isFavorite,
     required this.isWatched,
   });
@@ -29,6 +31,7 @@ class Movie {
     int? year,
     double? rating,
     int? runtime,
+    List<String>? genres, // Added genres to copyWith
     bool? isFavorite,
     bool? isWatched,
   }) =>
@@ -40,13 +43,14 @@ class Movie {
         year: year ?? this.year,
         rating: rating ?? this.rating,
         runtime: runtime ?? this.runtime,
+        genres: genres ?? this.genres, // Added genres in copyWith
         isFavorite: isFavorite ?? this.isFavorite,
         isWatched: isWatched ?? this.isWatched,
       );
 
   @override
   String toString() =>
-      "Movie(id: $id, title: $title, imageUrl: $imageUrl, isFavorite: $isFavorite, isWatched: $isWatched)";
+      "Movie(id: $id, title: $title, imageUrl: $imageUrl, genres: $genres, isFavorite: $isFavorite, isWatched: $isWatched)"; // Updated toString
 
   @override
   bool operator ==(Object other) =>
@@ -60,8 +64,9 @@ class Movie {
               year == other.year &&
               rating == other.rating &&
               runtime == other.runtime &&
+              genres == other.genres && // Added genres in equality check
               isFavorite == other.isFavorite &&
-              isWatched == other.isWatched ; // Update equality check
+              isWatched == other.isWatched;
 
   @override
   int get hashCode =>
@@ -72,6 +77,7 @@ class Movie {
       year.hashCode ^
       rating.hashCode ^
       runtime.hashCode ^
+      genres.hashCode ^ // Added genres in hashCode
       isFavorite.hashCode ^
-      isWatched.hashCode ; // Update hashCode
+      isWatched.hashCode;
 }

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../controller/Movie_Cubit/Movie_Cubit.dart';
-import '../../../controller/Movie_Cubit/Movie_State.dart';
-import '../../../controller/Repos/Movies_Repo.dart';
+import '../../../controller/Movie/Repo/Movies_Repo.dart';
+import '../../../controller/Movie/cubit/Movie_Cubit.dart';
+import '../../../controller/Movie/cubit/Movie_State.dart';
 import '../../../model/Components/Custom_Text.dart';
 import '../../../model/models/Movie_Model.dart';
 import '../../../model/widgets/Movie_List_Widget.dart';
@@ -22,6 +21,7 @@ class MovieSection extends StatelessWidget {
         imageUrl: "https://via.placeholder.com/150",
         backgroundImageUrl: "https://via.placeholder.com/150",
         year: 0,
+        genres: [],
         rating: 0.0,
         runtime: 0,
         isFavorite: false,

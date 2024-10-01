@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/controller/ThreeDCubit/three_dcubit_cubit.dart';
+import '../../../controller/ThreeDMovies/cubit/three_dcubit_cubit.dart';
 import '../../../model/widgets/Movie_List_Widget.dart';
 
 

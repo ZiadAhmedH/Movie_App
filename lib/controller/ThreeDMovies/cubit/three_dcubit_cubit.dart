@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:meta/meta.dart';
-import 'package:movies_app/controller/Repos/Movies_ThreeD_Repo.dart';
-import 'package:movies_app/controller/ThreeDCubit/three_dcubit_state.dart';
+import 'package:movies_app/controller/ThreeDMovies/Repo/Movies_ThreeD_Repo.dart';
+import 'package:movies_app/controller/ThreeDMovies/cubit/three_dcubit_state.dart';
 
 class ThreeDcubitCubit extends Cubit<ThreeDState> {
 

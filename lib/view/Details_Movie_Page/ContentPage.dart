@@ -1,11 +1,16 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:movies_app/model/Components/Custom_Text.dart';
 
-import '../../controller/Movie_Details_Cubit/detials_movie_cubit.dart';
-import '../../controller/Movie_Details_Cubit/detials_movie_state.dart';
+import '../../controller/Movie_Details_Cubit/cubit/detials_movie_cubit.dart';
+import '../../controller/Movie_Details_Cubit/cubit/detials_movie_state.dart';
 import '../../model/models/Movie_Model.dart';
+import '../Movie_Video_Page/Movie_Video.dart';
 
 class MovieDetailsPageContent extends StatelessWidget {
   final MoviesDetailsLoaded moviesDetailsState;
@@ -25,6 +30,9 @@ class MovieDetailsPageContent extends StatelessWidget {
           imageUrl: movie.backgroundImageUrl ,
           fit: BoxFit.cover,
           errorWidget: (context, url, error) => const Icon(Icons.error),
+          placeholder: (context, url) =>  Center(
+            child: LoadingAnimationWidget.discreteCircle(color: Colors.white10, size: 100),
+          ),
         ),
         ListView(
           padding: MediaQuery.of(context).padding +
@@ -60,7 +68,7 @@ class MovieDetailsPageContent extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        'Year: ${movie.year}',
+                        'Year: ${movie.year} ',
                         style: const TextStyle(color: Colors.white),
                       ),
                       Text(
@@ -76,32 +84,78 @@ class MovieDetailsPageContent extends StatelessWidget {
                 ),
               ],
             ),
+
             Row(
+               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                IconButton(
-                  onPressed: () {
-                    context.read<MoviesDetailsCubit>().toggleWatched(movie);
-                  },
-                  icon: Icon(
-                    moviesDetailsState.isWatched
-                        ? Icons.visibility
-                        : Icons.visibility_off,
-                    color: moviesDetailsState.isWatched ? Colors.green : null,
-                  ),
+                Row(
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        context.read<MoviesDetailsCubit>().toggleFavorite(movie);
+                      },
+                      icon: Icon(
+                        moviesDetailsState.isWatched
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                        color: moviesDetailsState.isWatched ? Colors.green : null,
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        context.read<MoviesDetailsCubit>().toggleFavorite(movie);
+                      },
+                      icon: Icon(
+                        moviesDetailsState.isFavorite
+                            ? Icons.favorite
+                            : Icons.favorite_border,
+                        color: moviesDetailsState.isFavorite ? Colors.red : null,
+                      ),
+                    ),
+                  ],
                 ),
-                IconButton(
-                  onPressed: () {
-                    context.read<MoviesDetailsCubit>().toggleFavorite(movie);
-                  },
-                  icon: Icon(
-                    moviesDetailsState.isFavorite
-                        ? Icons.favorite
-                        : Icons.favorite_border,
-                    color: moviesDetailsState.isFavorite ? Colors.red : null,
+                Row(
+                  children: [
+                    // add button to bavigate to the movie trailer
+                    TextButton(
+                      onPressed: () {
+                        // Navigate to the movie trailer
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => YouTubeVideoPlayer(videoName: movie.title)));
+                      },
+                      child:  FaIcon(FontAwesomeIcons.youtube , color: Colors.red, size: 30,),
+                    ),
+                  ],
+                ),
+                FaIcon(FontAwesomeIcons.shareFromSquare , size: 30,)
+              ],
+            ),
+
+
+            const SizedBox(height: 10),
+
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: Colors.yellow.withOpacity(1),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child:CustomText(text:"Genres" , fontWeight: FontWeight.bold,) ),
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  child: CustomText(text:
+                  '${movie.genres.join(', ')}',
+                    fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                    fontSize: 16,
                   ),
                 ),
               ],
-            )
+            ),
+
+
           ],
         ),
       ],

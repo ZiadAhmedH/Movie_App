@@ -2,11 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:movies_app/controller/Movie_Details_Cubit/detials_movie_cubit.dart';
-import 'package:movies_app/controller/Movie_Details_Cubit/detials_movie_state.dart';
+import 'package:movies_app/controller/Movie_Details_Cubit/cubit/detials_movie_cubit.dart';
+import 'package:movies_app/model/models/Movie_test.dart';
 import 'package:movies_app/view/Details_Movie_Page/Movie_Details_Page.dart';
-import '../../controller/Repos/Movies_Repo.dart';
-import '../../controller/Repos/Movies_ThreeD_Repo.dart';
+import '../../controller/Movie/Repo/Movies_Repo.dart';
+import '../../controller/Movie_Details_Cubit/cubit/detials_movie_state.dart';
+import '../../controller/ThreeDMovies/Repo/Movies_ThreeD_Repo.dart';
 import '../models/Movie_Model.dart';
 
 class MovieWidget extends StatelessWidget {

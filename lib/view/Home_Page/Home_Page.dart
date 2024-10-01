@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../controller/Movie_Cubit/Movie_Cubit.dart';
+import '../../controller/Movie/cubit/Movie_Cubit.dart';
 import '../../controller/Page_Cubit/page_cubit.dart';
-import '../../controller/ThreeDCubit/three_dcubit_cubit.dart';
+import '../../controller/ThreeDMovies/cubit/three_dcubit_cubit.dart';
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 

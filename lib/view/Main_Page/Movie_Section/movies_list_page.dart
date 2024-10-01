@@ -1,7 +1,7 @@
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../controller/Movie_Cubit/Movie_Cubit.dart';
+import '../../../controller/Movie/cubit/Movie_Cubit.dart';
 import '../../../controller/commenMovieState.dart';
 import '../../../model/models/Movie_Model.dart';
 import '../../../model/widgets/Movie_List_Widget.dart';
@@ -69,7 +69,7 @@ class _MoviesScreenState extends State<MoviesScreen> {
         itemBuilder: (context, index) {
           // If the index is the last and we have more movies to load
           if (index == state.movies.length) {
-            return state.hasMoreMovies
+            return state.hasMoreMovies && !state.isLoading
                 ? const Center(child: CircularProgressIndicator())
                 : const SizedBox.shrink();
           }

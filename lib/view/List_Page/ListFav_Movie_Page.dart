@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/controller/Movie_Details_Cubit/detials_movie_cubit.dart';
-import 'package:movies_app/controller/Movie_Details_Cubit/detials_movie_state.dart';
+import 'package:movies_app/controller/Movie_Details_Cubit/cubit/detials_movie_cubit.dart';
 import 'package:movies_app/model/widgets/Movie_List_Widget.dart';
+
+import '../../controller/Movie_Details_Cubit/cubit/detials_movie_state.dart';
 
 class ListMoviePage extends StatelessWidget {
   const ListMoviePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var movie = MoviesDetailsCubit().favoriteList;
     return Scaffold(
 
       backgroundColor: Color.fromRGBO(44, 43, 43, 1),
@@ -21,10 +23,10 @@ class ListMoviePage extends StatelessWidget {
             return Column(
               children: [
                 Expanded(
-                  child:state.favoriteList.isNotEmpty ?   ListView.builder(
-                    itemCount: state.favoriteList.length,
+                  child:movie.isNotEmpty ? ListView.builder(
+                    itemCount: movie.length,
                     itemBuilder: (context, index) {
-                      return MovieWidget(movie: state.favoriteList[index]);
+                      return MovieWidget(movie: movie[index]);
                     },
                   ) : Center(child: Text('No Favorite Movies'),),
                 ),

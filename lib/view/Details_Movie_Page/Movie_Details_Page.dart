@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../controller/Movie_Details_Cubit/detials_movie_cubit.dart';
-import '../../controller/Movie_Details_Cubit/detials_movie_state.dart';
+import '../../controller/Movie_Details_Cubit/cubit/detials_movie_cubit.dart';
+import '../../controller/Movie_Details_Cubit/cubit/detials_movie_state.dart';
 import '../../model/models/Movie_Model.dart';
 import 'ContentPage.dart';
 

@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
-import '../../controller/Movie_Cubit/Movie_State.dart';
-import '../../controller/Repos/Movies_Repo.dart';
+import '../../controller/Movie/Repo/Movies_Repo.dart';
 import '../../model/widgets/Movie_List_Widget.dart';
-import '../../controller/Movie_Cubit/Movie_Cubit.dart';
 
 class FavoriteMoviesPage extends StatelessWidget {
   const FavoriteMoviesPage({super.key});

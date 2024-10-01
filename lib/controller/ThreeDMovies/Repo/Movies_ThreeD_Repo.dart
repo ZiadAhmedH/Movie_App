@@ -1,11 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
-import 'package:flutter/cupertino.dart';
 
-import '../../model/models/Movie_Model.dart';
-import 'Base_Movies_Repo.dart';
+import '../../../model/models/Movie_Model.dart';
+import '../../Repos/Base_Movies_Repo.dart';
 
-class ThreeDMovieRepository   extends ChangeNotifier implements BaseMoviesRepo {
+class ThreeDMovieRepository   extends BaseMoviesRepo {
   final _dio = Dio();
   List<Movie> _3dMovies = [];
 
@@ -18,9 +17,6 @@ class ThreeDMovieRepository   extends ChangeNotifier implements BaseMoviesRepo {
 
 
 
-  Movie? get3DMovieById(int movieId ) {
-    return _3dMovies.where((m) => m.id == movieId).firstOrNull;
-  }
 
 
 
@@ -41,6 +37,7 @@ class ThreeDMovieRepository   extends ChangeNotifier implements BaseMoviesRepo {
       year: i["year"],
       rating: i["rating"].toDouble(),
       runtime: i["runtime"],
+      genres: List<String>.from(i["genres"]), // Parse genres from the response
       isFavorite: false,
       isWatched: false, // Set is3DMovie to true
     ))
