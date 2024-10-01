@@ -51,6 +51,23 @@ class MoviesRepo  implements BaseMoviesRepo{
     return movies.toIList(); // Ensure it returns an immutable list
   }
 
+  // Fetch a single random movie
+ // make the random movie  from the list of movies
+  Future<Movie> fetchRandomMovie() async {
+    // Get a random movie from the list change the logic
+
+final Movie randomMovie = _movies[5];
+print("random movie is $randomMovie");
+
+
+    return randomMovie;
+  }
+
+
+
+
+
+
 
 
 }

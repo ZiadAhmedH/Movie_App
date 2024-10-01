@@ -52,6 +52,21 @@ class MovieCubit extends Cubit<MovieState> {
   }
 
 
+  // get random single movie
+
+  Future<void> fetchRandomMovie() async {
+    try {
+      final randomMovie = await _moviesRepo.fetchRandomMovie();
+      print("${randomMovie.toString()} hreeeeeeeeeeeeeee");
+      emit(state.copyWith(
+         randomMovie: randomMovie,
+      ));
+    } catch (e) {
+      emit(state.copyWith(error: e.toString()));
+    }
+  }
+
+
 
 
 

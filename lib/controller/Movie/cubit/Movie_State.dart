@@ -8,6 +8,7 @@ class MovieState implements MovieStateInterface{
   final IList<Movie> favoriteMovies;
   final IList<Movie> watchedMovies;
   final IList<Movie> threeDMovies;
+  final Movie randomMovie;
   final bool isLoading;
   final bool hasMoreMovies;
   final int currentPage;
@@ -18,6 +19,7 @@ class MovieState implements MovieStateInterface{
     required this.favoriteMovies,
     required this.watchedMovies,
     required this.threeDMovies,
+    required this.randomMovie,
     required this.isLoading,
     required this.hasMoreMovies,
     required this.currentPage,
@@ -31,6 +33,18 @@ class MovieState implements MovieStateInterface{
       favoriteMovies: IList([]),
       watchedMovies: IList([]),
       threeDMovies: IList([]),
+      randomMovie:  Movie(
+        id: 0,
+        title: '',
+        imageUrl: '',
+        backgroundImageUrl: '',
+        year: 0,
+        genres: [],
+        rating: 0.0,
+        runtime: 0,
+        isFavorite: false,
+        isWatched: false,
+      ),
       isLoading: false,
       hasMoreMovies: true,
       currentPage: 1,
@@ -46,6 +60,7 @@ class MovieState implements MovieStateInterface{
     IList<Movie>? threeDMovies,
     bool? isLoading,
     bool? hasMorePages,
+    Movie? randomMovie,
     int? currentPage,
     String? error,
   }) {
@@ -55,6 +70,7 @@ class MovieState implements MovieStateInterface{
       watchedMovies: watchedMovies ?? this.watchedMovies,
       threeDMovies: threeDMovies ?? this.threeDMovies,  // Added for 3D movies
       isLoading: isLoading ?? this.isLoading,
+      randomMovie: randomMovie ?? this.randomMovie ,
       hasMoreMovies: hasMorePages ?? this.hasMoreMovies,
       currentPage: currentPage ?? this.currentPage,
       error: error ?? this.error,
@@ -71,6 +87,7 @@ class MovieState implements MovieStateInterface{
           o.isLoading == isLoading &&
           o.hasMoreMovies == hasMoreMovies &&
           o.currentPage == currentPage &&
+          o.randomMovie == randomMovie &&
           o.error == error;
 
   @override
@@ -82,10 +99,11 @@ class MovieState implements MovieStateInterface{
       isLoading.hashCode ^
       hasMoreMovies.hashCode ^
       currentPage.hashCode ^
+      randomMovie.hashCode ^
       error.hashCode;
 }
 
 
 class FavToggle extends MovieState {
-  FavToggle({required super.movies, required super.favoriteMovies, required super.watchedMovies, required super.threeDMovies, required super.isLoading, required super.hasMoreMovies, required super.currentPage});
+  FavToggle({required super.movies,required super.randomMovie, required super.favoriteMovies, required super.watchedMovies, required super.threeDMovies, required super.isLoading, required super.hasMoreMovies, required super.currentPage});
 }
