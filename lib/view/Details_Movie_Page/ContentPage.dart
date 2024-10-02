@@ -2,6 +2,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -143,13 +144,15 @@ class MovieDetailsPageContent extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child:CustomText(text:"Genres" , fontWeight: FontWeight.bold,) ),
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  child: CustomText(text:
-                  '${movie.genres.join(', ')}',
-                    fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                    fontSize: 16,
+                Flexible(
+                  child: Container(
+                    padding: const EdgeInsets.all(8),
+                    child: movie.genres.isNotEmpty ? CustomText(text:
+                    '${movie.genres.join(', ')}',
+                      fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                      fontSize: 16,
+                    ) : const CustomText(text: 'No genres found' , color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold,),
                   ),
                 ),
               ],

@@ -21,7 +21,7 @@ class ThreeDMoviesSection extends StatelessWidget {
       (index) => Movie(
         id: index,
         title: 'Loading...',
-        imageUrl: "https://via.placeholder.com/150",
+        imageUrl: "https://via.placeholder.com",
         backgroundImageUrl: "https://via.placeholder.com/150",
         year: 0,
         rating: 0.0,
@@ -88,7 +88,7 @@ class ThreeDMoviesSection extends StatelessWidget {
                           )
                         : ListView.builder(
                             physics: const BouncingScrollPhysics(),
-                            itemCount: state.movies.length,
+                            itemCount: 8,
                             scrollDirection: Axis.horizontal,
                             itemBuilder: (context, index) {
                               return MovieWidget(

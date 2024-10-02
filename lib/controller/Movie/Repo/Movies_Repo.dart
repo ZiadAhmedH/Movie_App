@@ -53,15 +53,7 @@ class MoviesRepo  implements BaseMoviesRepo{
 
   // Fetch a single random movie
  // make the random movie  from the list of movies
-  Future<Movie> fetchRandomMovie() async {
-    // Get a random movie from the list change the logic
 
-final Movie randomMovie = _movies[5];
-print("random movie is $randomMovie");
-
-
-    return randomMovie;
-  }
 
 
 

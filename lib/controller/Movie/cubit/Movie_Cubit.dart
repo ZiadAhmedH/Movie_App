@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
@@ -5,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
+import '../../../model/models/Movie_Model.dart';
 import '../Repo/Movies_Repo.dart';
 import '../../ThreeDMovies/Repo/Movies_ThreeD_Repo.dart';
 import 'Movie_State.dart';
@@ -53,13 +56,15 @@ class MovieCubit extends Cubit<MovieState> {
 
 
   // get random single movie
-
   Future<void> fetchRandomMovie() async {
     try {
-      final randomMovie = await _moviesRepo.fetchRandomMovie();
-      print("${randomMovie.toString()} hreeeeeeeeeeeeeee");
+      final random = Random();
+
+      final randomMovie = await _moviesRepo.fetchMovies(page: 1);
+      random.nextInt(randomMovie.length);
+      print(randomMovie.toString());
       emit(state.copyWith(
-         randomMovie: randomMovie,
+        randomMovie: randomMovie[random.nextInt(randomMovie.length)],
       ));
     } catch (e) {
       emit(state.copyWith(error: e.toString()));

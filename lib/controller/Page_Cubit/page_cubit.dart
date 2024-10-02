@@ -14,6 +14,7 @@ class PageCubit extends Cubit<PageState> {
 
   static PageCubit get(context) => BlocProvider.of(context);
 
+
   List pages = [const MainPage(), const ListMoviePage(), const FavoriteMoviesPage()];
 
 

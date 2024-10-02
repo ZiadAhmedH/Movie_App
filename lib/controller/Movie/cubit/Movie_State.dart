@@ -8,7 +8,7 @@ class MovieState implements MovieStateInterface{
   final IList<Movie> favoriteMovies;
   final IList<Movie> watchedMovies;
   final IList<Movie> threeDMovies;
-  final Movie randomMovie;
+  final  Movie randomMovie;
   final bool isLoading;
   final bool hasMoreMovies;
   final int currentPage;
@@ -35,13 +35,13 @@ class MovieState implements MovieStateInterface{
       threeDMovies: IList([]),
       randomMovie:  Movie(
         id: 0,
-        title: '',
-        imageUrl: '',
-        backgroundImageUrl: '',
+        title: "",
+        imageUrl: "",
+        backgroundImageUrl: "",
         year: 0,
-        genres: [],
         rating: 0.0,
         runtime: 0,
+        genres: [],
         isFavorite: false,
         isWatched: false,
       ),
@@ -58,9 +58,9 @@ class MovieState implements MovieStateInterface{
     IList<Movie>? favoriteMovies,
     IList<Movie>? watchedMovies,
     IList<Movie>? threeDMovies,
+    Movie? randomMovie,
     bool? isLoading,
     bool? hasMorePages,
-    Movie? randomMovie,
     int? currentPage,
     String? error,
   }) {
@@ -68,14 +68,15 @@ class MovieState implements MovieStateInterface{
       movies: movies ?? this.movies,
       favoriteMovies: favoriteMovies ?? this.favoriteMovies,
       watchedMovies: watchedMovies ?? this.watchedMovies,
-      threeDMovies: threeDMovies ?? this.threeDMovies,  // Added for 3D movies
+      threeDMovies: threeDMovies ?? this.threeDMovies,
+      randomMovie: randomMovie ?? this.randomMovie,
       isLoading: isLoading ?? this.isLoading,
-      randomMovie: randomMovie ?? this.randomMovie ,
       hasMoreMovies: hasMorePages ?? this.hasMoreMovies,
       currentPage: currentPage ?? this.currentPage,
       error: error ?? this.error,
     );
   }
+
 
   @override
   bool operator ==(Object o) =>

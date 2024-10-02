@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../../../controller/ThreeDMovies/cubit/three_dcubit_cubit.dart';
 import '../../../model/widgets/Movie_List_Widget.dart';
 
@@ -61,7 +62,7 @@ class _MoviesScreenState extends State<LoadMoviesScreen> {
         itemBuilder: (context, index) {
           if (index == state.movies.length) {
             return state.hasMoreMovies && !state.isLoading
-                ? const Center(child: CircularProgressIndicator())
+                ?  Center(child: LoadingAnimationWidget.discreteCircle(color: Colors.grey, size: 20))
                 : const SizedBox.shrink();
           }
           final movie = state.movies[index];

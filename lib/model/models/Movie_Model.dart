@@ -10,6 +10,7 @@ class Movie {
   final bool isFavorite;
   final bool isWatched;
 
+
   Movie({
     required this.id,
     required this.title,
@@ -43,7 +44,7 @@ class Movie {
         year: year ?? this.year,
         rating: rating ?? this.rating,
         runtime: runtime ?? this.runtime,
-        genres: genres ?? this.genres, // Added genres in copyWith
+        genres: genres ?? ["No Genres"], // Added genres in copyWith
         isFavorite: isFavorite ?? this.isFavorite,
         isWatched: isWatched ?? this.isWatched,
       );
