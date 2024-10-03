@@ -1,4 +1,3 @@
-
 // Base class for movie details state
 import '../../../model/models/Movie_Model.dart';
 
@@ -24,6 +23,8 @@ class MoviesDetailsLoading extends MovieDetailsState {
 
   @override
   MovieDetailsState copyWith({List<Movie>? favoriteList, List<Movie>? watchedList}) {
+    // In the loading state, `copyWith` should probably return the same loading state
+    // without accepting favorite or watched list updates, since data isn't loaded yet
     return MoviesDetailsLoading();
   }
 }
@@ -34,8 +35,8 @@ class MoviesDetailsError extends MovieDetailsState {
 
   MoviesDetailsError(this.message) : super();
 
-  @override
-  MovieDetailsState copyWith({List<Movie>? favoriteList, List<Movie>? watchedList}) {
+  MoviesDetailsError copyWith({List<Movie>? favoriteList, List<Movie>? watchedList}) {
+    // In the error state, we should return the same error state with the error message
     return MoviesDetailsError(message);
   }
 }
@@ -66,6 +67,7 @@ class MoviesDetailsLoaded extends MovieDetailsState {
     List<Movie>? favoriteList,
     List<Movie>? watchedList,
   }) {
+    // Return a new instance of MoviesDetailsLoaded with updated values
     return MoviesDetailsLoaded(
       movie: movie ?? this.movie, // Keep current movie if not provided
       isFavorite: isFavorite ?? this.isFavorite, // Update isFavorite if provided

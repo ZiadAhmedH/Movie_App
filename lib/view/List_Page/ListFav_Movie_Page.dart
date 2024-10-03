@@ -1,42 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/controller/Movie_Details_Cubit/cubit/detials_movie_cubit.dart';
-import 'package:movies_app/model/widgets/Movie_List_Widget.dart';
 
+import '../../controller/Movie_Details_Cubit/cubit/detials_movie_cubit.dart';
 import '../../controller/Movie_Details_Cubit/cubit/detials_movie_state.dart';
-
+import '../../model/widgets/Movie_List_Widget.dart';
 class ListMoviePage extends StatelessWidget {
   const ListMoviePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var movie = MoviesDetailsCubit().favoriteList;
     return Scaffold(
-
       backgroundColor: Color.fromRGBO(44, 43, 43, 1),
 
-      body: BlocProvider(
-        create: (context) => MoviesDetailsCubit(),
-        child: BlocBuilder<MoviesDetailsCubit, MovieDetailsState>(
-
-          builder: (context, state) {
+      body: BlocBuilder<MoviesDetailsCubit, MovieDetailsState>(
+        builder: (context, state) {
+          // Check if the state is MoviesDetailsLoaded before accessing the favoriteList
+          if (state is MoviesDetailsLoaded && state.favoriteList.isNotEmpty) {
             return Column(
               children: [
                 Expanded(
-                  child:movie.isNotEmpty ? ListView.builder(
-                    itemCount: movie.length,
+                  child: ListView.builder(
+                    itemCount: state.favoriteList.length,
                     itemBuilder: (context, index) {
-                      return MovieWidget(movie: movie[index]);
+                      return MovieWidget(movie: state.favoriteList[index]);
                     },
-                  ) : Center(child: Text('No Favorite Movies'),),
+                  ),
                 ),
               ],
             );
-          },
-        ),
+          } else if (state is MoviesDetailsLoading) {
+            print("${state.favoriteList.length} Fav List"   );
+            return Center(child: CircularProgressIndicator());
+          } else if (state is MoviesDetailsError) {
+            // Display error message
+            return Center(child: Text(state.message));
+          } else {
+            // Default fallback when there are no favorite movies
+            return Center(child: Text('No Favorite Movies'));
+          }
+        },
       ),
-
-
     );
   }
 }

@@ -7,20 +7,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:movies_app/model/Components/Custom_Text.dart';
-
 import '../../controller/Movie_Details_Cubit/cubit/detials_movie_cubit.dart';
-import '../../controller/Movie_Details_Cubit/cubit/detials_movie_state.dart';
 import '../../model/models/Movie_Model.dart';
 import '../Movie_Video_Page/Movie_Video.dart';
 
-class MovieDetailsPageContent extends StatelessWidget {
-  final MoviesDetailsLoaded moviesDetailsState;
-  const MovieDetailsPageContent({
-    super.key,
-    required this.moviesDetailsState,
-  });
+class MovieDetailsPage extends StatelessWidget {
+  final Movie movie;
+  const MovieDetailsPage({
+    super.key, required this.movie,});
 
-  Movie get movie => moviesDetailsState.movie;
 
   @override
   Widget build(BuildContext context) {
@@ -96,21 +91,10 @@ class MovieDetailsPageContent extends StatelessWidget {
                         context.read<MoviesDetailsCubit>().toggleFavorite(movie);
                       },
                       icon: Icon(
-                        moviesDetailsState.isWatched
-                            ? Icons.visibility
-                            : Icons.visibility_off,
-                        color: moviesDetailsState.isWatched ? Colors.green : null,
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        context.read<MoviesDetailsCubit>().toggleFavorite(movie);
-                      },
-                      icon: Icon(
-                        moviesDetailsState.isFavorite
+                        context.read<MoviesDetailsCubit>().favoriteList.contains(movie)
                             ? Icons.favorite
                             : Icons.favorite_border,
-                        color: moviesDetailsState.isFavorite ? Colors.red : null,
+                        color: context.read<MoviesDetailsCubit>().favoriteList.contains(movie) ? Colors.red : null,
                       ),
                     ),
                   ],
