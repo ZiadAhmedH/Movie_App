@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:movies_app/controller/Movie/Constent/ApiEndPoints.dart';
+import '../../Constant/ApiEndPoints.dart';
 import '../Models/Movie_Model.dart';
 
 class MovieRepository {

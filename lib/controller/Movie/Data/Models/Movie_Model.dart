@@ -5,6 +5,7 @@ class Movie {
   final String? posterPath;
   final String? backdropPath;
   final double? voteAverage;
+  
 
 
   Movie({required this.backdropPath, required this.voteAverage, required this.id, required this.title, required this.overview, required this.posterPath});

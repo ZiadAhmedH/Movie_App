@@ -2,7 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:movies_app/controller/Movie/Constent/ApiEndPoints.dart';
+import '../../../Movie_Details_Cubit/Presentation/Movie_Details_Page.dart';
+import '../../../Movie_Details_Cubit/cubit/detials_movie_cubit.dart';
+import '../../Constant/ApiEndPoints.dart';
 import '../../Data/Models/Movie_Model.dart';
 
 class MovieWidget extends StatelessWidget {
@@ -10,17 +12,30 @@ class MovieWidget extends StatelessWidget {
 
 
   const MovieWidget({
-    Key? key,
+    super.key,
     required this.movie,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                BlocProvider(
+                  create: (context) => MoviesDetailsCubit()..getMovieDetails(movie.id),
+                  child: MovieDetailsScreen(movieId: movie.id),
+                ),
+          ),
+        );
+      },
       child: Padding(
         padding: const EdgeInsets.all(8),
         child: CachedNetworkImage(
-          imageUrl:'${ApiEndPoints.MOVIE_Base_Poster}${movie.posterPath}', width: 100,
+          imageUrl: '${ApiEndPoints.MOVIE_Base_Poster}${movie.posterPath}',
+          width: 100,
           height: 150,
           imageBuilder: (context, imageProvider) {
             return Container(

@@ -36,26 +36,29 @@ class _ViewAllMoviesState extends State<ViewAllMovies> {
     var state = context.watch<MovieCubit>().state;
 
     if (state is MovieLoading) {
-      return Center(child: CircularProgressIndicator());
+      return Center(child: LoadingAnimationWidget.dotsTriangle(color: Colors.orangeAccent, size: 50));
     } else if (state is MovieError) {
       return Center(child: Text('Error: ${state.error}'));
     } else if (state is MovieLoaded) {
-      return GridView.builder(
-        controller: _scrollController,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
-          crossAxisSpacing: 10.0,
-          mainAxisSpacing: 10.0,
-          childAspectRatio: 0.7,
+      return Scaffold(
+        backgroundColor: const Color.fromRGBO(44, 43, 43, 1),
+        body: GridView.builder(
+          controller: _scrollController,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3,
+            crossAxisSpacing: 10.0,
+            mainAxisSpacing: 10.0,
+            childAspectRatio: 0.7,
+          ),
+          itemCount: state.movies.length + (state.hasMoreMovies ? 1 : 0), // Add loading indicator if more movies
+          itemBuilder: (context, index) {
+            if (index == state.movies.length && state.hasMoreMovies) {
+              return  Center(child: LoadingAnimationWidget.discreteCircle(color: Colors.white10, size: 20) ); // Loading more indicator
+            }
+            final movie = state.movies[index];
+            return MovieWidget(movie: movie);
+          },
         ),
-        itemCount: state.movies.length + (state.hasMoreMovies ? 1 : 0), // Add loading indicator if more movies
-        itemBuilder: (context, index) {
-          if (index == state.movies.length && state.hasMoreMovies) {
-            return  Center(child: LoadingAnimationWidget.discreteCircle(color: Colors.white10, size: 20) ); // Loading more indicator
-          }
-          final movie = state.movies[index];
-          return MovieWidget(movie: movie);
-        },
       );
     }
     return Center(child: Text('No movies available'));
