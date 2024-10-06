@@ -1,56 +1,43 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:movies_app/controller/Movie/cubit/Movie_Cubit.dart';
-import 'package:movies_app/controller/Movie/cubit/Movie_State.dart';
-import 'package:movies_app/model/Components/Custom_Text.dart';
-import 'package:movies_app/view/Main_Page/3d_Movies_Section/ThreeD_Movies_Section.dart';
-import 'package:movies_app/view/Main_Page/Random_Movie/Random_Movie_Section.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-import 'Movie_Section/Movie_Section.dart';
+import '../../controller/Movie/Presentation/MovieSection/Movie_Section.dart';
+import '../../controller/Movie/cubit/Movie_Cubit.dart';
+import '../../controller/Movie/cubit/Movie_State.dart';
+import '../../controller/Movie_Details_Cubit/cubit/detials_movie_cubit.dart';
+import '../../model/Components/Custom_Text.dart';
+import '../../controller/Movie/Data/Models/Movie_Model.dart';
+import '../../controller/Movie/Presentation/Widgets/Movie_List_Widget.dart';
+import '../Details_Movie_Page/ContentPage.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // Providing MoviesDetailsCubit at the top level so all child widgets can access it
     return Scaffold(
       backgroundColor: const Color.fromRGBO(44, 43, 43, 1),
       body: SingleChildScrollView(
-        physics: const ScrollPhysics(
-          parent: BouncingScrollPhysics(),
-        ),
+        physics: const BouncingScrollPhysics(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            BlocBuilder<MovieCubit, MovieState>(
-              bloc: MovieCubit()..fetchRandomMovie(),
-              builder: (context, state) {
-                 return RandomSection(randomMovie: state.randomMovie,);
-              },
-            ),
-            const MovieSection(),
-
-            const ThreeDMoviesSection(),
-
-            // add some Container widgets here
-
-            Container(
+            // Random Movie Section using MovieCubit
+            // BlocBuilder<MovieCubit, MovieState>(
+            //   bloc: MovieCubit()..fetchRandomMovie(),
+            //   builder: (context, state) {
+            //     return RandomSection(randomMovie: state.randomMovie);
+            //   },
+            // ),
+            // Trending Movies Section
+         SizedBox(
               height: 100,
-              color: Colors.red,
             ),
-            Container(
-              height: 100,
-              color: Colors.blue,
-            ),
-            Container(
-              height: 100,
-              color: Colors.green,
-            ),
+            MovieSectionView(),
+
           ],
         ),
       ),

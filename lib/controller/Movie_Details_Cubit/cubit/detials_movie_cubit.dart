@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
-import '../../../model/models/Movie_Model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../Movie/Data/Models/Movie_Model.dart';
 import 'detials_movie_state.dart';
 
 class MoviesDetailsCubit extends Cubit<MovieDetailsState> {
@@ -10,6 +11,8 @@ class MoviesDetailsCubit extends Cubit<MovieDetailsState> {
   List<Movie> watchedList = [];
 
   MoviesDetailsCubit() : super(MoviesDetailsLoading());
+
+  static MoviesDetailsCubit get(context) => BlocProvider.of(context);
 
   // Fetch movie details and check if it's in favorites
   void fetchMovieDetails(Movie movie) {
@@ -33,19 +36,26 @@ class MoviesDetailsCubit extends Cubit<MovieDetailsState> {
       // Remove movie from favorites
       favoriteList.remove(movie);
       isFavorite = false; // Update favorite status
+
+      emit(currentState.copyWith(
+        favoriteList: favoriteList,
+        isFavorite: isFavorite,
+      ));
+      print("Removed from Favorite ${state.favoriteList.length}");
+
     } else {
       // Add movie to favorites
       favoriteList.add(movie);
       isFavorite = true; // Update favorite status
+      emit(currentState.copyWith(
+        favoriteList: favoriteList,
+        isFavorite: isFavorite,
+      ));
+      print("Added from Favorite ${state.favoriteList.length}");
+
     }
 
-    // Emit the updated state with new favorite list and updated isFavorite status
-    emit(currentState.copyWith(
-      favoriteList: favoriteList,
-      isFavorite: isFavorite,
-    ));
 
-    print("${favoriteList.length} Fav List");
   }
 
 

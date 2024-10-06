@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
-import '../../controller/Movie/Repo/Movies_Repo.dart';
-import '../../model/widgets/Movie_List_Widget.dart';
+import '../../controller/Movie/Presentation/Widgets/Movie_List_Widget.dart';
 
 class FavoriteMoviesPage extends StatelessWidget {
   const FavoriteMoviesPage({super.key});
@@ -17,6 +16,7 @@ class FavoriteMoviesPage extends StatelessWidget {
       ),
       body: Column(
         children: [
+
 
           // Expanded(
           //   child: ListView.builder(

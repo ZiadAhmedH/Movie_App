@@ -1,5 +1,5 @@
 // Base class for movie details state
-import '../../../model/models/Movie_Model.dart';
+import '../../Movie/Data/Models/Movie_Model.dart';
 
 abstract class MovieDetailsState {
   final List<Movie> favoriteList; // List of favorite movies

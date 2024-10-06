@@ -18,20 +18,14 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Movies App',
-      home: MultiBlocProvider(
-        providers: [
-          BlocProvider(
-            create: (context) => PageCubit(),
-          ),
-          BlocProvider(
-            create: (context) => MoviesDetailsCubit(),
-          ),
-        ],
-        child: HomePage(),
-      ),
+    return BlocProvider(
+      create: (context) => PageCubit(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Movies App',
+        home: HomePage(),
 
+      ),
     );
   }
 }

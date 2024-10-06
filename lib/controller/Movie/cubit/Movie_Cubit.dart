@@ -1,82 +1,55 @@
-import 'dart:math';
-
 import 'package:bloc/bloc.dart';
-import 'package:dio/dio.dart';
-import 'package:fast_immutable_collections/fast_immutable_collections.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 
-import '../../../model/models/Movie_Model.dart';
-import '../Repo/Movies_Repo.dart';
-import '../../ThreeDMovies/Repo/Movies_ThreeD_Repo.dart';
+import '../Data/Repo/Movies_Repo.dart';
 import 'Movie_State.dart';
 
-
 class MovieCubit extends Cubit<MovieState> {
-  final MoviesRepo _moviesRepo = GetIt.instance<MoviesRepo>();
+  final MovieRepository _movieRepository = GetIt.instance<MovieRepository>();
+  int currentPage = 1;
+  bool hasMoreMovies = true;
+  bool isLoading = false;
 
-  MovieCubit() : super(MovieState.initial());
+  MovieCubit() : super(MovieInitial());
 
-  static MovieCubit of(BuildContext context) => context.read<MovieCubit>();
-
-
-  // Fetch more movies when scrolling
-  Future<void> fetchMoreMovies() async {
-    if (!state.hasMoreMovies || state.isLoading) return;
+  Future<void> fetchPopularMovies() async {
+    emit(MovieLoading());
     try {
-      emit(state.copyWith(isLoading: true));
-      final movies = await _moviesRepo.fetchMovies(page: state.currentPage + 1);
-      emit(state.copyWith(
-        movies: state.movies.addAll(movies),
-        isLoading: false,
-        hasMorePages: _moviesRepo.hasMorePages,
-        currentPage: state.currentPage + 1,
-      ));
+      final movies = await _movieRepository.fetchPopularMoviesPagination(currentPage);
+      currentPage++;
+      hasMoreMovies = movies.length == 20; // Check if more movies are available
+      emit(MovieLoaded(movies: movies, hasMoreMovies: hasMoreMovies));
+      print('Fetched ${movies.length} movies. Current page: $currentPage'); // Debugging print
     } catch (e) {
-      emit(state.copyWith(isLoading: false, error: e.toString()));
+      emit(MovieError(e.toString()));
+      print('Error fetching movies: $e'); // Debugging print
     }
   }
 
-  // Fetch movies when the app starts
+  Future<void> fetchMorePopularMovies() async {
+    if (!isLoading && hasMoreMovies) {
+      isLoading = true;
+      try {
+        final newMovies = await _movieRepository.fetchPopularMoviesPagination(currentPage);
+        if (newMovies.isNotEmpty) {
+          currentPage++;
+          hasMoreMovies = newMovies.length == 20; // Check if more movies are available
 
-  Future<void> fetchMovies() async {
-    try {
-      final movies = await _moviesRepo.fetchMovies(page: 1);
-      emit(state.copyWith(
-        movies: movies,
-        isLoading: false,
-        hasMorePages: _moviesRepo.hasMorePages,
-        currentPage: 1,
-      ));
-    } catch (e) {
-      emit(state.copyWith(isLoading: false, error: e.toString()));
+          final currentState = state as MovieLoaded;
+          emit(MovieLoaded(
+            movies: List.of(currentState.movies)..addAll(newMovies),
+            hasMoreMovies: hasMoreMovies,
+          ));
+          print('Loaded ${newMovies.length} more movies. Current page: $currentPage'); // Debugging print
+        } else {
+          hasMoreMovies = false; // No more movies to load
+          print('No more movies available on page $currentPage'); // Debugging print
+        }
+      } catch (e) {
+        print('Error loading more movies: $e'); // Debugging print
+      } finally {
+        isLoading = false; // Reset loading state
+      }
     }
   }
-
-
-  // get random single movie
-  Future<void> fetchRandomMovie() async {
-    try {
-      final random = Random();
-
-      final randomMovie = await _moviesRepo.fetchMovies(page: 1);
-      random.nextInt(randomMovie.length);
-      print(randomMovie.toString());
-      emit(state.copyWith(
-        randomMovie: randomMovie[random.nextInt(randomMovie.length)],
-      ));
-    } catch (e) {
-      emit(state.copyWith(error: e.toString()));
-    }
-  }
-
-
-
-
-
-
-
-
-
 }
