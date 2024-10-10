@@ -1,9 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:movies_app/controller/Tv_Series_Details/Cubit/series_detials_cubit.dart';
 
 import '../../../Constant/ApiEndPoints.dart';
+import '../../../Tv_Series_Details/Presentation/Series_Details_Page.dart';
 import '../../Data/Models/Series_Model.dart';
+
 class SeriesWidget extends StatelessWidget {
 
   final Series series;
@@ -12,11 +16,14 @@ class SeriesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-
     return GestureDetector(
       onTap: () {
-
+        // Navigate to the Series Details Page
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
+            BlocProvider(
+              create: (context) => SeriesDetialsCubit()..getSeriesDetails(series.id),
+              child: SeriesDetailsScreen(seriesId: series.id),
+            )));
       },
       child: Padding(
         padding: const EdgeInsets.all(8),
@@ -70,7 +77,5 @@ class SeriesWidget extends StatelessWidget {
         ),
       ),
     );
-
-
   }
 }

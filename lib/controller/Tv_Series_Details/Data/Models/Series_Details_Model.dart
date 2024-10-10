@@ -6,11 +6,11 @@ part 'Series_Details_Model.g.dart';
 @freezed
 class SeriesDetails with _$SeriesDetails {
   const factory SeriesDetails({
-    required bool adult,
+    @JsonKey(name: 'adult') bool? adult,
     @JsonKey(name: 'backdrop_path') String? backdropPath,
     @JsonKey(name: 'first_air_date') String? firstAirDate,
     String? homepage,
-    required int id,
+    @JsonKey(name: 'id') int? id,
     @JsonKey(name: 'in_production') bool? inProduction,
     List<String>? languages,
     @JsonKey(name: 'number_of_seasons') int? numberOfSeasons,

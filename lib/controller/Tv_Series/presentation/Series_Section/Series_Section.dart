@@ -24,6 +24,7 @@ class SeriesSection extends StatelessWidget {
             InkWell(
               onTap: () {
 
+
               },
               child: CustomText(
                 text: 'View All',

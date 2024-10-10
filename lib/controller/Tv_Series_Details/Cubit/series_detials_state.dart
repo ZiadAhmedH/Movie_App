@@ -1,22 +1,30 @@
-part of 'series_detials_cubit.dart';
+// create a class called DetailsMovieState
+import 'package:equatable/equatable.dart';
+import 'package:movies_app/controller/Tv_Series_Details/Data/Models/Series_Details_Model.dart';
 
-@immutable
-abstract class SeriesDetialsState {}
-
-class SeriesDetialsInitial extends SeriesDetialsState {}
-
-class SeriesDetialsLoading extends SeriesDetialsState {}
-
-class SeriesDetialsLoaded extends SeriesDetialsState {
+class SeriesDetailsState extends Equatable {
   final SeriesDetails seriesDetails;
+   SeriesDetailsState({required this.seriesDetails});
 
-  SeriesDetialsLoaded({required this.seriesDetails});
+  @override
+  List<Object> get props => [seriesDetails];
+
 }
 
-class SeriesDetialsError extends SeriesDetialsState {
+class  DetailsSeriesStateInitial extends SeriesDetailsState {
+  DetailsSeriesStateInitial() : super(seriesDetails: SeriesDetails());
+}
+
+class  DetailsSeriesStateLoading extends SeriesDetailsState {
+  DetailsSeriesStateLoading() : super(seriesDetails: SeriesDetails());
+}
+
+class  DetailsSeriesStateLoaded extends SeriesDetailsState {
+  DetailsSeriesStateLoaded({required SeriesDetails seriesDetails}) : super(seriesDetails: seriesDetails);
+}
+
+class  DetailsSeriesStateError extends SeriesDetailsState {
   final String error;
 
-  SeriesDetialsError({required this.error});
+  DetailsSeriesStateError({required this.error}) : super(seriesDetails: SeriesDetails());
 }
-
-

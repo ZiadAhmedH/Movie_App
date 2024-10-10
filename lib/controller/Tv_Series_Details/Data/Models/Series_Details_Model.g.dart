@@ -8,11 +8,11 @@ part of 'Series_Details_Model.dart';
 
 _$SeriesDetailsImpl _$$SeriesDetailsImplFromJson(Map<String, dynamic> json) =>
     _$SeriesDetailsImpl(
-      adult: json['adult'] as bool,
+      adult: json['adult'] as bool?,
       backdropPath: json['backdrop_path'] as String?,
       firstAirDate: json['first_air_date'] as String?,
       homepage: json['homepage'] as String?,
-      id: (json['id'] as num).toInt(),
+      id: (json['id'] as num?)?.toInt(),
       inProduction: json['in_production'] as bool?,
       languages: (json['languages'] as List<dynamic>?)
           ?.map((e) => e as String)

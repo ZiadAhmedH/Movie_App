@@ -20,13 +20,15 @@ SeriesDetails _$SeriesDetailsFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$SeriesDetails {
-  bool get adult => throw _privateConstructorUsedError;
+  @JsonKey(name: 'adult')
+  bool? get adult => throw _privateConstructorUsedError;
   @JsonKey(name: 'backdrop_path')
   String? get backdropPath => throw _privateConstructorUsedError;
   @JsonKey(name: 'first_air_date')
   String? get firstAirDate => throw _privateConstructorUsedError;
   String? get homepage => throw _privateConstructorUsedError;
-  int get id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'id')
+  int? get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'in_production')
   bool? get inProduction => throw _privateConstructorUsedError;
   List<String>? get languages => throw _privateConstructorUsedError;
@@ -56,11 +58,11 @@ abstract class $SeriesDetailsCopyWith<$Res> {
       _$SeriesDetailsCopyWithImpl<$Res, SeriesDetails>;
   @useResult
   $Res call(
-      {bool adult,
+      {@JsonKey(name: 'adult') bool? adult,
       @JsonKey(name: 'backdrop_path') String? backdropPath,
       @JsonKey(name: 'first_air_date') String? firstAirDate,
       String? homepage,
-      int id,
+      @JsonKey(name: 'id') int? id,
       @JsonKey(name: 'in_production') bool? inProduction,
       List<String>? languages,
       @JsonKey(name: 'number_of_seasons') int? numberOfSeasons,
@@ -85,11 +87,11 @@ class _$SeriesDetailsCopyWithImpl<$Res, $Val extends SeriesDetails>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? adult = null,
+    Object? adult = freezed,
     Object? backdropPath = freezed,
     Object? firstAirDate = freezed,
     Object? homepage = freezed,
-    Object? id = null,
+    Object? id = freezed,
     Object? inProduction = freezed,
     Object? languages = freezed,
     Object? numberOfSeasons = freezed,
@@ -101,10 +103,10 @@ class _$SeriesDetailsCopyWithImpl<$Res, $Val extends SeriesDetails>
     Object? voteCount = freezed,
   }) {
     return _then(_value.copyWith(
-      adult: null == adult
+      adult: freezed == adult
           ? _value.adult
           : adult // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as bool?,
       backdropPath: freezed == backdropPath
           ? _value.backdropPath
           : backdropPath // ignore: cast_nullable_to_non_nullable
@@ -117,10 +119,10 @@ class _$SeriesDetailsCopyWithImpl<$Res, $Val extends SeriesDetails>
           ? _value.homepage
           : homepage // ignore: cast_nullable_to_non_nullable
               as String?,
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       inProduction: freezed == inProduction
           ? _value.inProduction
           : inProduction // ignore: cast_nullable_to_non_nullable
@@ -170,11 +172,11 @@ abstract class _$$SeriesDetailsImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {bool adult,
+      {@JsonKey(name: 'adult') bool? adult,
       @JsonKey(name: 'backdrop_path') String? backdropPath,
       @JsonKey(name: 'first_air_date') String? firstAirDate,
       String? homepage,
-      int id,
+      @JsonKey(name: 'id') int? id,
       @JsonKey(name: 'in_production') bool? inProduction,
       List<String>? languages,
       @JsonKey(name: 'number_of_seasons') int? numberOfSeasons,
@@ -197,11 +199,11 @@ class __$$SeriesDetailsImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? adult = null,
+    Object? adult = freezed,
     Object? backdropPath = freezed,
     Object? firstAirDate = freezed,
     Object? homepage = freezed,
-    Object? id = null,
+    Object? id = freezed,
     Object? inProduction = freezed,
     Object? languages = freezed,
     Object? numberOfSeasons = freezed,
@@ -213,10 +215,10 @@ class __$$SeriesDetailsImplCopyWithImpl<$Res>
     Object? voteCount = freezed,
   }) {
     return _then(_$SeriesDetailsImpl(
-      adult: null == adult
+      adult: freezed == adult
           ? _value.adult
           : adult // ignore: cast_nullable_to_non_nullable
-              as bool,
+              as bool?,
       backdropPath: freezed == backdropPath
           ? _value.backdropPath
           : backdropPath // ignore: cast_nullable_to_non_nullable
@@ -229,10 +231,10 @@ class __$$SeriesDetailsImplCopyWithImpl<$Res>
           ? _value.homepage
           : homepage // ignore: cast_nullable_to_non_nullable
               as String?,
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       inProduction: freezed == inProduction
           ? _value.inProduction
           : inProduction // ignore: cast_nullable_to_non_nullable
@@ -277,11 +279,11 @@ class __$$SeriesDetailsImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$SeriesDetailsImpl implements _SeriesDetails {
   const _$SeriesDetailsImpl(
-      {required this.adult,
+      {@JsonKey(name: 'adult') this.adult,
       @JsonKey(name: 'backdrop_path') this.backdropPath,
       @JsonKey(name: 'first_air_date') this.firstAirDate,
       this.homepage,
-      required this.id,
+      @JsonKey(name: 'id') this.id,
       @JsonKey(name: 'in_production') this.inProduction,
       final List<String>? languages,
       @JsonKey(name: 'number_of_seasons') this.numberOfSeasons,
@@ -297,7 +299,8 @@ class _$SeriesDetailsImpl implements _SeriesDetails {
       _$$SeriesDetailsImplFromJson(json);
 
   @override
-  final bool adult;
+  @JsonKey(name: 'adult')
+  final bool? adult;
   @override
   @JsonKey(name: 'backdrop_path')
   final String? backdropPath;
@@ -307,7 +310,8 @@ class _$SeriesDetailsImpl implements _SeriesDetails {
   @override
   final String? homepage;
   @override
-  final int id;
+  @JsonKey(name: 'id')
+  final int? id;
   @override
   @JsonKey(name: 'in_production')
   final bool? inProduction;
@@ -414,11 +418,11 @@ class _$SeriesDetailsImpl implements _SeriesDetails {
 
 abstract class _SeriesDetails implements SeriesDetails {
   const factory _SeriesDetails(
-      {required final bool adult,
+      {@JsonKey(name: 'adult') final bool? adult,
       @JsonKey(name: 'backdrop_path') final String? backdropPath,
       @JsonKey(name: 'first_air_date') final String? firstAirDate,
       final String? homepage,
-      required final int id,
+      @JsonKey(name: 'id') final int? id,
       @JsonKey(name: 'in_production') final bool? inProduction,
       final List<String>? languages,
       @JsonKey(name: 'number_of_seasons') final int? numberOfSeasons,
@@ -433,7 +437,8 @@ abstract class _SeriesDetails implements SeriesDetails {
       _$SeriesDetailsImpl.fromJson;
 
   @override
-  bool get adult;
+  @JsonKey(name: 'adult')
+  bool? get adult;
   @override
   @JsonKey(name: 'backdrop_path')
   String? get backdropPath;
@@ -443,7 +448,8 @@ abstract class _SeriesDetails implements SeriesDetails {
   @override
   String? get homepage;
   @override
-  int get id;
+  @JsonKey(name: 'id')
+  int? get id;
   @override
   @JsonKey(name: 'in_production')
   bool? get inProduction;
