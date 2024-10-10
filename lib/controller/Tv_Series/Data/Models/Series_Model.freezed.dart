@@ -20,16 +20,23 @@ Series _$SeriesFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Series {
+  @JsonKey(name: 'backdrop_path')
   String? get backdropPath => throw _privateConstructorUsedError;
   int get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  @JsonKey(name: 'original_name')
   String? get originalName => throw _privateConstructorUsedError;
   String? get overview => throw _privateConstructorUsedError;
+  @JsonKey(name: 'poster_path')
   String? get posterPath => throw _privateConstructorUsedError;
+  @JsonKey(name: 'media_type')
   String? get mediaType => throw _privateConstructorUsedError;
+  @JsonKey(name: 'original_language')
   String? get originalLanguage => throw _privateConstructorUsedError;
   double? get popularity => throw _privateConstructorUsedError;
+  @JsonKey(name: 'first_air_date')
   String? get firstAirDate => throw _privateConstructorUsedError;
+  @JsonKey(name: 'vote_average')
   double? get voteAverage => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -43,17 +50,17 @@ abstract class $SeriesCopyWith<$Res> {
       _$SeriesCopyWithImpl<$Res, Series>;
   @useResult
   $Res call(
-      {String? backdropPath,
+      {@JsonKey(name: 'backdrop_path') String? backdropPath,
       int id,
       String name,
-      String? originalName,
+      @JsonKey(name: 'original_name') String? originalName,
       String? overview,
-      String? posterPath,
-      String? mediaType,
-      String? originalLanguage,
+      @JsonKey(name: 'poster_path') String? posterPath,
+      @JsonKey(name: 'media_type') String? mediaType,
+      @JsonKey(name: 'original_language') String? originalLanguage,
       double? popularity,
-      String? firstAirDate,
-      double? voteAverage});
+      @JsonKey(name: 'first_air_date') String? firstAirDate,
+      @JsonKey(name: 'vote_average') double? voteAverage});
 }
 
 /// @nodoc
@@ -138,17 +145,17 @@ abstract class _$$SeriesImplCopyWith<$Res> implements $SeriesCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String? backdropPath,
+      {@JsonKey(name: 'backdrop_path') String? backdropPath,
       int id,
       String name,
-      String? originalName,
+      @JsonKey(name: 'original_name') String? originalName,
       String? overview,
-      String? posterPath,
-      String? mediaType,
-      String? originalLanguage,
+      @JsonKey(name: 'poster_path') String? posterPath,
+      @JsonKey(name: 'media_type') String? mediaType,
+      @JsonKey(name: 'original_language') String? originalLanguage,
       double? popularity,
-      String? firstAirDate,
-      double? voteAverage});
+      @JsonKey(name: 'first_air_date') String? firstAirDate,
+      @JsonKey(name: 'vote_average') double? voteAverage});
 }
 
 /// @nodoc
@@ -227,42 +234,49 @@ class __$$SeriesImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$SeriesImpl implements _Series {
   const _$SeriesImpl(
-      {this.backdropPath,
+      {@JsonKey(name: 'backdrop_path') this.backdropPath,
       required this.id,
       required this.name,
-      this.originalName,
+      @JsonKey(name: 'original_name') this.originalName,
       this.overview,
-      this.posterPath,
-      this.mediaType,
-      this.originalLanguage,
+      @JsonKey(name: 'poster_path') this.posterPath,
+      @JsonKey(name: 'media_type') this.mediaType,
+      @JsonKey(name: 'original_language') this.originalLanguage,
       this.popularity,
-      this.firstAirDate,
-      this.voteAverage});
+      @JsonKey(name: 'first_air_date') this.firstAirDate,
+      @JsonKey(name: 'vote_average') this.voteAverage});
 
   factory _$SeriesImpl.fromJson(Map<String, dynamic> json) =>
       _$$SeriesImplFromJson(json);
 
   @override
+  @JsonKey(name: 'backdrop_path')
   final String? backdropPath;
   @override
   final int id;
   @override
   final String name;
   @override
+  @JsonKey(name: 'original_name')
   final String? originalName;
   @override
   final String? overview;
   @override
+  @JsonKey(name: 'poster_path')
   final String? posterPath;
   @override
+  @JsonKey(name: 'media_type')
   final String? mediaType;
   @override
+  @JsonKey(name: 'original_language')
   final String? originalLanguage;
   @override
   final double? popularity;
   @override
+  @JsonKey(name: 'first_air_date')
   final String? firstAirDate;
   @override
+  @JsonKey(name: 'vote_average')
   final double? voteAverage;
 
   @override
@@ -329,41 +343,48 @@ class _$SeriesImpl implements _Series {
 
 abstract class _Series implements Series {
   const factory _Series(
-      {final String? backdropPath,
+      {@JsonKey(name: 'backdrop_path') final String? backdropPath,
       required final int id,
       required final String name,
-      final String? originalName,
+      @JsonKey(name: 'original_name') final String? originalName,
       final String? overview,
-      final String? posterPath,
-      final String? mediaType,
-      final String? originalLanguage,
+      @JsonKey(name: 'poster_path') final String? posterPath,
+      @JsonKey(name: 'media_type') final String? mediaType,
+      @JsonKey(name: 'original_language') final String? originalLanguage,
       final double? popularity,
-      final String? firstAirDate,
-      final double? voteAverage}) = _$SeriesImpl;
+      @JsonKey(name: 'first_air_date') final String? firstAirDate,
+      @JsonKey(name: 'vote_average') final double? voteAverage}) = _$SeriesImpl;
 
   factory _Series.fromJson(Map<String, dynamic> json) = _$SeriesImpl.fromJson;
 
   @override
+  @JsonKey(name: 'backdrop_path')
   String? get backdropPath;
   @override
   int get id;
   @override
   String get name;
   @override
+  @JsonKey(name: 'original_name')
   String? get originalName;
   @override
   String? get overview;
   @override
+  @JsonKey(name: 'poster_path')
   String? get posterPath;
   @override
+  @JsonKey(name: 'media_type')
   String? get mediaType;
   @override
+  @JsonKey(name: 'original_language')
   String? get originalLanguage;
   @override
   double? get popularity;
   @override
+  @JsonKey(name: 'first_air_date')
   String? get firstAirDate;
   @override
+  @JsonKey(name: 'vote_average')
   double? get voteAverage;
   @override
   @JsonKey(ignore: true)

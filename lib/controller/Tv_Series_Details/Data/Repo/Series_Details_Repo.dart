@@ -1,21 +1,22 @@
 import 'package:dio/dio.dart';
-import '../../../Constant/ApiEndPoints.dart';
-import '../Models/Movie_Deatails_Model.dart';
+import 'package:get_it/get_it.dart';
 
-class MovieDetailsRepo {
+import '../../../Constant/ApiEndPoints.dart';
+import '../Models/Series_Details_Model.dart';
+
+class SeriesDetailsRepository {
 
   final Dio _dio = Dio();
 
-  MovieDetailsRepo();
 
-  Future<MovieDetails> getMovieDetails(int movieId) async {
+  Future<SeriesDetails> getSeriesDetails(int seriesId) async {
     try {
-      final String url = '${ApiEndPoints.BASE_URL}movie/$movieId?language=en-US}';
+      final String url = '${ApiEndPoints.BASE_URL}tv/$seriesId?language=en-US}';
 
       final options = Options(
         headers: {
           "accept": "application/json",
-           "Authorization": "Bearer ${ApiEndPoints.API_KEY}",
+          "Authorization": "Bearer ${ApiEndPoints.API_KEY}",
         },
       );
 
@@ -25,7 +26,7 @@ class MovieDetailsRepo {
       final response = await _dio.get(url, options: options);
 
       if (response.statusCode == 200) {
-        final movieDetails = MovieDetails.fromJson(response.data);
+        final movieDetails = SeriesDetails.fromJson(response.data);
         print(movieDetails);
         return movieDetails;
       } else {
@@ -35,5 +36,6 @@ class MovieDetailsRepo {
       throw Exception('Failed to load movie details: $e');
     }
   }
-}
 
+
+}

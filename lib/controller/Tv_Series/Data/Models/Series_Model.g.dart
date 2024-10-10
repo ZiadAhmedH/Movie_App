@@ -7,30 +7,30 @@ part of 'Series_Model.dart';
 // **************************************************************************
 
 _$SeriesImpl _$$SeriesImplFromJson(Map<String, dynamic> json) => _$SeriesImpl(
-      backdropPath: json['backdropPath'] as String?,
+      backdropPath: json['backdrop_path'] as String?,
       id: (json['id'] as num).toInt(),
       name: json['name'] as String,
-      originalName: json['originalName'] as String?,
+      originalName: json['original_name'] as String?,
       overview: json['overview'] as String?,
-      posterPath: json['posterPath'] as String?,
-      mediaType: json['mediaType'] as String?,
-      originalLanguage: json['originalLanguage'] as String?,
+      posterPath: json['poster_path'] as String?,
+      mediaType: json['media_type'] as String?,
+      originalLanguage: json['original_language'] as String?,
       popularity: (json['popularity'] as num?)?.toDouble(),
-      firstAirDate: json['firstAirDate'] as String?,
-      voteAverage: (json['voteAverage'] as num?)?.toDouble(),
+      firstAirDate: json['first_air_date'] as String?,
+      voteAverage: (json['vote_average'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$$SeriesImplToJson(_$SeriesImpl instance) =>
     <String, dynamic>{
-      'backdropPath': instance.backdropPath,
+      'backdrop_path': instance.backdropPath,
       'id': instance.id,
       'name': instance.name,
-      'originalName': instance.originalName,
+      'original_name': instance.originalName,
       'overview': instance.overview,
-      'posterPath': instance.posterPath,
-      'mediaType': instance.mediaType,
-      'originalLanguage': instance.originalLanguage,
+      'poster_path': instance.posterPath,
+      'media_type': instance.mediaType,
+      'original_language': instance.originalLanguage,
       'popularity': instance.popularity,
-      'firstAirDate': instance.firstAirDate,
-      'voteAverage': instance.voteAverage,
+      'first_air_date': instance.firstAirDate,
+      'vote_average': instance.voteAverage,
     };

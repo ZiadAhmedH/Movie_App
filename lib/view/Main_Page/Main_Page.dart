@@ -8,10 +8,6 @@ import '../../controller/Movie/cubit/Movie_Cubit.dart';
 import '../../controller/Movie/cubit/Movie_State.dart';
 import '../../controller/Movie_Details_Cubit/cubit/detials_movie_cubit.dart';
 import '../../controller/Tv_Series/presentation/Series_Section/Series_Section.dart';
-import '../../model/Components/Custom_Text.dart';
-import '../../controller/Movie/Data/Models/Movie_Model.dart';
-import '../../controller/Movie/Presentation/Widgets/Movie_List_Widget.dart';
-import '../Details_Movie_Page/ContentPage.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({super.key});

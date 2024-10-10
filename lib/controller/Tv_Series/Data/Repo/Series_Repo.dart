@@ -8,11 +8,11 @@ class SeriesRepository {
   Future<List<Series>?> fetchSeries() async {
     try {
       var response = await _dio.get(
-        "https://api.themoviedb.org/3/trending/tv/day?language=en-US&page=1",
+        "${ApiEndPoints.BASE_URL}${ApiEndPoints.Trending_Tv_Shows}?language=en-US&page=1",
         options: Options(
           headers: {
             "accept": "application/json",
-            "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiYzdmYzRiZmI0NzIwZTA1NDdhN2ZhY2YxYjY1YmEyMSIsIm5iZiI6MTcyODUyNTExOC44ODY3NDQsInN1YiI6IjY2ZmMxNzliMDYxYWZlMTE0YmYxODg5NCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.naGb1y_UcM9WBG2Hcw7FRBTOCJmu9End45WOE-xJ7pA",
+            "Authorization": "Bearer ${ApiEndPoints.API_KEY}",
 
           },
         ),

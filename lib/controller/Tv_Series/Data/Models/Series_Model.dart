@@ -4,20 +4,19 @@ part 'Series_Model.freezed.dart';
 part 'Series_Model.g.dart';
 
 @freezed
-@freezed
 class Series with _$Series {
   const factory Series({
-    String? backdropPath,
+    @JsonKey(name: 'backdrop_path') String? backdropPath,
     required int id,
     required String name,
-    String? originalName,
+    @JsonKey(name: 'original_name') String? originalName,
     String? overview,
-    String? posterPath,
-    String? mediaType,
-    String? originalLanguage,
+    @JsonKey(name: 'poster_path') String? posterPath,
+    @JsonKey(name: 'media_type') String? mediaType,
+    @JsonKey(name: 'original_language') String? originalLanguage,
     double? popularity,
-    String? firstAirDate,
-    double? voteAverage,
+    @JsonKey(name: 'first_air_date') String? firstAirDate,
+    @JsonKey(name: 'vote_average') double? voteAverage,
   }) = _Series;
 
   factory Series.fromJson(Map<String, dynamic> json) => _$SeriesFromJson(json);
