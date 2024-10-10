@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import '../../Constant/ApiEndPoints.dart';
+import '../../../Constant/ApiEndPoints.dart';
 import '../Models/Movie_Model.dart';
 
 class MovieRepository {
@@ -32,9 +32,6 @@ class MovieRepository {
       throw Exception('Failed to load movies: $e');
     }
   }
-
-
-  // for pagination per page 20
 
   Future<List<Movie>> fetchPopularMoviesPagination(int page) async {
     try {

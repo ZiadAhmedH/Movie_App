@@ -7,6 +7,7 @@ import '../../controller/Movie/Presentation/MovieSection/Movie_Section.dart';
 import '../../controller/Movie/cubit/Movie_Cubit.dart';
 import '../../controller/Movie/cubit/Movie_State.dart';
 import '../../controller/Movie_Details_Cubit/cubit/detials_movie_cubit.dart';
+import '../../controller/Tv_Series/presentation/Series_Section/Series_Section.dart';
 import '../../model/Components/Custom_Text.dart';
 import '../../controller/Movie/Data/Models/Movie_Model.dart';
 import '../../controller/Movie/Presentation/Widgets/Movie_List_Widget.dart';
@@ -18,25 +19,23 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Providing MoviesDetailsCubit at the top level so all child widgets can access it
-    return Scaffold(
-      backgroundColor: const Color.fromRGBO(44, 43, 43, 1),
+    return const Scaffold(
+      backgroundColor: Color.fromRGBO(44, 43, 43, 1),
       body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
+        physics: BouncingScrollPhysics(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Random Movie Section using MovieCubit
-            // BlocBuilder<MovieCubit, MovieState>(
-            //   bloc: MovieCubit()..fetchRandomMovie(),
-            //   builder: (context, state) {
-            //     return RandomSection(randomMovie: state.randomMovie);
-            //   },
-            // ),
             // Trending Movies Section
          SizedBox(
               height: 100,
             ),
             MovieSectionView(),
+            SizedBox(
+              height: 20,
+            ),
+            // Trending Series Section
+            SeriesSection(),
 
           ],
         ),

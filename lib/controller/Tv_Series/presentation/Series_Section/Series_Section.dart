@@ -1,24 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_app/controller/Tv_Series/Cubit/series_cubit.dart';
+import 'package:movies_app/controller/Tv_Series/presentation/widgets/Series_Widget.dart';
 
 import '../../../../model/Components/Custom_Text.dart';
-import '../../cubit/Movie_Cubit.dart';
-import '../../cubit/Movie_State.dart';
-import '../Widgets/Movie_List_Widget.dart';
-import 'AllMovieList.dart';
-
-class MovieSectionView extends StatelessWidget {
-  const MovieSectionView({super.key});
+class SeriesSection extends StatelessWidget {
+  const SeriesSection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => MovieCubit()..fetchPopularMovies(),
+    return  BlocProvider(
+      create: (context) => SeriesCubit()..fetchTrendingSeries(),
       child: Column(
         children: [
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             CustomText(
-              text: 'Movies Trending Today',
+              text: 'TV Shows Trending Today',
               fontSize: 18,
               color: Colors.white,
               fontWeight: FontWeight.bold,
@@ -26,14 +23,7 @@ class MovieSectionView extends StatelessWidget {
             SizedBox(width: 10),
             InkWell(
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => BlocProvider(
-                              create: (context) =>
-                                  MovieCubit()..fetchPopularMovies(),
-                              child: ViewAllMovies(),
-                            )));
+
               },
               child: CustomText(
                 text: 'View All',
@@ -45,9 +35,11 @@ class MovieSectionView extends StatelessWidget {
           ]),
 
           // Movie List Section
-          BlocBuilder<MovieCubit, MovieState>(
+          BlocBuilder<SeriesCubit, SeriesState>(
             builder: (context, state) {
-              if (state is MovieLoaded) {
+              if (state is SeriesLoaded) {
+
+                print("${state.seriesList.length} series found in the list of series");
                 return SizedBox(
                   height: MediaQuery.of(context).size.height * 0.2,
                   child: Row(
@@ -56,12 +48,12 @@ class MovieSectionView extends StatelessWidget {
                         child: ListView.builder(
                           physics: const BouncingScrollPhysics(),
                           itemCount: state
-                              .movies.length, // Ensure movies list isn't null
+                              .seriesList.length, // Ensure movies list isn't null
                           scrollDirection: Axis.horizontal,
                           itemBuilder: (context, index) {
                             // Make sure the MovieWidget has access to the cubit
-                            return MovieWidget(
-                              movie: state.movies[index],
+                            return SeriesWidget(
+                               series: state.seriesList[index],
                             );
                           },
                         ),

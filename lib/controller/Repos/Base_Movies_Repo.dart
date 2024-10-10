@@ -5,9 +5,6 @@ import '../Movie/Data/Models/Movie_Model.dart';
 
 abstract class BaseMoviesRepo {
 
-
-
   Future<IList<Movie>> fetchMovies({required int page});
-
 
 }

@@ -1,40 +1,27 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+
 import '../../../Constant/ApiEndPoints.dart';
-import '../../../Movie_Details_Cubit/Presentation/Movie_Details_Page.dart';
-import '../../../Movie_Details_Cubit/cubit/detials_movie_cubit.dart';
-import '../../Data/Models/Movie_Model.dart';
+import '../../Data/Models/Series_Model.dart';
+class SeriesWidget extends StatelessWidget {
 
-class MovieWidget extends StatelessWidget {
-  final Movie movie;
+  final Series series;
 
-
-  const MovieWidget({
-    super.key,
-    required this.movie,
-  });
+  const SeriesWidget({super.key, required this.series});
 
   @override
   Widget build(BuildContext context) {
+
+
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) =>
-                BlocProvider(
-                  create: (context) => MoviesDetailsCubit()..getMovieDetails(movie.id),
-                  child: MovieDetailsScreen(movieId: movie.id),
-                ),
-          ),
-        );
+
       },
       child: Padding(
         padding: const EdgeInsets.all(8),
         child: CachedNetworkImage(
-          imageUrl: '${ApiEndPoints.MOVIE_Base_Poster}${movie.posterPath}',
+          imageUrl: 'https://image.tmdb.org/t/p/w500${series.posterPath}',
           width: 100,
           height: 150,
           imageBuilder: (context, imageProvider) {
@@ -83,5 +70,7 @@ class MovieWidget extends StatelessWidget {
         ),
       ),
     );
+
+
   }
 }
