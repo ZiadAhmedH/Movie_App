@@ -16,9 +16,7 @@ class SeriesCubit extends Cubit<SeriesState> {
 
   Future<void> fetchTrendingSeries() async {
     emit(SeriesLoading());
-    // Add a try catch block to handle errors
     try {
-      // Add a variable to store the series list
       final seriesList = await seriesRepo.fetchSeries();
       print(seriesList.toString());
       emit(SeriesLoaded(seriesList!));
