@@ -28,5 +28,23 @@ class SeriesRepository {
     }
   }
 
-  // Future<List<Series>> fetchSeriesPagination(int page) async {
+   Future<List<Series>> fetchSeriesPagination(int page) async {
+    try {
+      var response = await _dio.get(
+        "${ApiEndPoints.BASE_URL}${ApiEndPoints.Trending_Tv_Shows}?language=en-US&page=$page",
+        options: Options(
+          headers: {
+            "accept": "application/json",
+            "Authorization": "Bearer ${ApiEndPoints.API_KEY}",
+          },
+        ),
+      );
+
+      List<dynamic> data = response.data['results'];
+      return data.map((seriesJson) => Series.fromJson(seriesJson)).toList();
+    } catch (e) {
+      print(e);
+      return [];
+    }
+   }
 }

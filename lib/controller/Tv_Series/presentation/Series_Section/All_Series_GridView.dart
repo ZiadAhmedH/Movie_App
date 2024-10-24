@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import '../../Cubit/series_cubit.dart';
+import '../../Cubit/series_state.dart';
+import '../widgets/Series_Widget.dart';
 
-import '../../cubit/Movie_Cubit.dart';
-import '../../cubit/Movie_State.dart';
-import '../Widgets/Movie_List_Widget.dart';
-
-class ViewAllMovies extends StatefulWidget {
+class ViewAllSeries extends StatefulWidget {
   @override
-  _ViewAllMoviesState createState() => _ViewAllMoviesState();
+  _ViewAllSeriesState createState() => _ViewAllSeriesState();
 }
 
-class _ViewAllMoviesState extends State<ViewAllMovies> {
+class _ViewAllSeriesState extends State<ViewAllSeries> {
   final ScrollController _scrollController = ScrollController();
 
   @override
@@ -19,7 +18,7 @@ class _ViewAllMoviesState extends State<ViewAllMovies> {
     super.initState();
     _scrollController.addListener(() {
       if (_scrollController.position.pixels >= _scrollController.position.maxScrollExtent - 200) {
-        context.read<MovieCubit>().fetchMorePopularMovies();
+        context.read<SeriesCubit>().fetchMorePopularSeries();
       }
     });
   }
@@ -32,13 +31,15 @@ class _ViewAllMoviesState extends State<ViewAllMovies> {
 
   @override
   Widget build(BuildContext context) {
-    var state = context.watch<MovieCubit>().state;
+    var state = context.watch<SeriesCubit>().state;
 
-    if (state is MovieLoading) {
-      return Center(child: LoadingAnimationWidget.dotsTriangle(color: Colors.orangeAccent, size: 50));
-    } else if (state is MovieError) {
+    if (state is SeriesLoading) {
+      return Center(
+        child: LoadingAnimationWidget.dotsTriangle(color: Colors.orangeAccent, size: 50),
+      );
+    } else if (state is SeriesError) {
       return Center(child: Text('Error: ${state.error}'));
-    } else if (state is MovieLoaded) {
+    } else if (state is SeriesLoaded) {
       return Scaffold(
         backgroundColor: const Color.fromRGBO(44, 43, 43, 1),
         body: GridView.builder(
@@ -49,17 +50,19 @@ class _ViewAllMoviesState extends State<ViewAllMovies> {
             mainAxisSpacing: 10.0,
             childAspectRatio: 0.7,
           ),
-          itemCount: state.movies.length + (state.hasMoreMovies ? 1 : 0), // Add loading indicator if more movies
+          itemCount: state.seriesList.length + (state.hasMoreSeries ? 1 : 0),
           itemBuilder: (context, index) {
-            if (index == state.movies.length && state.hasMoreMovies) {
-              return  Center(child: LoadingAnimationWidget.discreteCircle(color: Colors.white10, size: 20) ); // Loading more indicator
+            if (index == state.seriesList.length && state.hasMoreSeries) {
+              return Center(
+                child: LoadingAnimationWidget.discreteCircle(color: Colors.white10, size: 20),
+              );
             }
-            final movie = state.movies[index];
-            return MovieWidget(movie: movie);
+            final series = state.seriesList[index];
+            return SeriesWidget(series: series);
           },
         ),
       );
     }
-    return const Center(child: Text('No movies available'));
+    return const Center(child: Text('No series available'));
   }
 }

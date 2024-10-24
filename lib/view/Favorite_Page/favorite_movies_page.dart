@@ -17,15 +17,6 @@ class FavoriteMoviesPage extends StatelessWidget {
       body: Column(
         children: [
 
-
-          // Expanded(
-          //   child: ListView.builder(
-          //     itemCount: state..length,
-          //     itemBuilder: (context, index) {
-          //       return  MovieWidget(movie:state.favoriteMovies[index]);
-          //     },
-          //   ),
-          // ),
         ],
       ),
     );

@@ -18,7 +18,8 @@ class MovieCubit extends Cubit<MovieState> {
       final movies = await _movieRepository.fetchPopularMoviesPagination(currentPage);
       currentPage++;
       hasMoreMovies = true;
-      emit(MovieLoaded(movies: movies, hasMoreMovies: hasMoreMovies));
+      emit(MovieLoaded(movies: movies,
+          hasMoreMovies: hasMoreMovies));
       print('Fetched ${movies.length} movies. Current page: $currentPage'); // Debugging print
     } catch (e) {
       emit(MovieError(e.toString()));

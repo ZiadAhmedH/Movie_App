@@ -23,4 +23,5 @@ class SeriesDetialsCubit extends Cubit<SeriesDetailsState> {
       emit(DetailsSeriesStateError(error: e.toString()));
     }
   }
+
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:movies_app/controller/Tv_Series/Cubit/series_cubit.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../controller/Movie/Presentation/MovieSection/Movie_Section.dart';
@@ -15,23 +16,30 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Providing MoviesDetailsCubit at the top level so all child widgets can access it
-    return const Scaffold(
-      backgroundColor: Color.fromRGBO(44, 43, 43, 1),
+    return Scaffold(
+      backgroundColor: const Color.fromRGBO(44, 43, 43, 1),
       body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // Trending Movies Section
-         SizedBox(
+            const SizedBox(
               height: 100,
             ),
-            MovieSectionView(),
-            SizedBox(
+            BlocProvider(
+              create: (context) => MovieCubit()..fetchPopularMovies(),
+              child: const MovieSectionView(),
+            ),
+            const SizedBox(
               height: 20,
             ),
             // Trending Series Section
-            SeriesSection(),
+
+            BlocProvider(
+              create: (context) => SeriesCubit()..fetchTrendingSeries(),
+              child: const SeriesSection(),
+            ),
 
           ],
         ),
