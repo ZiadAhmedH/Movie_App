@@ -16,15 +16,17 @@ class MovieLoaded extends MovieState {
   final List<Movie> movies;
   final bool hasMoreMovies;
   final bool isLoading;
+  final Movie randomMovie;
 
-  const MovieLoaded({
+  const MovieLoaded(
+      this.randomMovie, {
     required this.movies,
     this.hasMoreMovies = true,
     this.isLoading = false,
   });
 
   @override
-  List<Object?> get props => [movies, hasMoreMovies, isLoading];
+  List<Object?> get props => [movies, hasMoreMovies, isLoading , randomMovie];
 }
 
 class MovieError extends MovieState {

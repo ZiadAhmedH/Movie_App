@@ -16,7 +16,7 @@ class SeriesSection extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            CustomText(
+            const CustomText(
               text: 'TV Shows Trending Today',
               fontSize: 18,
               color: Colors.white,
@@ -37,10 +37,10 @@ class SeriesSection extends StatelessWidget {
                   ),
                 );
               },
-              child: CustomText(
+              child: const CustomText(
                 text: 'View All',
                 fontSize: 14,
-                color: Colors.blue,
+                color: Colors.deepOrangeAccent,
                 fontWeight: FontWeight.bold,
               ),
             ),

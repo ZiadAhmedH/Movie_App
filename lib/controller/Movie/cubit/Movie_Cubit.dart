@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:bloc/bloc.dart';
 import 'package:get_it/get_it.dart';
 
@@ -53,4 +55,22 @@ class MovieCubit extends Cubit<MovieState> {
       }
     }
   }
+
+  void getRatedMovies() async {
+    emit(MovieLoading());
+    try {
+      final movies = await _movieRepository.fetchRatedMovies();
+
+      // get random movie
+       final random = Random();
+       final randomMovie = movies[random.nextInt(movies.length)];
+       print(randomMovie);
+
+      emit(MovieLoaded(randomMovie));
+    } catch (e) {
+      emit(MovieError(e.toString()));
+    }
+  }
+
+
 }

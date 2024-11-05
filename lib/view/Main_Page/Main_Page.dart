@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -23,10 +24,12 @@ class MainPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+             
+            Container(
+              child: CachedNetworkImage(imageUrl: ),
+            )
+            
             // Trending Movies Section
-            const SizedBox(
-              height: 100,
-            ),
             BlocProvider(
               create: (context) => MovieCubit()..fetchPopularMovies(),
               child: const MovieSectionView(),
@@ -35,7 +38,6 @@ class MainPage extends StatelessWidget {
               height: 20,
             ),
             // Trending Series Section
-
             BlocProvider(
               create: (context) => SeriesCubit()..fetchTrendingSeries(),
               child: const SeriesSection(),

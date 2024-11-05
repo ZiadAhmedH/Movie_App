@@ -43,12 +43,10 @@ class MovieRepository {
           "Authorization": "Bearer ${ApiEndPoints.API_KEY}",
         },
       );
-
       print("Request URL: $url");
       print("Request Headers: ${options.headers}");
 
       final response = await _dio.get(url, options: options);
-
       if (response.statusCode == 200) {
         final results = List<Map<String, dynamic>>.from(response.data['results']);
         print(results); // Print the results for debugging
@@ -60,4 +58,6 @@ class MovieRepository {
       throw Exception('Failed to load movies: $e');
     }
   }
+
+
 }
