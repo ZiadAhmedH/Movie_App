@@ -56,17 +56,16 @@ class MovieCubit extends Cubit<MovieState> {
     }
   }
 
-  void getRatedMovies() async {
+  void getRandomMovies() async {
     emit(MovieLoading());
     try {
-      final movies = await _movieRepository.fetchRatedMovies();
+      final movies = await _movieRepository.fetchPopularMovies();
 
-      // get random movie
        final random = Random();
        final randomMovie = movies[random.nextInt(movies.length)];
        print(randomMovie);
 
-      emit(MovieLoaded(randomMovie));
+      emit(MovieLoaded(randomMovie: randomMovie, movies: movies, hasMoreMovies: false));
     } catch (e) {
       emit(MovieError(e.toString()));
     }

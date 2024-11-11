@@ -19,10 +19,11 @@ class MovieLoaded extends MovieState {
   final Movie randomMovie;
 
   const MovieLoaded(
-      this.randomMovie, {
+       {
     required this.movies,
     this.hasMoreMovies = true,
     this.isLoading = false,
+         this.randomMovie = const Movie(id: 0, title: '', posterPath: '', backdropPath: '', overview: '', voteAverage: 0.0,),
   });
 
   @override

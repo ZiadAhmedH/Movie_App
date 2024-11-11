@@ -5,6 +5,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:movies_app/controller/Tv_Series/Cubit/series_cubit.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
+import '../../controller/Constant/ApiEndPoints.dart';
 import '../../controller/Movie/Presentation/MovieSection/Movie_Section.dart';
 import '../../controller/Movie/cubit/Movie_Cubit.dart';
 import '../../controller/Movie/cubit/Movie_State.dart';
@@ -24,11 +25,43 @@ class MainPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-             
-            Container(
-              child: CachedNetworkImage(imageUrl: ),
-            )
-            
+            BlocProvider(
+              create: (context) => MovieCubit()..getRandomMovies(),
+              child: BlocBuilder<MovieCubit, MovieState>(
+                builder: (context, state) {
+                  if (state is MovieLoading) {
+                    return SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.4,
+                      child: LoadingAnimationWidget.discreteCircle(
+                          color: Colors.deepOrange, size: 50),
+                    );
+                  } else if (state is MovieError) {
+                    return SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.4,
+                      child: const Center(
+                        child: Text('Error'),
+                      ),
+                    );
+                  } else if (state is MovieLoaded) {
+                    return SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.4,
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      child: CachedNetworkImage(
+                        imageUrl: "${ApiEndPoints.MOVIE_Base_Poster}${state.randomMovie.posterPath}",
+                        fit: BoxFit.cover,
+                        placeholder: (context, url) => const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
+                      ),
+                    );
+                  }
+                  return const SizedBox();
+                },
+              ),
+            ),
+
             // Trending Movies Section
             BlocProvider(
               create: (context) => MovieCubit()..fetchPopularMovies(),
@@ -42,7 +75,6 @@ class MainPage extends StatelessWidget {
               create: (context) => SeriesCubit()..fetchTrendingSeries(),
               child: const SeriesSection(),
             ),
-
           ],
         ),
       ),
