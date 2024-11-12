@@ -32,8 +32,12 @@ mixin _$Movie {
   @JsonKey(name: 'vote_average')
   double? get voteAverage => throw _privateConstructorUsedError;
 
+  /// Serializes this Movie to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Movie
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $MovieCopyWith<Movie> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -61,6 +65,8 @@ class _$MovieCopyWithImpl<$Res, $Val extends Movie>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Movie
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -124,6 +130,8 @@ class __$$MovieImplCopyWithImpl<$Res>
       _$MovieImpl _value, $Res Function(_$MovieImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Movie
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -217,12 +225,14 @@ class _$MovieImpl implements _Movie {
                 other.voteAverage == voteAverage));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType, id, title, overview, posterPath, backdropPath, voteAverage);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Movie
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$MovieImplCopyWith<_$MovieImpl> get copyWith =>
@@ -264,8 +274,11 @@ abstract class _Movie implements Movie {
   @override
   @JsonKey(name: 'vote_average')
   double? get voteAverage;
+
+  /// Create a copy of Movie
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$MovieImplCopyWith<_$MovieImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -39,8 +39,12 @@ mixin _$Series {
   @JsonKey(name: 'vote_average')
   double? get voteAverage => throw _privateConstructorUsedError;
 
+  /// Serializes this Series to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of Series
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $SeriesCopyWith<Series> get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -73,6 +77,8 @@ class _$SeriesCopyWithImpl<$Res, $Val extends Series>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of Series
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -166,6 +172,8 @@ class __$$SeriesImplCopyWithImpl<$Res>
       _$SeriesImpl _value, $Res Function(_$SeriesImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of Series
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -311,7 +319,7 @@ class _$SeriesImpl implements _Series {
                 other.voteAverage == voteAverage));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -327,7 +335,9 @@ class _$SeriesImpl implements _Series {
       firstAirDate,
       voteAverage);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of Series
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SeriesImplCopyWith<_$SeriesImpl> get copyWith =>
@@ -386,8 +396,11 @@ abstract class _Series implements Series {
   @override
   @JsonKey(name: 'vote_average')
   double? get voteAverage;
+
+  /// Create a copy of Series
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SeriesImplCopyWith<_$SeriesImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

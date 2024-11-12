@@ -51,8 +51,12 @@ mixin _$MovieDetails {
   @JsonKey(name: 'vote_count')
   int? get voteCount => throw _privateConstructorUsedError;
 
+  /// Serializes this MovieDetails to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of MovieDetails
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $MovieDetailsCopyWith<MovieDetails> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -97,6 +101,8 @@ class _$MovieDetailsCopyWithImpl<$Res, $Val extends MovieDetails>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of MovieDetails
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -251,6 +257,8 @@ class __$$MovieDetailsImplCopyWithImpl<$Res>
       _$MovieDetailsImpl _value, $Res Function(_$MovieDetailsImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of MovieDetails
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -499,7 +507,7 @@ class _$MovieDetailsImpl implements _MovieDetails {
                 other.voteCount == voteCount));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
@@ -526,7 +534,9 @@ class _$MovieDetailsImpl implements _MovieDetails {
         voteCount
       ]);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of MovieDetails
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$MovieDetailsImplCopyWith<_$MovieDetailsImpl> get copyWith =>
@@ -618,8 +628,11 @@ abstract class _MovieDetails implements MovieDetails {
   @override
   @JsonKey(name: 'vote_count')
   int? get voteCount;
+
+  /// Create a copy of MovieDetails
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$MovieDetailsImplCopyWith<_$MovieDetailsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

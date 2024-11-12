@@ -45,8 +45,12 @@ mixin _$SeriesDetails {
   @JsonKey(name: 'vote_count')
   int? get voteCount => throw _privateConstructorUsedError;
 
+  /// Serializes this SeriesDetails to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SeriesDetails
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $SeriesDetailsCopyWith<SeriesDetails> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -84,6 +88,8 @@ class _$SeriesDetailsCopyWithImpl<$Res, $Val extends SeriesDetails>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of SeriesDetails
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -196,6 +202,8 @@ class __$$SeriesDetailsImplCopyWithImpl<$Res>
       _$SeriesDetailsImpl _value, $Res Function(_$SeriesDetailsImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SeriesDetails
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -383,7 +391,7 @@ class _$SeriesDetailsImpl implements _SeriesDetails {
                 other.voteCount == voteCount));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -402,7 +410,9 @@ class _$SeriesDetailsImpl implements _SeriesDetails {
       voteAverage,
       voteCount);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SeriesDetails
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SeriesDetailsImplCopyWith<_$SeriesDetailsImpl> get copyWith =>
@@ -474,8 +484,11 @@ abstract class _SeriesDetails implements SeriesDetails {
   @override
   @JsonKey(name: 'vote_count')
   int? get voteCount;
+
+  /// Create a copy of SeriesDetails
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SeriesDetailsImplCopyWith<_$SeriesDetailsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -4,11 +4,13 @@ import 'package:movies_app/controller/Movie_Details_Cubit/cubit/detials_movie_cu
 import 'package:movies_app/controller/Page_Cubit/page_cubit.dart';
 import 'package:movies_app/view/Home_Page/Home_Page.dart';
 import 'controller/BlocObserver.dart';
+import 'controller/Movie_Details_Cubit/Data/Local/Hive_Movie.dart';
 import 'dependancy_Injection/service_DI.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   setupDI();
+  HiveDatabase.initHive();
   Bloc.observer = MyBlocObserver();
   runApp(const MainApp());
 }
