@@ -15,13 +15,13 @@ class MovieSectionView extends StatelessWidget {
     return Column(
       children: [
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          CustomText(
+          const CustomText(
             text: 'Movies Trending Today',
             fontSize: 18,
             color: Colors.white,
             fontWeight: FontWeight.bold,
           ),
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
           InkWell(
             onTap: () {
               Navigator.push(
@@ -33,10 +33,10 @@ class MovieSectionView extends StatelessWidget {
                             child: ViewAllMovies(),
                           )));
             },
-            child: CustomText(
+            child: const CustomText(
               text: 'View All',
               fontSize: 14,
-              color: Colors.blue,
+              color: Colors.deepOrangeAccent,
               fontWeight: FontWeight.bold,
             ),
           ),
