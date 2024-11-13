@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../../../Constant/ApiEndPoints.dart';
 import '../../../Movie_Details_Cubit/Presentation/Movie_Details_Page.dart';
-import '../../../Movie_Details_Cubit/cubit/detials_movie_cubit.dart';
+import '../../../Movie_Details_Cubit/cubit/Details_Cubit/detials_movie_cubit.dart';
 import '../../Data/Models/Movie_Model.dart';
 
 class MovieWidget extends StatelessWidget {
@@ -26,7 +26,7 @@ class MovieWidget extends StatelessWidget {
             builder: (context) =>
                 BlocProvider(
                   create: (context) => MoviesDetailsCubit()..getMovieDetails(movie.id),
-                  child: MovieDetailsScreen(movieId: movie.id),
+                  child: MovieDetailsScreen(movie: movie),
                 ),
           ),
         );

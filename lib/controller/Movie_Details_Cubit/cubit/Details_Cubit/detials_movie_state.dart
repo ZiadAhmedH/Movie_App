@@ -1,7 +1,7 @@
  // create a class called DetailsMovieState
 import 'package:equatable/equatable.dart';
 
-import '../Data/Models/Movie_Deatails_Model.dart';
+import '../../Data/Models/Movie_Deatails_Model.dart';
 
 class DetailsMovieState extends Equatable {
   final MovieDetails movieDetails;

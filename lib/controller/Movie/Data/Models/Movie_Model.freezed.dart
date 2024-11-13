@@ -31,6 +31,7 @@ mixin _$Movie {
   String? get backdropPath => throw _privateConstructorUsedError;
   @JsonKey(name: 'vote_average')
   double? get voteAverage => throw _privateConstructorUsedError;
+  bool get isFav => throw _privateConstructorUsedError;
 
   /// Serializes this Movie to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -52,7 +53,8 @@ abstract class $MovieCopyWith<$Res> {
       @JsonKey(name: 'overview') String? overview,
       @JsonKey(name: 'poster_path') String? posterPath,
       @JsonKey(name: 'backdrop_path') String? backdropPath,
-      @JsonKey(name: 'vote_average') double? voteAverage});
+      @JsonKey(name: 'vote_average') double? voteAverage,
+      bool isFav});
 }
 
 /// @nodoc
@@ -76,6 +78,7 @@ class _$MovieCopyWithImpl<$Res, $Val extends Movie>
     Object? posterPath = freezed,
     Object? backdropPath = freezed,
     Object? voteAverage = freezed,
+    Object? isFav = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -102,6 +105,10 @@ class _$MovieCopyWithImpl<$Res, $Val extends Movie>
           ? _value.voteAverage
           : voteAverage // ignore: cast_nullable_to_non_nullable
               as double?,
+      isFav: null == isFav
+          ? _value.isFav
+          : isFav // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -119,7 +126,8 @@ abstract class _$$MovieImplCopyWith<$Res> implements $MovieCopyWith<$Res> {
       @JsonKey(name: 'overview') String? overview,
       @JsonKey(name: 'poster_path') String? posterPath,
       @JsonKey(name: 'backdrop_path') String? backdropPath,
-      @JsonKey(name: 'vote_average') double? voteAverage});
+      @JsonKey(name: 'vote_average') double? voteAverage,
+      bool isFav});
 }
 
 /// @nodoc
@@ -141,6 +149,7 @@ class __$$MovieImplCopyWithImpl<$Res>
     Object? posterPath = freezed,
     Object? backdropPath = freezed,
     Object? voteAverage = freezed,
+    Object? isFav = null,
   }) {
     return _then(_$MovieImpl(
       id: null == id
@@ -167,6 +176,10 @@ class __$$MovieImplCopyWithImpl<$Res>
           ? _value.voteAverage
           : voteAverage // ignore: cast_nullable_to_non_nullable
               as double?,
+      isFav: null == isFav
+          ? _value.isFav
+          : isFav // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -180,7 +193,8 @@ class _$MovieImpl implements _Movie {
       @JsonKey(name: 'overview') this.overview,
       @JsonKey(name: 'poster_path') this.posterPath,
       @JsonKey(name: 'backdrop_path') this.backdropPath,
-      @JsonKey(name: 'vote_average') this.voteAverage});
+      @JsonKey(name: 'vote_average') this.voteAverage,
+      this.isFav = false});
 
   factory _$MovieImpl.fromJson(Map<String, dynamic> json) =>
       _$$MovieImplFromJson(json);
@@ -202,10 +216,13 @@ class _$MovieImpl implements _Movie {
   @override
   @JsonKey(name: 'vote_average')
   final double? voteAverage;
+  @override
+  @JsonKey()
+  final bool isFav;
 
   @override
   String toString() {
-    return 'Movie(id: $id, title: $title, overview: $overview, posterPath: $posterPath, backdropPath: $backdropPath, voteAverage: $voteAverage)';
+    return 'Movie(id: $id, title: $title, overview: $overview, posterPath: $posterPath, backdropPath: $backdropPath, voteAverage: $voteAverage, isFav: $isFav)';
   }
 
   @override
@@ -222,13 +239,14 @@ class _$MovieImpl implements _Movie {
             (identical(other.backdropPath, backdropPath) ||
                 other.backdropPath == backdropPath) &&
             (identical(other.voteAverage, voteAverage) ||
-                other.voteAverage == voteAverage));
+                other.voteAverage == voteAverage) &&
+            (identical(other.isFav, isFav) || other.isFav == isFav));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, title, overview, posterPath, backdropPath, voteAverage);
+  int get hashCode => Object.hash(runtimeType, id, title, overview, posterPath,
+      backdropPath, voteAverage, isFav);
 
   /// Create a copy of Movie
   /// with the given fields replaced by the non-null parameter values.
@@ -253,7 +271,8 @@ abstract class _Movie implements Movie {
       @JsonKey(name: 'overview') final String? overview,
       @JsonKey(name: 'poster_path') final String? posterPath,
       @JsonKey(name: 'backdrop_path') final String? backdropPath,
-      @JsonKey(name: 'vote_average') final double? voteAverage}) = _$MovieImpl;
+      @JsonKey(name: 'vote_average') final double? voteAverage,
+      final bool isFav}) = _$MovieImpl;
 
   factory _Movie.fromJson(Map<String, dynamic> json) = _$MovieImpl.fromJson;
 
@@ -274,6 +293,8 @@ abstract class _Movie implements Movie {
   @override
   @JsonKey(name: 'vote_average')
   double? get voteAverage;
+  @override
+  bool get isFav;
 
   /// Create a copy of Movie
   /// with the given fields replaced by the non-null parameter values.

@@ -28,6 +28,7 @@ class MovieDetails with _$MovieDetails{
     bool? video,
     @JsonKey(name: 'vote_average') double? voteAverage,
     @JsonKey(name: 'vote_count') int? voteCount,
+    @Default(false) bool isFav,
   }) = _MovieDetails;
 
   factory MovieDetails.fromJson(Map<String, dynamic> json) => _$MovieDetailsFromJson(json);

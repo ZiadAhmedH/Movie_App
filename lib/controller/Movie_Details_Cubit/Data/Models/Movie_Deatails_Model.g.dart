@@ -31,6 +31,7 @@ _$MovieDetailsImpl _$$MovieDetailsImplFromJson(Map<String, dynamic> json) =>
       video: json['video'] as bool?,
       voteAverage: (json['vote_average'] as num?)?.toDouble(),
       voteCount: (json['vote_count'] as num?)?.toInt(),
+      isFav: json['isFav'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$MovieDetailsImplToJson(_$MovieDetailsImpl instance) =>
@@ -56,4 +57,5 @@ Map<String, dynamic> _$$MovieDetailsImplToJson(_$MovieDetailsImpl instance) =>
       'video': instance.video,
       'vote_average': instance.voteAverage,
       'vote_count': instance.voteCount,
+      'isFav': instance.isFav,
     };

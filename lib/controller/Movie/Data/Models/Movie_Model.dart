@@ -12,6 +12,7 @@ class Movie with _$Movie {
     @JsonKey(name: 'poster_path') String? posterPath,
     @JsonKey(name: 'backdrop_path') String? backdropPath,
     @JsonKey(name: 'vote_average') double? voteAverage,
+    @Default(false) bool isFav,
   }) = _Movie;
 
   factory Movie.fromJson(Map<String, dynamic> json) => _$MovieFromJson(json);

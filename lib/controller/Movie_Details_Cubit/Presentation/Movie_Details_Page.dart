@@ -1,21 +1,17 @@
 import 'package:flutter/services.dart';
+import 'package:movies_app/controller/Movie_Details_Cubit/cubit/Favorites_Cubit/favorites_cubit.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:movies_app/controller/Movie_Details_Cubit/cubit/detials_movie_cubit.dart';
-import '../../../model/Components/Custom_Text.dart';
-import '../../../view/Movie_Video_Page/Movie_Video.dart';
-import '../../Constant/ApiEndPoints.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
-import '../cubit/detials_movie_state.dart';
+import '../../Movie/Data/Models/Movie_Model.dart';
+import '../cubit/Details_Cubit/detials_movie_cubit.dart';
+import '../cubit/Details_Cubit/detials_movie_state.dart';
 import 'Details_Movie_Content_Loaded.dart';
 import 'ShimmerDetailsMovie.dart';
 
 class MovieDetailsScreen extends StatelessWidget {
-  final int movieId;
-  const MovieDetailsScreen({super.key, required this.movieId});
+  final Movie movie;
+  const MovieDetailsScreen({super.key, required this.movie});
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +28,25 @@ class MovieDetailsScreen extends StatelessWidget {
               physics: const BouncingScrollPhysics(),
               child: Column(
                 children: [
-                  // Show shimmer if loading state
+                  // Show shimmer loader if the state is loading
                   state is DetailsMovieStateLoading
                       ? buildShimmerLoader(context)
-                      : buildMovieDetails(context, state),
+                      : buildMovieDetails(
+                    context,
+                    state,
+                        () {
+                      context.read<FavoritesCubit>().toggleFavorite(movie);
+                    },
+                  ),
+                  // Show error or no data state if required (optional)
+                  if (state is DetailsMovieStateError)
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text(
+                        state.error,
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    ),
                 ],
               ),
             ),
@@ -44,5 +55,4 @@ class MovieDetailsScreen extends StatelessWidget {
       },
     );
   }
-
 }

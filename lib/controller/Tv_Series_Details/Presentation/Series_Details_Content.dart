@@ -13,7 +13,6 @@ import '../Cubit/series_detials_state.dart';
 Widget buildSeriesDetails(BuildContext context, SeriesDetailsState state) {
   return Column(
     children: [
-      // Series image and title with gradient effect
       SizedBox(
         height: MediaQuery.of(context).size.height * 0.3,
         child: Stack(

@@ -50,6 +50,7 @@ mixin _$MovieDetails {
   double? get voteAverage => throw _privateConstructorUsedError;
   @JsonKey(name: 'vote_count')
   int? get voteCount => throw _privateConstructorUsedError;
+  bool get isFav => throw _privateConstructorUsedError;
 
   /// Serializes this MovieDetails to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -88,7 +89,8 @@ abstract class $MovieDetailsCopyWith<$Res> {
       String? title,
       bool? video,
       @JsonKey(name: 'vote_average') double? voteAverage,
-      @JsonKey(name: 'vote_count') int? voteCount});
+      @JsonKey(name: 'vote_count') int? voteCount,
+      bool isFav});
 }
 
 /// @nodoc
@@ -127,6 +129,7 @@ class _$MovieDetailsCopyWithImpl<$Res, $Val extends MovieDetails>
     Object? video = freezed,
     Object? voteAverage = freezed,
     Object? voteCount = freezed,
+    Object? isFav = null,
   }) {
     return _then(_value.copyWith(
       adult: freezed == adult
@@ -213,6 +216,10 @@ class _$MovieDetailsCopyWithImpl<$Res, $Val extends MovieDetails>
           ? _value.voteCount
           : voteCount // ignore: cast_nullable_to_non_nullable
               as int?,
+      isFav: null == isFav
+          ? _value.isFav
+          : isFav // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -246,7 +253,8 @@ abstract class _$$MovieDetailsImplCopyWith<$Res>
       String? title,
       bool? video,
       @JsonKey(name: 'vote_average') double? voteAverage,
-      @JsonKey(name: 'vote_count') int? voteCount});
+      @JsonKey(name: 'vote_count') int? voteCount,
+      bool isFav});
 }
 
 /// @nodoc
@@ -283,6 +291,7 @@ class __$$MovieDetailsImplCopyWithImpl<$Res>
     Object? video = freezed,
     Object? voteAverage = freezed,
     Object? voteCount = freezed,
+    Object? isFav = null,
   }) {
     return _then(_$MovieDetailsImpl(
       adult: freezed == adult
@@ -369,6 +378,10 @@ class __$$MovieDetailsImplCopyWithImpl<$Res>
           ? _value.voteCount
           : voteCount // ignore: cast_nullable_to_non_nullable
               as int?,
+      isFav: null == isFav
+          ? _value.isFav
+          : isFav // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -397,7 +410,8 @@ class _$MovieDetailsImpl implements _MovieDetails {
       this.title,
       this.video,
       @JsonKey(name: 'vote_average') this.voteAverage,
-      @JsonKey(name: 'vote_count') this.voteCount})
+      @JsonKey(name: 'vote_count') this.voteCount,
+      this.isFav = false})
       : _originCountry = originCountry;
 
   factory _$MovieDetailsImpl.fromJson(Map<String, dynamic> json) =>
@@ -462,10 +476,13 @@ class _$MovieDetailsImpl implements _MovieDetails {
   @override
   @JsonKey(name: 'vote_count')
   final int? voteCount;
+  @override
+  @JsonKey()
+  final bool isFav;
 
   @override
   String toString() {
-    return 'MovieDetails(adult: $adult, backdropPath: $backdropPath, budget: $budget, homepage: $homepage, id: $id, imdbId: $imdbId, originCountry: $originCountry, originalLanguage: $originalLanguage, originalTitle: $originalTitle, overview: $overview, popularity: $popularity, posterPath: $posterPath, releaseDate: $releaseDate, revenue: $revenue, runtime: $runtime, status: $status, tagline: $tagline, title: $title, video: $video, voteAverage: $voteAverage, voteCount: $voteCount)';
+    return 'MovieDetails(adult: $adult, backdropPath: $backdropPath, budget: $budget, homepage: $homepage, id: $id, imdbId: $imdbId, originCountry: $originCountry, originalLanguage: $originalLanguage, originalTitle: $originalTitle, overview: $overview, popularity: $popularity, posterPath: $posterPath, releaseDate: $releaseDate, revenue: $revenue, runtime: $runtime, status: $status, tagline: $tagline, title: $title, video: $video, voteAverage: $voteAverage, voteCount: $voteCount, isFav: $isFav)';
   }
 
   @override
@@ -504,7 +521,8 @@ class _$MovieDetailsImpl implements _MovieDetails {
             (identical(other.voteAverage, voteAverage) ||
                 other.voteAverage == voteAverage) &&
             (identical(other.voteCount, voteCount) ||
-                other.voteCount == voteCount));
+                other.voteCount == voteCount) &&
+            (identical(other.isFav, isFav) || other.isFav == isFav));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -531,7 +549,8 @@ class _$MovieDetailsImpl implements _MovieDetails {
         title,
         video,
         voteAverage,
-        voteCount
+        voteCount,
+        isFav
       ]);
 
   /// Create a copy of MovieDetails
@@ -572,7 +591,8 @@ abstract class _MovieDetails implements MovieDetails {
       final String? title,
       final bool? video,
       @JsonKey(name: 'vote_average') final double? voteAverage,
-      @JsonKey(name: 'vote_count') final int? voteCount}) = _$MovieDetailsImpl;
+      @JsonKey(name: 'vote_count') final int? voteCount,
+      final bool isFav}) = _$MovieDetailsImpl;
 
   factory _MovieDetails.fromJson(Map<String, dynamic> json) =
       _$MovieDetailsImpl.fromJson;
@@ -628,6 +648,8 @@ abstract class _MovieDetails implements MovieDetails {
   @override
   @JsonKey(name: 'vote_count')
   int? get voteCount;
+  @override
+  bool get isFav;
 
   /// Create a copy of MovieDetails
   /// with the given fields replaced by the non-null parameter values.

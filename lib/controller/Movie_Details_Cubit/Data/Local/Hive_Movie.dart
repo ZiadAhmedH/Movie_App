@@ -9,7 +9,7 @@ class HiveDatabase {
     final directory = await getApplicationDocumentsDirectory();
     Hive.init(directory.path);
 
-     Hive.registerAdapter(MovieAdapter());
+     Hive.registerAdapter(HiveMovieAdapter());
   }
 
   static Future<Box<T>> openBox<T>(String boxName) async {

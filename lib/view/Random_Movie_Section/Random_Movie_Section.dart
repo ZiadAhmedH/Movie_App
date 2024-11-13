@@ -7,7 +7,7 @@ import '../../controller/Constant/ApiEndPoints.dart';
 import '../../controller/Movie/cubit/Movie_Cubit.dart';
 import '../../controller/Movie/cubit/Movie_State.dart';
 import '../../controller/Movie_Details_Cubit/Presentation/Movie_Details_Page.dart';
-import '../../controller/Movie_Details_Cubit/cubit/detials_movie_cubit.dart';
+import '../../controller/Movie_Details_Cubit/cubit/Details_Cubit/detials_movie_cubit.dart';
 class RandomMovieSection extends StatelessWidget {
   const RandomMovieSection({super.key});
 
@@ -70,7 +70,7 @@ class RandomMovieSection extends StatelessWidget {
                           Navigator.push(context, MaterialPageRoute(builder:(context) {
                             return BlocProvider(
                               create: (context) => MoviesDetailsCubit()..getMovieDetails(state.randomMovie.id),
-                              child: MovieDetailsScreen(movieId: state.randomMovie.id,),
+                              child: MovieDetailsScreen(movie: state.randomMovie,),
                             );
                           }, ));
 

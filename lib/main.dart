@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/controller/Movie_Details_Cubit/cubit/detials_movie_cubit.dart';
 import 'package:movies_app/controller/Page_Cubit/page_cubit.dart';
 import 'package:movies_app/view/Home_Page/Home_Page.dart';
 import 'controller/BlocObserver.dart';
@@ -22,7 +21,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => PageCubit(),
-      child: MaterialApp(
+      child: const MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Movies App',
         home: HomePage(),

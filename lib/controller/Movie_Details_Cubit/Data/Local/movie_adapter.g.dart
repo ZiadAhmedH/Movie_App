@@ -6,33 +6,35 @@ part of 'movie_adapter.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class MovieAdapter extends TypeAdapter<Movie> {
+class HiveMovieAdapter extends TypeAdapter<HiveMovie> {
   @override
   final int typeId = 0;
 
   @override
-  Movie read(BinaryReader reader) {
+  HiveMovie read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Movie(
+    return HiveMovie(
       id: fields[0] as int,
       title: fields[1] as String,
-      genre: fields[2] as String,
-    );
+      overview: fields[2] as String,
+    ).._isFav = fields[3] as bool;
   }
 
   @override
-  void write(BinaryWriter writer, Movie obj) {
+  void write(BinaryWriter writer, HiveMovie obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
       ..write(obj.title)
       ..writeByte(2)
-      ..write(obj.genre);
+      ..write(obj.overview)
+      ..writeByte(3)
+      ..write(obj._isFav);
   }
 
   @override
@@ -41,7 +43,7 @@ class MovieAdapter extends TypeAdapter<Movie> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is MovieAdapter &&
+      other is HiveMovieAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

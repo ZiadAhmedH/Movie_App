@@ -1,27 +1,25 @@
-import '../../../Movie/Data/Models/Movie_Model.dart';
 import 'Hive_Movie.dart';
-
+import 'movie_adapter.dart';
 class MovieDao {
-  final String _boxName = 'movieDB';
+  final String _favoritesBoxName = 'favoritesBox';
 
-  Future<void> addMovie(Movie movie) async {
-    final box = await HiveDatabase.openBox<Movie>(_boxName);
-    await box.put(movie.id, movie);
+  Future<void> addToFavorites(HiveMovie movie) async {
+    final box = await HiveDatabase.openBox<HiveMovie>(_favoritesBoxName);
+    await box.put(movie.id, movie); // Use movie ID as the key
   }
 
-  Future<Movie?> getMovie(int id) async {
-    final box = await HiveDatabase.openBox<Movie>(_boxName);
-    return box.get(id);
+  Future<void> removeFromFavorites(int movieId) async {
+    final box = await HiveDatabase.openBox<HiveMovie>(_favoritesBoxName);
+    await box.delete(movieId); // Remove by movie ID
   }
 
-  Future<List<Movie>> getAllMovies() async {
-    final box = await HiveDatabase.openBox<Movie>(_boxName);
+  Future<List<HiveMovie>> getFavoriteMovies() async {
+    final box = await HiveDatabase.openBox<HiveMovie>(_favoritesBoxName);
     return box.values.toList();
   }
 
-  Future<void> deleteMovie(int id) async {
-    final box = await HiveDatabase.openBox<Movie>(_boxName);
-    await box.delete(id);
+  Future<bool> isFavorite(int movieId) async {
+    final box = await HiveDatabase.openBox<HiveMovie>(_favoritesBoxName);
+    return box.containsKey(movieId);
   }
-
 }

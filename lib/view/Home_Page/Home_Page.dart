@@ -1,17 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/controller/Movie_Details_Cubit/cubit/detials_movie_cubit.dart';
-
-import '../../controller/Movie/cubit/Movie_Cubit.dart';
 import '../../controller/Page_Cubit/page_cubit.dart';
-class HomePage extends StatefulWidget {
+import 'dart:ui';
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:movies_app/controller/Movie_Details_Cubit/cubit/detials_movie_cubit.dart';
 import 'package:movies_app/controller/Tv_Series/Cubit/series_cubit.dart';
 import '../../controller/Constant/ApiEndPoints.dart';
 import '../../controller/Movie/Presentation/MovieSection/Movie_Section.dart';
