@@ -20,21 +20,19 @@ class HiveMovieAdapter extends TypeAdapter<HiveMovie> {
       id: fields[0] as int,
       title: fields[1] as String,
       overview: fields[2] as String,
-    ).._isFav = fields[3] as bool;
+    );
   }
 
   @override
   void write(BinaryWriter writer, HiveMovie obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(3)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
       ..write(obj.title)
       ..writeByte(2)
-      ..write(obj.overview)
-      ..writeByte(3)
-      ..write(obj._isFav);
+      ..write(obj.overview);
   }
 
   @override

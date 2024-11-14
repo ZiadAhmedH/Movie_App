@@ -1,15 +1,17 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:movies_app/controller/Movie_Details_Cubit/Data/Local/movie_adapter.dart';
+import 'package:movies_app/controller/Movie_Details_Cubit/Data/Local/movie_dao.dart';
 import 'package:movies_app/controller/Movie_Details_Cubit/Data/Models/Movie_Deatails_Model.dart';
 import 'package:movies_app/controller/Movie_Details_Cubit/Data/Repo/Movie_Details_Repo.dart';
-import 'package:movies_app/controller/Movie_Details_Cubit/cubit/Favorites_Cubit/favorites_cubit.dart';
 import '../../../Movie/Data/Models/Movie_Model.dart';
 import 'detials_movie_state.dart';
 
 class MoviesDetailsCubit extends Cubit<DetailsMovieState> {
   final MovieDetailsRepo _moviedetailsRepo = GetIt.instance<MovieDetailsRepo>();
-  final FavoritesCubit _favCubit = GetIt.instance<FavoritesCubit>(); // Inject FavCubit
+
+  final MovieDao  _movieDao =  GetIt.instance<MovieDao>();
 
   MoviesDetailsCubit() : super(DetailsMovieStateInitial());
 
@@ -17,7 +19,7 @@ class MoviesDetailsCubit extends Cubit<DetailsMovieState> {
     emit(DetailsMovieStateLoading());
     try {
       final movieDetails = await _moviedetailsRepo.getMovieDetails(movieId);
-      emit(DetailsMovieStateLoaded(movieDetails: movieDetails));
+      emit(DetailsMovieStateLoaded(movieDetails: movieDetails , isFav: await _movieDao.isFavorite(movieId)));
     } catch (e) {
       emit(DetailsMovieStateError(error: e.toString()));
     }
@@ -25,10 +27,22 @@ class MoviesDetailsCubit extends Cubit<DetailsMovieState> {
 
   Future<void> toggleFavorite(Movie movie) async {
     try {
-      MovieDetails  newUpDatedMovie =   _favCubit.toggleFavorite(movie) as MovieDetails;
-     emit(DetailsMovieStateLoaded(movieDetails:newUpDatedMovie ));
+      final isCurrentlyFavorite = await _movieDao.isFavorite(movie.id);
+      if (isCurrentlyFavorite) {
+        await _movieDao.removeFromFavorites(movie.id);
+        emit(DetailsMovieStateLoaded(movieDetails: (state as DetailsMovieStateLoaded).movieDetails.copyWith(isFav: !isCurrentlyFavorite), isFav: !isCurrentlyFavorite));
+      } else {
+        await _movieDao.addToFavorites(HiveMovie(id: movie.id, title: movie.title.toString(), overview: movie.overview.toString()));
+      }
+      final updatedMovieDetails = (state as DetailsMovieStateLoaded).movieDetails.copyWith(isFav: !isCurrentlyFavorite);
+      emit(DetailsMovieStateLoaded(movieDetails: updatedMovieDetails, isFav: !isCurrentlyFavorite));
     } catch (e) {
       emit(DetailsMovieStateError(error: e.toString()));
     }
   }
+
+  Future<bool> isFavorite(int movieId) async {
+    return await _movieDao.isFavorite(movieId);
+  }
 }
+

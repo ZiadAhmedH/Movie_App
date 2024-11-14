@@ -23,13 +23,28 @@ class DetailsMovieState extends Equatable {
     DetailsMovieStateLoading() : super(movieDetails: MovieDetails());
   }
 
-  class  DetailsMovieStateLoaded extends DetailsMovieState {
-    DetailsMovieStateLoaded({required MovieDetails movieDetails}) : super(movieDetails: movieDetails);
-  }
+ class DetailsMovieStateLoaded extends DetailsMovieState {
+   final bool isFav;
+
+   DetailsMovieStateLoaded({ required MovieDetails movieDetails , required this.isFav})
+       : super(movieDetails: movieDetails);
+
+   DetailsMovieStateLoaded copyWith({MovieDetails? movieDetails, bool? isFav}) {
+     return DetailsMovieStateLoaded(
+       movieDetails: movieDetails ?? this.movieDetails,
+       isFav: isFav ?? this.isFav,
+     );
+   }
+
+
+
+ }
 
   class  DetailsMovieStateError extends DetailsMovieState {
     final String error;
 
     DetailsMovieStateError({required this.error}) : super(movieDetails: MovieDetails());
   }
+
+
 

@@ -1,8 +1,7 @@
 import 'package:flutter/services.dart';
-import 'package:movies_app/controller/Movie_Details_Cubit/cubit/Favorites_Cubit/favorites_cubit.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_app/controller/Movie_Details_Cubit/Data/Models/Movie_Deatails_Model.dart';
 import '../../Movie/Data/Models/Movie_Model.dart';
 import '../cubit/Details_Cubit/detials_movie_cubit.dart';
 import '../cubit/Details_Cubit/detials_movie_state.dart';
@@ -35,7 +34,7 @@ class MovieDetailsScreen extends StatelessWidget {
                     context,
                     state,
                         () {
-                      context.read<FavoritesCubit>().toggleFavorite(movie);
+                      context.read<MoviesDetailsCubit>().toggleFavorite(movie);
                     },
                   ),
                   // Show error or no data state if required (optional)

@@ -4,12 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:movies_app/controller/Constant/ApiEndPoints.dart';
-import 'package:movies_app/controller/Movie_Details_Cubit/cubit/Favorites_Cubit/favorites_cubit.dart';
 import '../../../model/Components/Custom_Text.dart';
 import '../../../view/Movie_Video_Page/Movie_Video.dart';
+import '../cubit/Details_Cubit/detials_movie_cubit.dart';
 import '../cubit/Details_Cubit/detials_movie_state.dart';
 
-Widget buildMovieDetails(BuildContext context, DetailsMovieState state, void Function() onToggleFavorite) {
+Widget buildMovieDetails(BuildContext context, DetailsMovieState state,
+    void Function() onToggleFavorite) {
   return Column(
     children: [
       _buildBackdropImage(context, state),
@@ -27,7 +28,8 @@ Widget _buildBackdropImage(BuildContext context, DetailsMovieState state) {
     child: Stack(
       children: [
         CachedNetworkImage(
-          imageUrl: '${ApiEndPoints.MOVIE_Base_Poster}${state.movieDetails.backdropPath}',
+          imageUrl:
+              '${ApiEndPoints.MOVIE_Base_Poster}${state.movieDetails.backdropPath}',
           fit: BoxFit.cover,
           width: double.infinity,
           placeholder: (context, url) => Center(
@@ -36,7 +38,8 @@ Widget _buildBackdropImage(BuildContext context, DetailsMovieState state) {
               size: 100,
             ),
           ),
-          errorWidget: (context, url, error) => const FaIcon(FontAwesomeIcons.elementor),
+          errorWidget: (context, url, error) =>
+              const FaIcon(FontAwesomeIcons.elementor),
         ),
         Positioned.fill(
           child: Container(
@@ -60,7 +63,8 @@ Widget _buildBackdropImage(BuildContext context, DetailsMovieState state) {
 }
 
 // Movie Title, Rating, and Favorite Icon
-Widget _buildMovieInfo(BuildContext context, DetailsMovieState state, void Function() onToggleFavorite) {
+Widget _buildMovieInfo(BuildContext context, DetailsMovieState state,
+    void Function() onToggleFavorite) {
   return Padding(
     padding: const EdgeInsets.all(16.0),
     child: Column(
@@ -78,16 +82,23 @@ Widget _buildMovieInfo(BuildContext context, DetailsMovieState state, void Funct
                 ),
               ),
             ),
-            BlocProvider(
-  create: (context) => FavoritesCubit(),
-  child: IconButton(
-              icon: Icon(
-                state.movieDetails.isFav ? Icons.favorite : Icons.favorite_border,
-                color: Colors.red,
-              ),
-              onPressed: onToggleFavorite, // Toggle favorite status
-            ),
-),
+            BlocBuilder<MoviesDetailsCubit, DetailsMovieState>(
+              builder: (context, state) {
+                if (state is DetailsMovieStateLoading) {
+                  return const Icon(Icons.favorite_border); // Show a default icon while loading
+                } else if (state is DetailsMovieStateLoaded) {
+                  return IconButton(
+                    icon: Icon(
+                        state.isFav ? Icons.favorite : Icons.favorite_border),
+                    onPressed: () {
+                      onToggleFavorite();
+                    },
+                  );
+                } else {
+                  return const Icon(Icons.error);
+                }
+              },
+            )
           ],
         ),
         const SizedBox(height: 10),
@@ -113,25 +124,25 @@ Widget _buildMovieInfo(BuildContext context, DetailsMovieState state, void Funct
 Widget _buildOverviewSection(DetailsMovieState state) {
   return state.movieDetails.overview != null
       ? Padding(
-    padding: const EdgeInsets.all(16.0),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const CustomText(
-          text: 'Overview',
-          fontSize: 18,
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
-        ),
-        const SizedBox(height: 10),
-        CustomText(
-          text: " ${state.movieDetails.overview}",
-          fontSize: 16,
-          color: Colors.white,
-        ),
-      ],
-    ),
-  )
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const CustomText(
+                text: 'Overview',
+                fontSize: 18,
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+              const SizedBox(height: 10),
+              CustomText(
+                text: " ${state.movieDetails.overview}",
+                fontSize: 16,
+                color: Colors.white,
+              ),
+            ],
+          ),
+        )
       : const SizedBox.shrink();
 }
 

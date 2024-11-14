@@ -13,14 +13,7 @@ import 'package:hive/hive.dart';
    @HiveField(2)
    final String overview;
 
-   @HiveField(3)
-   bool _isFav; // Make `_isFav` private and add a method to modify it
 
-   bool get isFav => _isFav; // Getter for isFav
 
-   void setFavoriteStatus(bool status) {
-     _isFav = status;
-   }
-
-   HiveMovie({required this.id, required this.title, required this.overview, bool isFav = false}) : _isFav = isFav;
+   HiveMovie({required this.id, required this.title, required this.overview, });
  }
