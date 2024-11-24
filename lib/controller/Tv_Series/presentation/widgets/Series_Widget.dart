@@ -21,8 +21,8 @@ class SeriesWidget extends StatelessWidget {
         // Navigate to the Series Details Page
         Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
             BlocProvider(
-              create: (context) => SeriesDetialsCubit()..getSeriesDetails(series.id),
-              child: SeriesDetailsScreen(seriesId: series.id),
+              create: (context) => SeriesDetailsCubit()..getSeriesDetails(series.id),
+              child: SeriesDetailsScreen(series: series),
             )));
       },
       child: Padding(

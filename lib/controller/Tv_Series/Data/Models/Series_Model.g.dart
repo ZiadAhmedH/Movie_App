@@ -18,6 +18,7 @@ _$SeriesImpl _$$SeriesImplFromJson(Map<String, dynamic> json) => _$SeriesImpl(
       popularity: (json['popularity'] as num?)?.toDouble(),
       firstAirDate: json['first_air_date'] as String?,
       voteAverage: (json['vote_average'] as num?)?.toDouble(),
+      isFav: json['isFav'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$SeriesImplToJson(_$SeriesImpl instance) =>
@@ -33,4 +34,5 @@ Map<String, dynamic> _$$SeriesImplToJson(_$SeriesImpl instance) =>
       'popularity': instance.popularity,
       'first_air_date': instance.firstAirDate,
       'vote_average': instance.voteAverage,
+      'isFav': instance.isFav,
     };

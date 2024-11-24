@@ -1,30 +1,55 @@
-// create a class called DetailsMovieState
 import 'package:equatable/equatable.dart';
-import 'package:movies_app/controller/Tv_Series_Details/Data/Models/Series_Details_Model.dart';
+import '../Data/Models/Series_Details_Model.dart';
 
-class SeriesDetailsState extends Equatable {
+abstract class SeriesDetailsState extends Equatable {
   final SeriesDetails seriesDetails;
-   SeriesDetailsState({required this.seriesDetails});
+
+  const SeriesDetailsState({required this.seriesDetails});
 
   @override
   List<Object> get props => [seriesDetails];
-
 }
 
-class  DetailsSeriesStateInitial extends SeriesDetailsState {
+// Initial State
+class DetailsSeriesStateInitial extends SeriesDetailsState {
   DetailsSeriesStateInitial() : super(seriesDetails: SeriesDetails());
 }
 
-class  DetailsSeriesStateLoading extends SeriesDetailsState {
+// Loading State
+class DetailsSeriesStateLoading extends SeriesDetailsState {
   DetailsSeriesStateLoading() : super(seriesDetails: SeriesDetails());
 }
 
-class  DetailsSeriesStateLoaded extends SeriesDetailsState {
-  DetailsSeriesStateLoaded({required SeriesDetails seriesDetails}) : super(seriesDetails: seriesDetails);
+// Loaded State with Favorite Status
+class DetailsSeriesStateLoaded extends SeriesDetailsState {
+  final bool isFav;
+
+  const DetailsSeriesStateLoaded({
+    required SeriesDetails seriesDetails,
+    required this.isFav,
+  }) : super(seriesDetails: seriesDetails);
+
+  DetailsSeriesStateLoaded copyWith({
+    SeriesDetails? seriesDetails,
+    bool? isFav,
+  }) {
+    return DetailsSeriesStateLoaded(
+      seriesDetails: seriesDetails ?? this.seriesDetails,
+      isFav: isFav ?? this.isFav,
+    );
+  }
+
+  @override
+  List<Object> get props => [seriesDetails, isFav];
 }
 
-class  DetailsSeriesStateError extends SeriesDetailsState {
+// Error State
+class DetailsSeriesStateError extends SeriesDetailsState {
   final String error;
 
-  DetailsSeriesStateError({required this.error}) : super(seriesDetails: SeriesDetails());
+  const DetailsSeriesStateError({required this.error})
+      : super(seriesDetails: const SeriesDetails());
+
+  @override
+  List<Object> get props => [seriesDetails, error];
 }

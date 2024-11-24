@@ -20,6 +20,8 @@ class SeriesDetails with _$SeriesDetails {
     @JsonKey(name: 'poster_path') String? posterPath,
     @JsonKey(name: 'vote_average') double? voteAverage,
     @JsonKey(name: 'vote_count') int? voteCount,
+    @Default(false) bool isFav,
+
   }) = _SeriesDetails;
 
   factory SeriesDetails.fromJson(Map<String, dynamic> json) => _$SeriesDetailsFromJson(json);

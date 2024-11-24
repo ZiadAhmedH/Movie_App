@@ -1,4 +1,5 @@
 import 'package:flutter/services.dart';
+import 'package:movies_app/controller/Tv_Series/Data/Models/Series_Model.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,12 +16,12 @@ import 'package:movies_app/controller/Tv_Series_Details/Cubit/series_detials_cub
 import 'Series_Details_Content.dart';
 
 class SeriesDetailsScreen extends StatelessWidget {
-  final int seriesId;
-  const SeriesDetailsScreen({super.key, required this.seriesId});
+  final Series series;
+  const SeriesDetailsScreen({super.key, required this.series});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SeriesDetialsCubit, SeriesDetailsState>(
+    return BlocBuilder<SeriesDetailsCubit, SeriesDetailsState>(
       builder: (context, state) {
         return Scaffold(
           backgroundColor: const Color.fromRGBO(44, 43, 43, 1),
@@ -36,7 +37,10 @@ class SeriesDetailsScreen extends StatelessWidget {
                   // Shimmer loader when the state is loading
                   state is DetailsSeriesStateLoading
                       ? buildShimmerLoader(context)
-                      : buildSeriesDetails(context, state),
+                      : buildSeriesDetails(context, state,
+                          () {
+                        context.read<SeriesDetailsCubit>().toggleFavorite(series);
+                      },)
                 ],
               ),
             ),

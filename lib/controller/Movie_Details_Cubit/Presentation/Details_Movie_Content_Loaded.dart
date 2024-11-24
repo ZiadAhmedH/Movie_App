@@ -85,7 +85,7 @@ Widget _buildMovieInfo(BuildContext context, DetailsMovieState state,
             BlocBuilder<MoviesDetailsCubit, DetailsMovieState>(
               builder: (context, state) {
                 if (state is DetailsMovieStateLoading) {
-                  return const Icon(Icons.favorite_border); // Show a default icon while loading
+                  return const CircularProgressIndicator(color: Colors.orange); // Show a default icon while loading
                 } else if (state is DetailsMovieStateLoaded) {
                   return IconButton(
                     icon: Icon(

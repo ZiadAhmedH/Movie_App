@@ -44,6 +44,7 @@ mixin _$SeriesDetails {
   double? get voteAverage => throw _privateConstructorUsedError;
   @JsonKey(name: 'vote_count')
   int? get voteCount => throw _privateConstructorUsedError;
+  bool get isFav => throw _privateConstructorUsedError;
 
   /// Serializes this SeriesDetails to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -75,7 +76,8 @@ abstract class $SeriesDetailsCopyWith<$Res> {
       double? popularity,
       @JsonKey(name: 'poster_path') String? posterPath,
       @JsonKey(name: 'vote_average') double? voteAverage,
-      @JsonKey(name: 'vote_count') int? voteCount});
+      @JsonKey(name: 'vote_count') int? voteCount,
+      bool isFav});
 }
 
 /// @nodoc
@@ -107,6 +109,7 @@ class _$SeriesDetailsCopyWithImpl<$Res, $Val extends SeriesDetails>
     Object? posterPath = freezed,
     Object? voteAverage = freezed,
     Object? voteCount = freezed,
+    Object? isFav = null,
   }) {
     return _then(_value.copyWith(
       adult: freezed == adult
@@ -165,6 +168,10 @@ class _$SeriesDetailsCopyWithImpl<$Res, $Val extends SeriesDetails>
           ? _value.voteCount
           : voteCount // ignore: cast_nullable_to_non_nullable
               as int?,
+      isFav: null == isFav
+          ? _value.isFav
+          : isFav // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -191,7 +198,8 @@ abstract class _$$SeriesDetailsImplCopyWith<$Res>
       double? popularity,
       @JsonKey(name: 'poster_path') String? posterPath,
       @JsonKey(name: 'vote_average') double? voteAverage,
-      @JsonKey(name: 'vote_count') int? voteCount});
+      @JsonKey(name: 'vote_count') int? voteCount,
+      bool isFav});
 }
 
 /// @nodoc
@@ -221,6 +229,7 @@ class __$$SeriesDetailsImplCopyWithImpl<$Res>
     Object? posterPath = freezed,
     Object? voteAverage = freezed,
     Object? voteCount = freezed,
+    Object? isFav = null,
   }) {
     return _then(_$SeriesDetailsImpl(
       adult: freezed == adult
@@ -279,6 +288,10 @@ class __$$SeriesDetailsImplCopyWithImpl<$Res>
           ? _value.voteCount
           : voteCount // ignore: cast_nullable_to_non_nullable
               as int?,
+      isFav: null == isFav
+          ? _value.isFav
+          : isFav // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -300,7 +313,8 @@ class _$SeriesDetailsImpl implements _SeriesDetails {
       this.popularity,
       @JsonKey(name: 'poster_path') this.posterPath,
       @JsonKey(name: 'vote_average') this.voteAverage,
-      @JsonKey(name: 'vote_count') this.voteCount})
+      @JsonKey(name: 'vote_count') this.voteCount,
+      this.isFav = false})
       : _languages = languages;
 
   factory _$SeriesDetailsImpl.fromJson(Map<String, dynamic> json) =>
@@ -352,10 +366,13 @@ class _$SeriesDetailsImpl implements _SeriesDetails {
   @override
   @JsonKey(name: 'vote_count')
   final int? voteCount;
+  @override
+  @JsonKey()
+  final bool isFav;
 
   @override
   String toString() {
-    return 'SeriesDetails(adult: $adult, backdropPath: $backdropPath, firstAirDate: $firstAirDate, homepage: $homepage, id: $id, inProduction: $inProduction, languages: $languages, numberOfSeasons: $numberOfSeasons, originalName: $originalName, overview: $overview, popularity: $popularity, posterPath: $posterPath, voteAverage: $voteAverage, voteCount: $voteCount)';
+    return 'SeriesDetails(adult: $adult, backdropPath: $backdropPath, firstAirDate: $firstAirDate, homepage: $homepage, id: $id, inProduction: $inProduction, languages: $languages, numberOfSeasons: $numberOfSeasons, originalName: $originalName, overview: $overview, popularity: $popularity, posterPath: $posterPath, voteAverage: $voteAverage, voteCount: $voteCount, isFav: $isFav)';
   }
 
   @override
@@ -388,7 +405,8 @@ class _$SeriesDetailsImpl implements _SeriesDetails {
             (identical(other.voteAverage, voteAverage) ||
                 other.voteAverage == voteAverage) &&
             (identical(other.voteCount, voteCount) ||
-                other.voteCount == voteCount));
+                other.voteCount == voteCount) &&
+            (identical(other.isFav, isFav) || other.isFav == isFav));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -408,7 +426,8 @@ class _$SeriesDetailsImpl implements _SeriesDetails {
       popularity,
       posterPath,
       voteAverage,
-      voteCount);
+      voteCount,
+      isFav);
 
   /// Create a copy of SeriesDetails
   /// with the given fields replaced by the non-null parameter values.
@@ -441,7 +460,8 @@ abstract class _SeriesDetails implements SeriesDetails {
       final double? popularity,
       @JsonKey(name: 'poster_path') final String? posterPath,
       @JsonKey(name: 'vote_average') final double? voteAverage,
-      @JsonKey(name: 'vote_count') final int? voteCount}) = _$SeriesDetailsImpl;
+      @JsonKey(name: 'vote_count') final int? voteCount,
+      final bool isFav}) = _$SeriesDetailsImpl;
 
   factory _SeriesDetails.fromJson(Map<String, dynamic> json) =
       _$SeriesDetailsImpl.fromJson;
@@ -484,6 +504,8 @@ abstract class _SeriesDetails implements SeriesDetails {
   @override
   @JsonKey(name: 'vote_count')
   int? get voteCount;
+  @override
+  bool get isFav;
 
   /// Create a copy of SeriesDetails
   /// with the given fields replaced by the non-null parameter values.

@@ -1,4 +1,4 @@
-import 'Hive_Movie.dart';
+import '../../../Hive_Database.dart';
 import 'movie_adapter.dart';
 class MovieDao {
   final String _favoritesBoxName = 'favoritesBox';

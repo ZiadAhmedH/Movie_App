@@ -17,6 +17,8 @@ class Series with _$Series {
     double? popularity,
     @JsonKey(name: 'first_air_date') String? firstAirDate,
     @JsonKey(name: 'vote_average') double? voteAverage,
+    @Default(false) bool isFav,
+
   }) = _Series;
 
   factory Series.fromJson(Map<String, dynamic> json) => _$SeriesFromJson(json);

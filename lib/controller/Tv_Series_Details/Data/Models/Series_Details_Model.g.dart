@@ -24,6 +24,7 @@ _$SeriesDetailsImpl _$$SeriesDetailsImplFromJson(Map<String, dynamic> json) =>
       posterPath: json['poster_path'] as String?,
       voteAverage: (json['vote_average'] as num?)?.toDouble(),
       voteCount: (json['vote_count'] as num?)?.toInt(),
+      isFav: json['isFav'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$SeriesDetailsImplToJson(_$SeriesDetailsImpl instance) =>
@@ -42,4 +43,5 @@ Map<String, dynamic> _$$SeriesDetailsImplToJson(_$SeriesDetailsImpl instance) =>
       'poster_path': instance.posterPath,
       'vote_average': instance.voteAverage,
       'vote_count': instance.voteCount,
+      'isFav': instance.isFav,
     };

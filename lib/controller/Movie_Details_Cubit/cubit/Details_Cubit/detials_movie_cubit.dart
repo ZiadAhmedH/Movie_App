@@ -30,7 +30,7 @@ class MoviesDetailsCubit extends Cubit<DetailsMovieState> {
       final isCurrentlyFavorite = await _movieDao.isFavorite(movie.id);
       if (isCurrentlyFavorite) {
         await _movieDao.removeFromFavorites(movie.id);
-        emit(DetailsMovieStateLoaded(movieDetails: (state as DetailsMovieStateLoaded).movieDetails.copyWith(isFav: !isCurrentlyFavorite), isFav: !isCurrentlyFavorite));
+        emit(DetailsMovieStateLoaded(movieDetails: (state as DetailsMovieStateLoaded).movieDetails.copyWith(isFav: false), isFav: false));
       } else {
         await _movieDao.addToFavorites(HiveMovie(id: movie.id, title: movie.title.toString(), overview: movie.overview.toString()));
       }
