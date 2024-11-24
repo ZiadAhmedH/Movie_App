@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:get_it/get_it.dart';
-import '../../Hive_Database.dart';
+import '../../Movie_Details_Cubit/Data/Local/Hive_Movie_Database.dart';
 import '../../Movie_Details_Cubit/Data/Local/movie_adapter.dart';
 import '../Data/Repo/Movies_Repo.dart';
 import 'Movie_State.dart';
@@ -39,15 +39,12 @@ class MovieCubit extends Cubit<MovieState> {
       final newMovies = await _movieRepository.fetchPopularMoviesPagination(currentPage);
 
       if (newMovies.isNotEmpty) {
-        // Increment page and check if more movies are available
         currentPage++;
         hasMoreMovies = newMovies.length == 20;
 
-        // Get the list of favorite movie IDs from Hive
-        final favoritesBox = await HiveDatabase.openBox<HiveMovie>('favoritesBox');
+        final favoritesBox = await HiveMovieDatabase.openBox<HiveMovie>('favoritesBox');
         final favoriteIds = favoritesBox.keys.cast<int>().toSet();
 
-        // Set `isFav` for movies that are in the favorites list
         final updatedMovies = newMovies.map((movie) =>
             movie.copyWith(isFav: favoriteIds.contains(movie.id))
         ).toList();

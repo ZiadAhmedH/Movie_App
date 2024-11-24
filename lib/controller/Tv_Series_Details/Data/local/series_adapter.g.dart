@@ -8,7 +8,7 @@ part of 'series_adapter.dart';
 
 class HiveSeriesAdapter extends TypeAdapter<HiveSeries> {
   @override
-  final int typeId = 0;
+  final int typeId = 1;
 
   @override
   HiveSeries read(BinaryReader reader) {
