@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/controller/Tv_Series/Cubit/series_cubit.dart';
 import 'package:movies_app/controller/Tv_Series/presentation/Series_Section/All_Series_GridView.dart';
 import 'package:movies_app/controller/Tv_Series/presentation/widgets/Series_Widget.dart';
-import '../../../../model/Components/Custom_Text.dart';
+import '../../../../Core/Components/Custom_Text.dart';
 import '../../Cubit/series_state.dart';
 
 class SeriesSection extends StatelessWidget {

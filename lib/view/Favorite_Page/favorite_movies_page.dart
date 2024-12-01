@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/model/Components/Custom_Text.dart';
+
+import '../../Core/Components/Custom_Text.dart';
 
 class FavoriteMoviesPage extends StatelessWidget {
   const FavoriteMoviesPage({super.key});

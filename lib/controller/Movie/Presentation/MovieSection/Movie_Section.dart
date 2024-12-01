@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../model/Components/Custom_Text.dart';
+import '../../../../Core/Components/Custom_Text.dart';
 import '../../cubit/Movie_Cubit.dart';
 import '../../cubit/Movie_State.dart';
 import '../Widgets/Movie_List_Widget.dart';

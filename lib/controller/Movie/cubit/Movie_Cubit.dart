@@ -18,12 +18,13 @@ class MovieCubit extends Cubit<MovieState> {
   Future<void> fetchPopularMovies() async {
     emit(MovieLoading());
     try {
-      final movies = await _movieRepository.fetchPopularMoviesPagination(currentPage);
+      final movies =
+          await _movieRepository.fetchPopularMoviesPagination(currentPage);
       currentPage++;
       hasMoreMovies = true;
-      emit(MovieLoaded(movies: movies,
-          hasMoreMovies: hasMoreMovies));
-      print('Fetched ${movies.length} movies. Current page: $currentPage'); // Debugging print
+      emit(MovieLoaded(movies: movies, hasMoreMovies: hasMoreMovies));
+      print(
+          'Fetched ${movies.length} movies. Current page: $currentPage'); // Debugging print
     } catch (e) {
       emit(MovieError(e.toString()));
       print('Error fetching movies: $e'); // Debugging print
@@ -31,23 +32,27 @@ class MovieCubit extends Cubit<MovieState> {
   }
 
   Future<void> fetchMorePopularMovies() async {
-    if (isLoading || !hasMoreMovies) return; // Prevent further requests if already loading or no more movies
+    if (isLoading || !hasMoreMovies)
+      return; // Prevent further requests if already loading or no more movies
 
     isLoading = true;
     try {
       // Fetch the next page of popular movies
-      final newMovies = await _movieRepository.fetchPopularMoviesPagination(currentPage);
+      final newMovies =
+          await _movieRepository.fetchPopularMoviesPagination(currentPage);
 
       if (newMovies.isNotEmpty) {
         currentPage++;
         hasMoreMovies = newMovies.length == 20;
 
-        final favoritesBox = await HiveMovieDatabase.openBox<HiveMovie>('favoritesBox');
+        final favoritesBox =
+            await HiveMovieDatabase.openBox<HiveMovie>('favoritesBox');
         final favoriteIds = favoritesBox.keys.cast<int>().toSet();
 
-        final updatedMovies = newMovies.map((movie) =>
-            movie.copyWith(isFav: favoriteIds.contains(movie.id))
-        ).toList();
+        final updatedMovies = newMovies
+            .map((movie) =>
+                movie.copyWith(isFav: favoriteIds.contains(movie.id)))
+            .toList();
 
         // Emit the new state if the current state is `MovieLoaded`
         if (state is MovieLoaded) {
@@ -64,7 +69,8 @@ class MovieCubit extends Cubit<MovieState> {
           ));
         }
 
-        print('Loaded ${newMovies.length} more movies. Current page: $currentPage');
+        print(
+            'Loaded ${newMovies.length} more movies. Current page: $currentPage');
       } else {
         // Set `hasMoreMovies` to false if no movies were fetched
         hasMoreMovies = false;
@@ -83,15 +89,14 @@ class MovieCubit extends Cubit<MovieState> {
     try {
       final movies = await _movieRepository.fetchPopularMovies();
 
-       final random = Random();
-       final randomMovie = movies[random.nextInt(movies.length)];
-       print(randomMovie);
+      final random = Random();
+      final randomMovie = movies[random.nextInt(movies.length)];
+      print(randomMovie);
 
-      emit(MovieLoaded(randomMovie: randomMovie, movies: movies, hasMoreMovies: false));
+      emit(MovieLoaded(
+          randomMovie: randomMovie, movies: movies, hasMoreMovies: false));
     } catch (e) {
       emit(MovieError(e.toString()));
     }
   }
-
-
 }

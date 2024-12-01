@@ -34,7 +34,7 @@ class SeriesCubit extends Cubit<SeriesState> {
     }
   }
   Future<void> fetchMorePopularSeries() async {
-    if (isLoading || !hasMoreSeries) return; // Prevent further requests if already loading or no more series
+    if (isLoading || !hasMoreSeries) return; // Prevent concurrent requests or unnecessary calls
 
     isLoading = true;
     try {
@@ -43,18 +43,18 @@ class SeriesCubit extends Cubit<SeriesState> {
 
       if (newSeries.isNotEmpty) {
         currentPage++;
+        // Continue as long as data is returned
         hasMoreSeries = newSeries.length == 20;
 
-        // Open the Hive box for favorites
+        // Access favorites box once
         final favoritesBox = await HiveSeriesDatabase.openBox<HiveSeries>('favoritesSeriesBox');
         final favoriteIds = favoritesBox.keys.cast<int>().toSet();
 
-        // Mark series as favorites if they are in the favorites box
+        // Update series with favorite status
         final updatedSeries = newSeries.map((series) =>
             series.copyWith(isFav: favoriteIds.contains(series.id))
         ).toList();
 
-        // Emit the new state if the current state is `SeriesLoaded`
         if (state is SeriesLoaded) {
           final currentState = state as SeriesLoaded;
           emit(SeriesLoaded(
@@ -62,27 +62,26 @@ class SeriesCubit extends Cubit<SeriesState> {
             hasMoreSeries: hasMoreSeries,
           ));
         } else {
-          // If the initial state wasn't SeriesLoaded, initialize with the new series list
           emit(SeriesLoaded(
             seriesList: updatedSeries,
             hasMoreSeries: hasMoreSeries,
           ));
         }
-
-        print('Loaded ${newSeries.length} more series. Current page: $currentPage');
       } else {
-        // Set `hasMoreSeries` to false if no series were fetched
+        print(
+            'Loaded ${newSeries.length} more series. Current page: $currentPage');
+
+        // Stop pagination if no more data
         hasMoreSeries = false;
-        print('No more series available on page $currentPage');
       }
     } catch (e) {
       print('Error loading more series: $e');
       emit(SeriesError(e.toString()));
     } finally {
-      // Reset loading state regardless of success or failure
-      isLoading = false;
+      isLoading = false; // Always reset loading state
     }
   }
+
 
 
 }
