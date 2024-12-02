@@ -8,7 +8,7 @@ class SeriesRepository {
   Future<List<Series>?> fetchSeries() async {
     try {
       var response = await _dio.get(
-        "${ApiEndPoints.BASE_URL}${ApiEndPoints.Trending_Tv_Shows}?language=en-US&page=1",
+        "${ApiEndPoints.BASE_URL}${ApiEndPoints.Popular_Tv_Shows}?language=en-US&page=1",
         options: Options(
           headers: {
             "accept": "application/json",
@@ -31,7 +31,7 @@ class SeriesRepository {
    Future<List<Series>> fetchSeriesPagination(int page) async {
     try {
       var response = await _dio.get(
-        "${ApiEndPoints.BASE_URL}${ApiEndPoints.Trending_Tv_Shows}?language=en-US&page=$page",
+        "${ApiEndPoints.BASE_URL}${ApiEndPoints.Popular_Tv_Shows}?language=en-US&page=$page",
         options: Options(
           headers: {
             "accept": "application/json",
