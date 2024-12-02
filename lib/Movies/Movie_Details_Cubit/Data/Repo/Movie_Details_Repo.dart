@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import '../../../Constant/ApiEndPoints.dart';
+import '../../../../controller/Constant/ApiEndPoints.dart';
 import '../Models/Movie_Deatails_Model.dart';
 
 class MovieDetailsRepo {

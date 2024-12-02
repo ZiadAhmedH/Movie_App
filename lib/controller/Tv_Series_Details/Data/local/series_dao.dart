@@ -1,4 +1,3 @@
-import '../../../Movie_Details_Cubit/Data/Local/Hive_Movie_Database.dart';
 import 'Hive_Series_Database.dart';
 import 'series_adapter.dart';
 

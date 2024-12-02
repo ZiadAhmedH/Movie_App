@@ -2,7 +2,7 @@ import 'package:flutter/services.dart';
 import 'package:movies_app/controller/Tv_Series/Data/Models/Series_Model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../Movie_Details_Cubit/Presentation/ShimmerDetailsMovie.dart';
+import '../../../Movies/Movie_Details_Cubit/Presentation/ShimmerDetailsMovie.dart';
 import '../Cubit/series_detials_state.dart';
 import 'package:movies_app/controller/Tv_Series_Details/Cubit/series_detials_cubit.dart';
 

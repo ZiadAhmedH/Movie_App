@@ -37,6 +37,7 @@ class SeriesCubit extends Cubit<SeriesState> {
     if (isLoading || !hasMoreSeries) return; // Prevent concurrent requests or unnecessary calls
 
     isLoading = true;
+
     try {
       // Fetch the next page of popular series
       final newSeries = await _seriesRepository.fetchSeriesPagination(currentPage);

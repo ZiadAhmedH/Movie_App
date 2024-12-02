@@ -1,6 +1,10 @@
 import 'package:dio/dio.dart';
-import '../../../Constant/ApiEndPoints.dart';
-import '../Models/Movie_Model.dart';
+import '../../../../controller/Constant/ApiEndPoints.dart';
+import '../entities/Movie.dart';
+
+
+
+
 
 class MovieRepository {
   final Dio _dio = Dio();

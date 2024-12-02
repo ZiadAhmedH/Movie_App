@@ -1,7 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'Movie_Model.freezed.dart';
-part 'Movie_Model.g.dart';
+part 'Movie.freezed.dart';
 
 @freezed
 class Movie with _$Movie {
@@ -15,5 +14,4 @@ class Movie with _$Movie {
     @Default(false) bool isFav,
   }) = _Movie;
 
-  factory Movie.fromJson(Map<String, dynamic> json) => _$MovieFromJson(json);
 }

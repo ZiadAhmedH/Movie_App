@@ -1,11 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:movies_app/controller/Movie_Details_Cubit/Data/Local/movie_adapter.dart';
-import 'package:movies_app/controller/Movie_Details_Cubit/Data/Local/movie_dao.dart';
-import 'package:movies_app/controller/Movie_Details_Cubit/Data/Models/Movie_Deatails_Model.dart';
-import 'package:movies_app/controller/Movie_Details_Cubit/Data/Repo/Movie_Details_Repo.dart';
 import '../../../Movie/Data/Models/Movie_Model.dart';
+import '../../Data/Local/movie_adapter.dart';
+import '../../Data/Local/movie_dao.dart';
+import '../../Data/Repo/Movie_Details_Repo.dart';
 import 'detials_movie_state.dart';
 
 class MoviesDetailsCubit extends Cubit<DetailsMovieState> {

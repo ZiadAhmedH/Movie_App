@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import '../../../Constant/ApiEndPoints.dart';
+import '../../../../controller/Constant/ApiEndPoints.dart';
 import '../../../Movie_Details_Cubit/Presentation/Movie_Details_Page.dart';
 import '../../../Movie_Details_Cubit/cubit/Details_Cubit/detials_movie_cubit.dart';
 import '../../Data/Models/Movie_Model.dart';

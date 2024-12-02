@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
+import '../../Movies/Movie/cubit/Movie_Cubit.dart';
+import '../../Movies/Movie/cubit/Movie_State.dart';
+import '../../Movies/Movie_Details_Cubit/Presentation/Movie_Details_Page.dart';
+import '../../Movies/Movie_Details_Cubit/cubit/Details_Cubit/detials_movie_cubit.dart';
 import '../../controller/Constant/ApiEndPoints.dart';
-import '../../controller/Movie/cubit/Movie_Cubit.dart';
-import '../../controller/Movie/cubit/Movie_State.dart';
-import '../../controller/Movie_Details_Cubit/Presentation/Movie_Details_Page.dart';
-import '../../controller/Movie_Details_Cubit/cubit/Details_Cubit/detials_movie_cubit.dart';
+
 class RandomMovieSection extends StatelessWidget {
   const RandomMovieSection({super.key});
 

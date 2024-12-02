@@ -1,11 +1,11 @@
 import 'package:get_it/get_it.dart';
-import 'package:movies_app/controller/Movie_Details_Cubit/Data/Repo/Movie_Details_Repo.dart';
 import 'package:movies_app/controller/Tv_Series/Data/Repo/Series_Repo.dart';
 import 'package:movies_app/controller/Tv_Series_Details/Data/Repo/Series_Details_Repo.dart';
 import 'package:movies_app/controller/Tv_Series_Details/Data/local/series_dao.dart';
 
-import '../controller/Movie/Data/Repo/Movies_Repo.dart';
-import '../controller/Movie_Details_Cubit/Data/Local/movie_dao.dart';
+import '../Movies/Movie/domain/repository/Movies_Repo.dart';
+import '../Movies/Movie_Details_Cubit/Data/Local/movie_dao.dart';
+import '../Movies/Movie_Details_Cubit/Data/Repo/Movie_Details_Repo.dart';
 
 
 

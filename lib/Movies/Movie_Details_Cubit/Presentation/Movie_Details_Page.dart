@@ -1,7 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/controller/Movie_Details_Cubit/Data/Models/Movie_Deatails_Model.dart';
 import '../../Movie/Data/Models/Movie_Model.dart';
 import '../cubit/Details_Cubit/detials_movie_cubit.dart';
 import '../cubit/Details_Cubit/detials_movie_state.dart';
