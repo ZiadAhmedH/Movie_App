@@ -1,8 +1,7 @@
 import '../entities/Movie.dart';
-import '../repository/Movies_Repo.dart';
-
+import '../repository/base_Movie_Repository.dart';
 class FetchPopularMoviesPagination {
-  final MovieRepository _movieRepository;
+  final BaseMovieRepository _movieRepository;
 
   FetchPopularMoviesPagination(this._movieRepository);
 
