@@ -8,7 +8,7 @@ import '../../../Movie_Details_Cubit/cubit/Details_Cubit/detials_movie_cubit.dar
 import '../../Data/Models/Movie_Model.dart';
 
 class MovieWidget extends StatelessWidget {
-  final Movie movie;
+  final MovieModel movie;
 
 
   const MovieWidget({

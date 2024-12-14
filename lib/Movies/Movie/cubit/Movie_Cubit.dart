@@ -4,7 +4,6 @@ import 'package:bloc/bloc.dart';
 import 'package:get_it/get_it.dart';
 import '../../Movie_Details_Cubit/Data/Local/Hive_Movie_Database.dart';
 import '../../Movie_Details_Cubit/Data/Local/movie_adapter.dart';
-import '../domain/repository/Movies_Repo.dart';
 import 'Movie_State.dart';
 
 class MovieCubit extends Cubit<MovieState> {
