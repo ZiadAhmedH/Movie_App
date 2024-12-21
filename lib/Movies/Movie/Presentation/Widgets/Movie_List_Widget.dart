@@ -25,7 +25,7 @@ class MovieWidget extends StatelessWidget {
           MaterialPageRoute(
             builder: (context) =>
                 BlocProvider(
-                  create: (context) => MoviesDetailsCubit()..getMovieDetails(movie.id),
+                  create: (context) => MoviesDetailsCubit()..getMovieDetails(movie.id ),
                   child: MovieDetailsScreen(movie: movie),
                 ),
           ),

@@ -7,7 +7,7 @@ import '../../../../Core/network/error_message_model.dart';
 
 abstract class BaseMovieRemoteDataSource{
   Future<List<MovieModel>> fetchPlayingNowMovies();
-
+  
 }
 
 
