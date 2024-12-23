@@ -26,8 +26,13 @@ class MoivesRepository extends BaseMovieRepository {
 
   @override
   Future <Either<Failure , List<Movie>>> fetchPopularMoviesPagination(int page) {
-    // TODO: implement fetchPopularMoviesPagination
-    throw UnimplementedError();
+       final result = remoteDataSource.fetchPopularMoviesPagination(page);
+
+        try{
+          return Right(result);
+        } on ServerException catch(failure){
+          return Left(ServerFailure(message: failure.errorMessageModel.statusmessage));
+        }
   }
 
   @override
