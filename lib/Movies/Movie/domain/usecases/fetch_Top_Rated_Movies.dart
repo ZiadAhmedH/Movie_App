@@ -1,3 +1,6 @@
+import 'package:dartz/dartz.dart';
+
+import '../../../../Core/errors/failure.dart';
 import '../entities/Movie.dart';
 import '../repository/base_Movie_Repository.dart';
 
@@ -9,7 +12,7 @@ class FetchTopRatedMovies {
   // to separate the data layer from the domain layer
   FetchTopRatedMovies(this._movieRepository);
 
-  Future<List<Movie>> call() async {
+  Future <Either<Failure , List<Movie>>> call() async {
     return await _movieRepository.fetchTopRatedMovies();
   }
 }

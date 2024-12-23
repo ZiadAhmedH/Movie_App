@@ -1,3 +1,6 @@
+import 'package:dartz/dartz.dart';
+
+import '../../../../Core/errors/failure.dart';
 import '../entities/Movie.dart';
 import '../repository/base_Movie_Repository.dart';
 class FetchPopularMoviesPagination {
@@ -5,7 +8,7 @@ class FetchPopularMoviesPagination {
 
   FetchPopularMoviesPagination(this._movieRepository);
 
-  Future<List<Movie>> call(int currentPage) async {
+  Future <Either<Failure , List<Movie>>> call(int currentPage) async {
     return await _movieRepository.fetchPopularMoviesPagination(currentPage);
   }
 }

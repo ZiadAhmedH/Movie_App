@@ -7,6 +7,10 @@ import '../../../../Core/network/error_message_model.dart';
 
 abstract class BaseMovieRemoteDataSource{
   Future<List<MovieModel>> fetchPlayingNowMovies();
+
+  Future<List<MovieModel>> fetchPopularMoviesPagination(int page);
+  
+  Future<List<MovieModel>> fetchTopRatedMovies();
   
 }
 
@@ -26,6 +30,18 @@ class MovieRemoteDataSource extends BaseMovieRemoteDataSource{
     throw ServerException(errorMessageModel:ErrorMessageModel.fromJson(response.data));
   }
 
+  }
+
+  @override
+  Future<List<MovieModel>> fetchPopularMoviesPagination(int page) {
+    // TODO: implement fetchPopularMoviesPagination
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<List<MovieModel>> fetchTopRatedMovies() {
+    // TODO: implement fetchTopRatedMovies
+    throw UnimplementedError();
   }
 
 }
