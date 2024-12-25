@@ -25,8 +25,8 @@ class MoivesRepository extends BaseMovieRepository {
   }
 
   @override
-  Future <Either<Failure , List<Movie>>> fetchPopularMoviesPagination(int page) {
-       final result = remoteDataSource.fetchPopularMoviesPagination(page);
+  Future <Either<Failure , List<Movie>>> fetchPopularMoviesPagination(int page)async {
+       final result = await remoteDataSource.fetchPopularMoviesPagination(page);
 
         try{
           return Right(result);

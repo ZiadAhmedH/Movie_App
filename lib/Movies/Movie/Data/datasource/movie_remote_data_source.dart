@@ -20,7 +20,7 @@ class MovieRemoteDataSource extends BaseMovieRemoteDataSource{
   // make an Contract BaseMovieReomteDataSource and extends it in this class
   @override
   Future<List<MovieModel>> fetchPlayingNowMovies() async {
-    final response = await Dio().get(ApiConstant.nowPlayingApi);
+    final response = await Dio().get(ApiConstants.nowPlayingApi);
 
     if(response.statusCode == 200){
       List<dynamic> data = response.data['results'];
@@ -35,7 +35,7 @@ class MovieRemoteDataSource extends BaseMovieRemoteDataSource{
   @override
   Future<List<MovieModel>> fetchPopularMoviesPagination(int page) async {
 
-    final response = await Dio().get("${ApiConstant.popularApi}?language=en-US&page=$page");
+    final response = await Dio().get("${ApiConstants.popularApi}?language=en-US&page=$page");
 
     if(response.statusCode == 200) {
       List<dynamic> data = response.data['results'];
@@ -50,7 +50,7 @@ class MovieRemoteDataSource extends BaseMovieRemoteDataSource{
 
   @override
   Future<List<MovieModel>> fetchTopRatedMovies() async {
-     final response = await Dio().get(ApiConstant.topRatedApi);
+     final response = await Dio().get(ApiConstants.topRatedApi);
 
       if(response.statusCode == 200){
         List<dynamic> data = response.data['results'];

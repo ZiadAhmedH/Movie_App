@@ -11,9 +11,7 @@ import 'dependancy_Injection/service_DI.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   setupDI();
- await HiveMovieDatabase.initHive();
- await HiveSeriesDatabase.initHive();
-  Bloc.observer = MyBlocObserver();
+
   runApp(const MainApp());
 }
 
@@ -22,14 +20,11 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => PageCubit(),
-      child: const MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Movies App',
-        home: HomePage(),
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Movies App',
+      home: HomePage(),
 
-      ),
     );
   }
 }
