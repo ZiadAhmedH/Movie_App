@@ -5,15 +5,16 @@ import 'package:movies_app/Movies/Movie/domain/repository/base_Movie_Repository.
 import '../../../../Core/errors/failure.dart';
 import '../datasource/movie_remote_data_source.dart';
 
-class MoivesRepository extends BaseMovieRepository {
+class MoviesRepository extends BaseMovieRepository {
 
 
   final BaseMovieRemoteDataSource remoteDataSource;
 
 
-  MoivesRepository(this.remoteDataSource);
+  MoviesRepository(this.remoteDataSource);
 
 
+  @override
   Future <Either<Failure , List<Movie>>> fetchPlayingNowMovies() async {
     final result = await remoteDataSource.fetchPlayingNowMovies();
     try{

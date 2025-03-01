@@ -11,7 +11,8 @@ abstract class BaseMovieRemoteDataSource{
   Future<List<MovieModel>> fetchPopularMoviesPagination(int page);
   
   Future<List<MovieModel>> fetchTopRatedMovies();
-  
+
+
 }
 
 
@@ -60,5 +61,6 @@ class MovieRemoteDataSource extends BaseMovieRemoteDataSource{
         throw ServerException(errorMessageModel:ErrorMessageModel.fromJson(response.data));
       }
   }
+
 
 }
