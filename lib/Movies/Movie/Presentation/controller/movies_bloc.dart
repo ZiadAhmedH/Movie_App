@@ -9,13 +9,13 @@ import '../../domain/usecases/fetch_Playing_Now_Movies.dart';
 import 'movies_event.dart';
 
 class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
-  MoviesBloc() : super(const MoviesState()) {
+
+  final FetchPlayingNowMovies playingNowMovies;
+
+  MoviesBloc(this.playingNowMovies) : super(const MoviesState()) {
     on<FetchPlayingNowMoviesEvent>((event, emit) async {
-      BaseMovieRemoteDataSource remoteDataSource = MovieRemoteDataSource();
 
-      BaseMovieRepository repository = MoviesRepository(remoteDataSource);
-
-      final result = await FetchPlayingNowMovies(repository).call();
+      final result = await playingNowMovies.call();
 
       emit(const MoviesState(nowPlayingMoviesState: RequestState.loaded));
 
@@ -28,6 +28,6 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
               playingNowMovies: movies)));
     });
 
-    
+
   }
 }

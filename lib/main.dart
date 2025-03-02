@@ -6,7 +6,7 @@ import 'dependancy_Injection/service_DI.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  setupDI();
+  ServiceLocator().init();
 
   runApp(const MainApp());
 }
