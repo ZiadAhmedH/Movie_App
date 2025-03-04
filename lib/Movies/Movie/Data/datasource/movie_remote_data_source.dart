@@ -24,7 +24,9 @@ class MovieRemoteDataSource extends BaseMovieRemoteDataSource{
     final response = await Dio().get(ApiConstants.nowPlayingApi);
 
     if(response.statusCode == 200){
+      print("response");
       List<dynamic> data = response.data['results'];
+      print(response.data['results']);
       return data.map((movieJson) => MovieModel.fromJson(movieJson)).toList();
   }
   else{
@@ -40,6 +42,7 @@ class MovieRemoteDataSource extends BaseMovieRemoteDataSource{
 
     if(response.statusCode == 200) {
       List<dynamic> data = response.data['results'];
+      print(response.data['results']);
       return data.map((movieJson) => MovieModel.fromJson(movieJson)).toList();
     }
     else{

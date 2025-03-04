@@ -1,3 +1,15 @@
+// Root build.gradle (Project-Level)
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.3.0' // Ensure correct version
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.22' // Update Kotlin if needed
+    }
+}
+
 allprojects {
     repositories {
         google()
@@ -5,16 +17,18 @@ allprojects {
     }
 }
 
+// Set a common build directory for all subprojects
 rootProject.buildDir = '../build'
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
 }
+
+// Ensure app is evaluated before other modules
 subprojects {
     project.evaluationDependsOn(':app')
 }
 
+// Task to clean the project
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }
-
-

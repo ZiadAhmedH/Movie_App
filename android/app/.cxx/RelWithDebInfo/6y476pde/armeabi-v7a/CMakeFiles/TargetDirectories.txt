@@ -1,0 +1,2 @@
+D:/FCAI term2/third/movies_app/android/app/.cxx/RelWithDebInfo/6y476pde/armeabi-v7a/CMakeFiles/edit_cache.dir
+D:/FCAI term2/third/movies_app/android/app/.cxx/RelWithDebInfo/6y476pde/armeabi-v7a/CMakeFiles/rebuild_cache.dir
