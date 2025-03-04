@@ -1,24 +1,114 @@
 import 'package:flutter/material.dart';
+import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:movies_app/Movies/Movie/Presentation/controller/movies_bloc.dart';
-
 import '../../../../dependancy_Injection/service_DI.dart';
-import '../controller/movies_event.dart';
-
-class MainScreen extends StatelessWidget {
-  const MainScreen({super.key});
+import '../components/now_palying_component.dart';
+import '../components/popular_movies_component.dart';
+import '../components/top_rated_movies_component.dart';
+class MoviesScreen extends StatelessWidget {
+  const MoviesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => MoviesBloc(sl())..add(FetchPlayingNowMoviesEvent()),
+      create: (context) => sl<MoviesBloc>(),
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Movies App'),
-        ),
-        body: Container(
-          child: const Center(
-            child: Text('Movies App'),
+        backgroundColor: Colors.grey[900], // Dark background color
+        body: SingleChildScrollView(
+          key: const Key('movieScrollView'),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const NowPlayingComponent(),
+              Container(
+                margin: const EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Popular",
+                      style: GoogleFonts.poppins(
+                        fontSize: 19,
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: 0.15,
+                        color: Colors.white, // White text
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        /// TODO : NAVIGATION TO POPULAR SCREEN
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: const [
+                            Text(
+                              'See More',
+                              style: TextStyle(
+                                  color: Colors.white), // White text
+                            ),
+                            Icon(
+                              Icons.arrow_forward_ios,
+                              size: 16.0,
+                              color: Colors.white, // White icon
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const PopularMoviesComponent(),
+              Container(
+                margin: const EdgeInsets.fromLTRB(
+                  16.0,
+                  24.0,
+                  16.0,
+                  8.0,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Top Rated",
+                      style: GoogleFonts.poppins(
+                        fontSize: 19,
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: 0.15,
+                        color: Colors.white, // White text
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        /// TODO : NAVIGATION TO Top Rated Movies Screen
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: const [
+                            Text(
+                              'See More',
+                              style: TextStyle(
+                                  color: Colors.white), // White text
+                            ),
+                            Icon(
+                              Icons.arrow_forward_ios,
+                              size: 16.0,
+                              color: Colors.white, // White icon
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const TopRatedMoviesComponent(),
+              const SizedBox(height: 50.0),
+            ],
           ),
         ),
       ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'Movies/Movie/Presentation/screens/movies_screen.dart';
 import 'dependancy_Injection/service_DI.dart';
 
@@ -19,7 +18,7 @@ class MainApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Movies App',
-      home: MainScreen(),
+      home: MoviesScreen(),
 
     );
   }
