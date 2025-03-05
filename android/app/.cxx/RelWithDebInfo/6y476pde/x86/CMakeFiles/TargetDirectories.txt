@@ -1,2 +1,0 @@
-D:/FCAI term2/third/movies_app/android/app/.cxx/RelWithDebInfo/6y476pde/x86/CMakeFiles/edit_cache.dir
-D:/FCAI term2/third/movies_app/android/app/.cxx/RelWithDebInfo/6y476pde/x86/CMakeFiles/rebuild_cache.dir
