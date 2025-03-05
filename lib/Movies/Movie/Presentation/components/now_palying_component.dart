@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/Movies/Movie/Presentation/controller/movies_state.dart';
 import '../../../../Core/Constents/EndPoints.dart';
 import '../../../../Core/Constents/enums.dart';
+import '../../domain/entities/Movie.dart';
 import '../controller/movies_bloc.dart';
 class NowPlayingComponent extends StatelessWidget {
   const NowPlayingComponent({super.key});
@@ -38,7 +39,6 @@ class NowPlayingComponent extends StatelessWidget {
                     return GestureDetector(
                       key: const Key('openMovieMinimalDetail'),
                       onTap: () {
-                        /// TODO : NAVIGATE TO MOVIE DETAILS
                       },
                       child: Stack(
                         children: [
@@ -62,6 +62,7 @@ class NowPlayingComponent extends StatelessWidget {
                             child: CachedNetworkImage(
                               height: 560.0,
                               imageUrl: ApiConstants.imageUr(item.backdropPath!),
+                              fadeOutCurve: Curves.easeIn,
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -88,6 +89,7 @@ class NowPlayingComponent extends StatelessWidget {
                                           color: Colors.white, // White text
                                         ),
                                       ),
+
                                     ],
                                   ),
                                 ),
@@ -100,6 +102,17 @@ class NowPlayingComponent extends StatelessWidget {
                                       fontSize: 24,
                                       color: Colors.white, // White text
                                     ),
+                                  ),
+                                ),
+                                Text(item.genreIds!.map((e) {
+                                  return genres.firstWhere((element) => element['id'] == e)['name'];
+                                }).join('. '),
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.white,
+
+                                    // White text
                                   ),
                                 ),
                               ],
