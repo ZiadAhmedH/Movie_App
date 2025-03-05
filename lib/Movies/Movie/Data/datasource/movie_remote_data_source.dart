@@ -38,7 +38,10 @@ class MovieRemoteDataSource extends BaseMovieRemoteDataSource{
   @override
   Future<List<MovieModel>> fetchPopularMoviesPagination(int page) async {
 
-    final response = await Dio().get("${ApiConstants.popularApi}?language=en-US&page=$page");
+    final response = await Dio().get("https://api.themoviedb.org/3/movie/popular?language=en-US&page=$page&api_key=bc7fc4bfb4720e0547a7facf1b65ba21" ,
+
+    );
+
 
     if(response.statusCode == 200) {
       List<dynamic> data = response.data['results'];

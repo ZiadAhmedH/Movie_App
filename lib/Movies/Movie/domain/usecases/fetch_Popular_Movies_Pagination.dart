@@ -8,7 +8,7 @@ class FetchPopularMoviesPagination {
 
   FetchPopularMoviesPagination(this._movieRepository);
 
-  Future <Either<Failure , List<Movie>>> call(int currentPage) async {
+  Future <Either<Failure , List<Movie>>> call({required int currentPage}) async {
     return await _movieRepository.fetchPopularMoviesPagination(currentPage);
   }
 }

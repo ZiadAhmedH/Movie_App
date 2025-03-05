@@ -7,7 +7,7 @@ class ApiConstants {
   static const String nowPlayingApi = '${baseUrl}now_playing$apiKey';
   static const String topRatedApi = '${baseUrl}top_rated$apiKey';
   static const String upcomingApi = '${baseUrl}upcoming$apiKey';
-  static const String popularApi = '${baseUrl}popular$apiKey';
+  static const String popularApi = '${baseUrl}popular';
 
   static const String similar = '/similar';
   static const String video = '/videos';
