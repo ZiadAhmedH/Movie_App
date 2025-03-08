@@ -26,7 +26,7 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
   }
 
   _getPlayingNowMovies(FetchPlayingNowMoviesEvent event, Emitter<MoviesState> emit)  async {
-    final result = await playingNowMovies.call();
+    final result = await playingNowMovies();
     result.fold(
             (failure) => emit(state.copyWith(
             nowPlayingMoviesState: RequestState.error,
@@ -37,7 +37,7 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
   }
 
   _getPopularMovies(FetchPopularMoviesEvent event, Emitter<MoviesState> emit) async {
-    final result = await  popularMovies.call(currentPage: event.page);
+    final result = await  popularMovies(currentPage: event.page);
     result.fold(
             (failure) => emit(state.copyWith(
             popularMoviesState: RequestState.error,
@@ -48,7 +48,7 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
   }
 
   _getTopRatedMovies(FetchTopRatedMoviesEvent event, Emitter<MoviesState> emit) async {
-    final result = await topRatedMovies.call();
+    final result = await topRatedMovies();
     result.fold(
             (failure) => emit(state.copyWith(
             topRatedMoviesState: RequestState.error,

@@ -8,7 +8,6 @@ import 'package:shimmer/shimmer.dart';
 
 import '../../../../Core/Constents/EndPoints.dart';
 import '../../../../Core/Constents/enums.dart';
-import '../screens/dummy.dart';
 
 class TopRatedMoviesComponent extends StatelessWidget {
   const TopRatedMoviesComponent({super.key});
@@ -16,6 +15,7 @@ class TopRatedMoviesComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MoviesBloc, MoviesState>(
+      buildWhen: (previous, current) => previous.topRatedMoviesState != current.topRatedMoviesState,
       builder: (context, state) {
 
         switch(state.topRatedMoviesState){
