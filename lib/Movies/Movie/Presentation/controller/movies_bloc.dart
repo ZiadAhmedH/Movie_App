@@ -17,44 +17,45 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
 
 
   MoviesBloc(this.playingNowMovies , this.popularMovies , this.topRatedMovies ) : super(const MoviesState()) {
-    on<FetchPlayingNowMoviesEvent>((event, emit) async {
+    on<FetchPlayingNowMoviesEvent>(_getPlayingNowMovies);
 
-      final result = await playingNowMovies.call();
+    on<FetchPopularMoviesEvent>(_getPopularMovies);
 
-      result.fold(
-          (failure) => emit(state.copyWith(
-              nowPlayingMoviesState: RequestState.error,
-              nowPlayingMessage: failure.message)),
-          (movies) => emit(state.copyWith(
-              nowPlayingMoviesState: RequestState.loaded,
-              playingNowMovies: movies)));
-    });
-
-    on<FetchPopularMoviesEvent>((event, emit) async {
-      final result = await  popularMovies.call(currentPage: event.page);
-
-
-      result.fold(
-          (failure) => emit(state.copyWith(
-              popularMoviesState: RequestState.error,
-              popularMessage: failure.message)),
-          (movies) => emit(state.copyWith(
-              popularMoviesState: RequestState.loaded,
-              popularMovies: movies)));
-    });
-
-    on<FetchTopRatedMoviesEvent>((event, emit) async {
-      final result = await topRatedMovies.call();
-
-
-      result.fold(
-          (failure) => emit(state.copyWith(
-              topRatedMoviesState: RequestState.error,
-              topRatedMessage: failure.message)),
-          (movies) => emit(state.copyWith(
-              topRatedMoviesState: RequestState.loaded,
-              topRatedMovies: movies)));
-    });
+    on<FetchTopRatedMoviesEvent>(_getTopRatedMovies);
 
   }
+
+  _getPlayingNowMovies(FetchPlayingNowMoviesEvent event, Emitter<MoviesState> emit)  async {
+    final result = await playingNowMovies.call();
+    result.fold(
+            (failure) => emit(state.copyWith(
+            nowPlayingMoviesState: RequestState.error,
+            nowPlayingMessage: failure.message)),
+            (movies) => emit(state.copyWith(
+            nowPlayingMoviesState: RequestState.loaded,
+            playingNowMovies: movies)));
+  }
+
+  _getPopularMovies(FetchPopularMoviesEvent event, Emitter<MoviesState> emit) async {
+    final result = await  popularMovies.call(currentPage: event.page);
+    result.fold(
+            (failure) => emit(state.copyWith(
+            popularMoviesState: RequestState.error,
+            popularMessage: failure.message)),
+            (movies) => emit(state.copyWith(
+            popularMoviesState: RequestState.loaded,
+            popularMovies: movies)));
+  }
+
+  _getTopRatedMovies(FetchTopRatedMoviesEvent event, Emitter<MoviesState> emit) async {
+    final result = await topRatedMovies.call();
+    result.fold(
+            (failure) => emit(state.copyWith(
+            topRatedMoviesState: RequestState.error,
+            topRatedMessage: failure.message)),
+            (movies) => emit(state.copyWith(
+            topRatedMoviesState: RequestState.loaded,
+            topRatedMovies: movies)));
+  }
+
 }
