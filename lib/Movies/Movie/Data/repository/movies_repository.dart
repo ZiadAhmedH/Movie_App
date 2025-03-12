@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:movies_app/Core/errors/exceptions.dart';
 import 'package:movies_app/Movies/Movie/domain/entities/Movie.dart';
+import 'package:movies_app/Movies/Movie/domain/entities/movie_details.dart';
 import 'package:movies_app/Movies/Movie/domain/repository/base_Movie_Repository.dart';
 import '../../../../Core/errors/failure.dart';
 import '../datasource/movie_remote_data_source.dart';
@@ -44,5 +45,11 @@ class MoviesRepository extends BaseMovieRepository {
       return Left(
           ServerFailure(message: failure.errorMessageModel.statusmessage));
     }
+  }
+
+  @override
+  Future<Either<Failure, MovieDetails>> fetchMovieDetails() {
+    // TODO: implement fetchMovieDetails
+    throw UnimplementedError();
   }
 }

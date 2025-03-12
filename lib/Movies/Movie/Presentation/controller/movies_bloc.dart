@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:movies_app/Core/usecase/base_Use_Case.dart';
 import 'package:movies_app/Movies/Movie/Presentation/controller/movies_state.dart';
 import 'package:movies_app/Movies/Movie/domain/usecases/fetch_Popular_Movies_Pagination.dart';
 import '../../../../Core/Constents/enums.dart';
@@ -26,7 +27,7 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
   }
 
   _getPlayingNowMovies(FetchPlayingNowMoviesEvent event, Emitter<MoviesState> emit)  async {
-    final result = await playingNowMovies();
+    final result = await playingNowMovies(const NoParams());
     result.fold(
             (failure) => emit(state.copyWith(
             nowPlayingMoviesState: RequestState.error,
@@ -37,7 +38,7 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
   }
 
   _getPopularMovies(FetchPopularMoviesEvent event, Emitter<MoviesState> emit) async {
-    final result = await  popularMovies(currentPage: event.page);
+    final result = await  popularMovies(PopularMoviesPaginationParams(event.page));
     result.fold(
             (failure) => emit(state.copyWith(
             popularMoviesState: RequestState.error,
@@ -48,7 +49,7 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
   }
 
   _getTopRatedMovies(FetchTopRatedMoviesEvent event, Emitter<MoviesState> emit) async {
-    final result = await topRatedMovies();
+    final result = await topRatedMovies(const NoParams());
     result.fold(
             (failure) => emit(state.copyWith(
             topRatedMoviesState: RequestState.error,
