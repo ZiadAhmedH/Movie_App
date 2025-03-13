@@ -11,7 +11,7 @@ class FetchPopularMoviesPagination extends BaseUseCase<List<Movie>, PopularMovie
 
   @override
   Future <Either<Failure , List<Movie>>> call(PopularMoviesPaginationParams popularMovieParams) async {
-    return await _movieRepository.fetchPopularMoviesPagination(popularMovieParams.currentPage);
+    return await _movieRepository.fetchPopularMoviesPagination(popularMovieParams);
   }
 }
 

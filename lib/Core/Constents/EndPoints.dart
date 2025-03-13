@@ -13,4 +13,5 @@ class ApiConstants {
   static const String video = '/videos';
 
    static imageUr(String path) => '$imageUrl$path';
+   static movieDetails(int id) => '$baseUrl$id$apiKey';
 }

@@ -2,15 +2,21 @@ import 'package:dio/dio.dart';
 import 'package:movies_app/Core/Constents/EndPoints.dart';
 import 'package:movies_app/Core/errors/exceptions.dart';
 import 'package:movies_app/Movies/Movie/Data/Models/Movie_Model.dart';
+import 'package:movies_app/Movies/Movie/Data/Models/movie_Details_model.dart';
+import 'package:movies_app/Movies/Movie/domain/entities/movie_details.dart';
+import 'package:movies_app/Movies/Movie/domain/usecases/fetch_Movie_Details.dart';
+import 'package:movies_app/Movies/Movie/domain/usecases/fetch_Popular_Movies_Pagination.dart';
 
 import '../../../../Core/network/error_message_model.dart';
 
 abstract class BaseMovieRemoteDataSource{
   Future<List<MovieModel>> fetchPlayingNowMovies();
 
-  Future<List<MovieModel>> fetchPopularMoviesPagination(int page);
+  Future<List<MovieModel>> fetchPopularMoviesPagination(PopularMoviesPaginationParams moviePopularPaginationParams);
   
   Future<List<MovieModel>> fetchTopRatedMovies();
+
+  Future<MovieDetails> fetchMovieDetails(MovieDetailsParams movieDetailsParams);
 
 
 }
@@ -36,7 +42,7 @@ class MovieRemoteDataSource extends BaseMovieRemoteDataSource{
   }
 
   @override
-  Future<List<MovieModel>> fetchPopularMoviesPagination(int page) async {
+  Future<List<MovieModel>> fetchPopularMoviesPagination(PopularMoviesPaginationParams page) async {
 
     final response = await Dio().get("https://api.themoviedb.org/3/movie/popular?language=en-US&page=$page&api_key=bc7fc4bfb4720e0547a7facf1b65ba21" ,
 
@@ -66,6 +72,19 @@ class MovieRemoteDataSource extends BaseMovieRemoteDataSource{
       else{
         throw ServerException(errorMessageModel:ErrorMessageModel.fromJson(response.data));
       }
+  }
+
+  @override
+  Future<MovieDetails> fetchMovieDetails(MovieDetailsParams movieDetailsParams)async {
+    final response = await Dio().get(ApiConstants.movieDetails(movieDetailsParams.movieId));
+
+    if(response.statusCode == 200){
+      final data = response.data['results'];
+      return MovieDetailsModel.fromJson(data);
+    }
+    else{
+      throw ServerException(errorMessageModel:ErrorMessageModel.fromJson(response.data));
+    }
   }
 
 

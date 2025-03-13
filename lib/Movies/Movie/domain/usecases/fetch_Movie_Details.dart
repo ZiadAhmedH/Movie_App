@@ -12,7 +12,7 @@ class FetchMovieDetailsUseCase extends BaseUseCase<MovieDetails ,MovieDetailsPar
 
   @override
   Future<Either<Failure, MovieDetails>> call(MovieDetailsParams movieParams) async {
-    return await _movieRepository.fetchMovieDetails();
+    return await _movieRepository.fetchMovieDetails(movieParams);
    }
 }
 

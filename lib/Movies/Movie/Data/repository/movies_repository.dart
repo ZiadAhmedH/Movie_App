@@ -3,6 +3,8 @@ import 'package:movies_app/Core/errors/exceptions.dart';
 import 'package:movies_app/Movies/Movie/domain/entities/Movie.dart';
 import 'package:movies_app/Movies/Movie/domain/entities/movie_details.dart';
 import 'package:movies_app/Movies/Movie/domain/repository/base_Movie_Repository.dart';
+import 'package:movies_app/Movies/Movie/domain/usecases/fetch_Movie_Details.dart';
+import 'package:movies_app/Movies/Movie/domain/usecases/fetch_Popular_Movies_Pagination.dart';
 import '../../../../Core/errors/failure.dart';
 import '../datasource/movie_remote_data_source.dart';
 
@@ -18,20 +20,19 @@ class MoviesRepository extends BaseMovieRepository {
       return Right(result);
     } on ServerException catch (failure) {
       return Left(
-          ServerFailure(message: failure.errorMessageModel.statusmessage));
+          ServerFailure(message: failure.errorMessageModel.statusMessage));
     }
   }
 
   @override
-  Future<Either<Failure, List<Movie>>> fetchPopularMoviesPagination(
-      int page) async {
-    final result = await remoteDataSource.fetchPopularMoviesPagination(page);
+  Future<Either<Failure, List<Movie>>> fetchPopularMoviesPagination(PopularMoviesPaginationParams params) async {
+    final result = await remoteDataSource.fetchPopularMoviesPagination(PopularMoviesPaginationParams(params.currentPage));
 
     try {
       return Right(result);
     } on ServerException catch (failure) {
       return Left(
-          ServerFailure(message: failure.errorMessageModel.statusmessage));
+          ServerFailure(message: failure.errorMessageModel.statusMessage));
     }
   }
 
@@ -43,13 +44,18 @@ class MoviesRepository extends BaseMovieRepository {
       return Right(result);
     } on ServerException catch (failure) {
       return Left(
-          ServerFailure(message: failure.errorMessageModel.statusmessage));
+          ServerFailure(message: failure.errorMessageModel.statusMessage));
     }
   }
 
   @override
-  Future<Either<Failure, MovieDetails>> fetchMovieDetails() {
-    // TODO: implement fetchMovieDetails
-    throw UnimplementedError();
+  Future<Either<Failure, MovieDetails>> fetchMovieDetails(MovieDetailsParams params)async {
+     final result = await remoteDataSource.fetchMovieDetails(params);
+    try {
+      return Right(result);
+    } on ServerException catch (failure) {
+      return Left(
+          ServerFailure(message: failure.errorMessageModel.statusMessage));
+    }
   }
 }
