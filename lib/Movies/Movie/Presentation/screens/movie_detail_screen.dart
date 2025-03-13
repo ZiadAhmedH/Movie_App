@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:movies_app/Core/Constents/EndPoints.dart';
 import 'package:movies_app/Movies/Movie/Presentation/controller/movie_details_bloc.dart';
 import 'package:shimmer/shimmer.dart';
-
+import 'package:lottie/lottie.dart';
 import '../../../../Core/Constents/enums.dart';
 import '../../../../dependancy_Injection/service_DI.dart';
 import '../../domain/entities/generes.dart';
@@ -41,7 +41,7 @@ class MovieDetailContent extends StatelessWidget {
       builder: (context, state) {
         switch (state.movieDetailsState) {
           case RequestState.loading:
-            return const Center(child: CircularProgressIndicator());
+            return  Center(child:Lottie.asset('assets/lotties/loading.json',width: 200,height: 200));
 
           case RequestState.error:
             return Center(child: Text(state.movieDetailsMessage));
