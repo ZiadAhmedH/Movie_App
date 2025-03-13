@@ -21,10 +21,10 @@ class MovieDetailsModel extends MovieDetails {
       overview: json['overview'],
       releaseDate: json['release_date'],
       runtime: json['runtime'],
-      voteAverage: json['vote_average'],
+      voteAverage: json['vote_average'].toDouble(),
       posterPath: json['poster_path'],
       genres: List<GenresModel>.from(json['genres']
-          .map((genre) => GenresModel.fromJson(genre)),)
+          .map((genre) => GenresModel.fromJson(genre)),) ,
     );
   }
 }

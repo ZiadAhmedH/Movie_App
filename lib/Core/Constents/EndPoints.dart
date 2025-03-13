@@ -9,9 +9,10 @@ class ApiConstants {
   static const String upcomingApi = '${baseUrl}upcoming$apiKey';
   static const String popularApi = '${baseUrl}popular';
 
-  static const String similar = '/similar';
+  static const String recommendation = '/similar';
   static const String video = '/videos';
 
    static imageUr(String path) => '$imageUrl$path';
    static movieDetails(int id) => '$baseUrl$id$apiKey';
+    static recommendationMovies(int id) => '$baseUrl$id$recommendation$apiKey';
 }

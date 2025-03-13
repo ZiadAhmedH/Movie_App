@@ -8,6 +8,7 @@ import 'package:shimmer/shimmer.dart';
 
 import '../../../../Core/Constents/EndPoints.dart';
 import '../../../../Core/Constents/enums.dart';
+import '../screens/movie_detail_screen.dart';
 
 class PopularMoviesComponent extends StatelessWidget {
   const PopularMoviesComponent({super.key});
@@ -46,7 +47,9 @@ class PopularMoviesComponent extends StatelessWidget {
                       padding: const EdgeInsets.only(right: 8.0),
                       child: InkWell(
                         onTap: () {
-                          /// TODO : NAVIGATE TO  MOVIE DETAILS
+                           Navigator.push(context, MaterialPageRoute(builder: (context) {
+                              return MovieDetailScreen(id: movie.id!);
+                           },));
                         },
                         child: ClipRRect(
                           borderRadius:

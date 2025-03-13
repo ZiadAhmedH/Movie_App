@@ -38,7 +38,7 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
   }
 
   _getPopularMovies(FetchPopularMoviesEvent event, Emitter<MoviesState> emit) async {
-    final result = await  popularMovies(PopularMoviesPaginationParams(event.page));
+    final result = await  popularMovies(PopularMoviesPaginationParams(1));
     result.fold(
             (failure) => emit(state.copyWith(
             popularMoviesState: RequestState.error,

@@ -7,6 +7,7 @@ import '../Movies/Movie/domain/repository/base_Movie_Repository.dart';
 import '../Movies/Movie/domain/usecases/fetch_Movie_Details.dart';
 import '../Movies/Movie/domain/usecases/fetch_Playing_Now_Movies.dart';
 import '../Movies/Movie/domain/usecases/fetch_Popular_Movies_Pagination.dart';
+import '../Movies/Movie/domain/usecases/fetch_Recommendation_Movies.dart';
 import '../Movies/Movie/domain/usecases/fetch_Top_Rated_Movies.dart';
 
 final sl = GetIt.instance;
@@ -14,20 +15,22 @@ final sl = GetIt.instance;
 
 class ServiceLocator{
 
-void init() {
+    void init() {
+        print("Initializing Service Locator..."); // Debug log
 
-    // bloc using registerFactory ;> when we want to create a new instance of the bloc every time
-    sl.registerFactory(() => MoviesBloc(sl() , sl() , sl()));
+        // Register use cases first
+        sl.registerLazySingleton(() => FetchPlayingNowMovies(sl()));
+        sl.registerLazySingleton(() => FetchPopularMoviesPagination(sl()));
+        sl.registerLazySingleton(() => FetchTopRatedMovies(sl()));
+        sl.registerLazySingleton(() => FetchMovieDetailsUseCase(sl()));
+        sl.registerLazySingleton(() => FetchRecommendationMovies(sl()));
 
-    sl.registerFactory(() => MovieDetailsBloc(sl()));
+        // Register repository & data source
+        sl.registerLazySingleton<BaseMovieRepository>(() => MoviesRepository(sl()));
+        sl.registerLazySingleton<BaseMovieRemoteDataSource>(() => MovieRemoteDataSource());
 
-    sl.registerLazySingleton(() => FetchPlayingNowMovies(sl()));
-    sl.registerLazySingleton(() => FetchPopularMoviesPagination(sl()));
-    sl.registerLazySingleton(()=> FetchTopRatedMovies(sl()));
-    sl.registerLazySingleton(()=> FetchMovieDetailsUseCase(sl()));
-
-    sl.registerLazySingleton<BaseMovieRepository>(() => MoviesRepository(sl()));
-    sl.registerLazySingleton<BaseMovieRemoteDataSource>(() => MovieRemoteDataSource());
-
-  }
+        // Register Blocs after dependencies are available
+        sl.registerFactory(() => MoviesBloc(sl(), sl(), sl()));
+        sl.registerFactory(() => MovieDetailsBloc(sl(), sl()));
+    }
 }

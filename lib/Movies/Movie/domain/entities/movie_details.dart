@@ -8,7 +8,7 @@ class MovieDetails  extends Equatable{
   final String? overview;
   final String? releaseDate;
   final int? runtime;
-  final int? voteAverage;
+  final double? voteAverage;
   final String? posterPath;
   final List<Genres>? genres;
 
