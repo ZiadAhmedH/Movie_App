@@ -25,7 +25,7 @@ class Movie extends Equatable {
   List<Object?> get props => [
         id,
         title,
-        posterPath,
+        posterPath ?? " ",
         backdropPath,
         releaseDate,
         genreIds,

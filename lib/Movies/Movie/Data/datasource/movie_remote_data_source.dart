@@ -2,10 +2,12 @@ import 'package:dio/dio.dart';
 import 'package:movies_app/Core/Constents/EndPoints.dart';
 import 'package:movies_app/Core/errors/exceptions.dart';
 import 'package:movies_app/Movies/Movie/Data/Models/Movie_Model.dart';
+import 'package:movies_app/Movies/Movie/Data/Models/cast_movie_model.dart';
 import 'package:movies_app/Movies/Movie/Data/Models/movie_Details_model.dart';
 import 'package:movies_app/Movies/Movie/Data/Models/recommendation_model.dart';
 import 'package:movies_app/Movies/Movie/domain/entities/movie_details.dart';
 import 'package:movies_app/Movies/Movie/domain/usecases/fetch_Movie_Details.dart';
+import 'package:movies_app/Movies/Movie/domain/usecases/fetch_Movie_cast.dart';
 import 'package:movies_app/Movies/Movie/domain/usecases/fetch_Popular_Movies_Pagination.dart';
 
 import '../../../../Core/network/error_message_model.dart';
@@ -21,6 +23,8 @@ abstract class BaseMovieRemoteDataSource{
   Future<MovieDetails> fetchMovieDetails(MovieDetailsParams movieDetailsParams);
 
   Future<List<RecommendationMovieModel>> fetchRecommendationMovies(RecommendationParams recommendationParams);
+
+  Future<List<CastMovieModel>> fetchMovieCast(CastParams castParams);
 
 
 }
@@ -110,6 +114,22 @@ class MovieRemoteDataSource extends BaseMovieRemoteDataSource{
     else{
       throw ServerException(errorMessageModel:ErrorMessageModel.fromJson(response.data));
     }
+  }
+
+  @override
+  Future<List<CastMovieModel>> fetchMovieCast(CastParams castParams)async {
+    final response = await Dio().get(ApiConstants.movieCast(castParams.movieId));
+
+    if(response.statusCode == 200){
+      List<dynamic> data = response.data['cast'];
+      print(response.data['cast']);
+
+      return data.map((castJson) => CastMovieModel.fromJson(castJson)).toList();
+    }
+    else{
+      throw ServerException(errorMessageModel:ErrorMessageModel.fromJson(response.data));
+    }
+
   }
 
 }

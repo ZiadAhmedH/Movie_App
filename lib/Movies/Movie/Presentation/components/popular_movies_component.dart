@@ -22,13 +22,15 @@ class PopularMoviesComponent extends StatelessWidget {
 
         switch(state.popularMoviesState) {
           case RequestState.loading:
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-
+            return  const SizedBox(
+                height: 170.0,
+                child: Center(child: CircularProgressIndicator()));
           case RequestState.error:
-            return Center(
-              child: Text(state.popularMessage),
+            return SizedBox(
+              height: 170.0,
+              child: Center(
+                child: Text(state.popularMessage),
+              ),
             );
 
           case RequestState.loaded:
@@ -57,7 +59,7 @@ class PopularMoviesComponent extends StatelessWidget {
                           child: CachedNetworkImage(
                             width: 120.0,
                             fit: BoxFit.cover,
-                            imageUrl: ApiConstants.imageUr(movie.backdropPath!),
+                            imageUrl: ApiConstants.imageUr(movie.posterPath ?? ""),
                             placeholder: (context, url) =>
                                 Shimmer.fromColors(
                                   baseColor: Colors.grey[850]!,

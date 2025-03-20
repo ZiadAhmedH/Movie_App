@@ -8,6 +8,7 @@ import '../../../../Core/Constents/EndPoints.dart';
 import '../../../../Core/Constents/enums.dart';
 import '../../domain/entities/Movie.dart';
 import '../controller/movies_bloc.dart';
+import '../screens/movie_detail_screen.dart';
 
 class NowPlayingComponent extends StatelessWidget {
   const NowPlayingComponent({super.key});
@@ -19,10 +20,17 @@ class NowPlayingComponent extends StatelessWidget {
       builder: (context, state) {
         switch (state.nowPlayingMoviesState) {
           case RequestState.loading:
-            return const Center(child: CircularProgressIndicator());
+            return const SizedBox(
+                height: 400.0,
+                child:  Center(child: CircularProgressIndicator()));
 
           case RequestState.error:
-            return Center(child: Text(state.nowPlayingMessage));
+            return  SizedBox(
+              height: 400.0,
+              child: Center(
+                child: Text(state.nowPlayingMessage),
+              ),
+            );
 
           case RequestState.loaded:
             return FadeIn(
@@ -36,7 +44,11 @@ class NowPlayingComponent extends StatelessWidget {
                 items: state.playingNowMovies.map((item) {
                   return GestureDetector(
                     key: const Key('openMovieMinimalDetail'),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) {
+                        return MovieDetailScreen(id: item.id!);
+                      },));
+                    },
                     child: Stack(
                       children: [
                         ShaderMask(

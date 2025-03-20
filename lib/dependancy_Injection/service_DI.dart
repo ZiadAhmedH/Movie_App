@@ -5,6 +5,7 @@ import '../Movies/Movie/Data/repository/movies_repository.dart';
 import '../Movies/Movie/Presentation/controller/movies_bloc.dart';
 import '../Movies/Movie/domain/repository/base_Movie_Repository.dart';
 import '../Movies/Movie/domain/usecases/fetch_Movie_Details.dart';
+import '../Movies/Movie/domain/usecases/fetch_Movie_cast.dart';
 import '../Movies/Movie/domain/usecases/fetch_Playing_Now_Movies.dart';
 import '../Movies/Movie/domain/usecases/fetch_Popular_Movies_Pagination.dart';
 import '../Movies/Movie/domain/usecases/fetch_Recommendation_Movies.dart';
@@ -24,6 +25,7 @@ class ServiceLocator{
         sl.registerLazySingleton(() => FetchTopRatedMovies(sl()));
         sl.registerLazySingleton(() => FetchMovieDetailsUseCase(sl()));
         sl.registerLazySingleton(() => FetchRecommendationMovies(sl()));
+        sl.registerLazySingleton(() => FetchMovieCast(sl()));
 
         // Register repository & data source
         sl.registerLazySingleton<BaseMovieRepository>(() => MoviesRepository(sl()));
@@ -31,6 +33,6 @@ class ServiceLocator{
 
         // Register Blocs after dependencies are available
         sl.registerFactory(() => MoviesBloc(sl(), sl(), sl()));
-        sl.registerFactory(() => MovieDetailsBloc(sl(), sl()));
+        sl.registerFactory(() => MovieDetailsBloc(sl(), sl() , sl()));
     }
 }

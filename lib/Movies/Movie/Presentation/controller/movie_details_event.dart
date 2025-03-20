@@ -22,3 +22,12 @@ class FetchMovieRecommendationsEvent extends MovieDetailsEvent {
   @override
   List<Object> get props => [movieId];
 }
+
+class FetchMovieCastEvent extends MovieDetailsEvent {
+  final int movieId;
+
+  const FetchMovieCastEvent(this.movieId);
+
+  @override
+  List<Object> get props => [movieId];
+}

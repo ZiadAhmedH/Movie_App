@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movies_app/Movies/Movie/Presentation/controller/movies_bloc.dart';
 import 'package:movies_app/Movies/Movie/Presentation/controller/movies_event.dart';
+import '../../../../Core/Constents/app_string.dart';
 import '../../../../dependancy_Injection/service_DI.dart';
 import '../components/now_palying_component.dart';
 import '../components/popular_movies_component.dart';
@@ -29,7 +29,7 @@ class MoviesScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Popular",
+                      AppString.popularMovies,
                       style: GoogleFonts.poppins(
                         fontSize: 19,
                         fontWeight: FontWeight.w500,
@@ -46,7 +46,7 @@ class MoviesScreen extends StatelessWidget {
                         child: Row(
                           children: [
                             Text(
-                              'See More',
+                              AppString.seeMore,
                               style: TextStyle(
                                   color: Colors.white), // White text
                             ),
@@ -74,7 +74,7 @@ class MoviesScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Top Rated",
+                      AppString.topRatedMovies,
                       style: GoogleFonts.poppins(
                         fontSize: 19,
                         fontWeight: FontWeight.w500,
@@ -91,7 +91,7 @@ class MoviesScreen extends StatelessWidget {
                         child: Row(
                           children: [
                             Text(
-                              'See More',
+                              AppString.seeMore,
                               style: TextStyle(
                                   color: Colors.white), // White text
                             ),

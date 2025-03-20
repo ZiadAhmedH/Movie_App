@@ -7,12 +7,12 @@ import 'package:movies_app/Core/Constents/EndPoints.dart';
 import 'package:movies_app/Movies/Movie/Presentation/controller/movie_details_bloc.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:lottie/lottie.dart';
+import '../../../../Core/Components/Custom_Text.dart';
+import '../../../../Core/Constents/app_string.dart';
 import '../../../../Core/Constents/enums.dart';
 import '../../../../dependancy_Injection/service_DI.dart';
 import '../../domain/entities/generes.dart';
 import '../../domain/entities/movie_details.dart';
-import '../../domain/entities/recommendation_movie.dart';
-
 class MovieDetailScreen extends StatelessWidget {
   final int id;
 
@@ -24,7 +24,8 @@ class MovieDetailScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => sl<MovieDetailsBloc>()
         ..add(FetchMovieDetailsEvent(id))
-        ..add(FetchMovieRecommendationsEvent(id)),
+        ..add(FetchMovieRecommendationsEvent(id))
+        ..add(FetchMovieCastEvent(id)),
       child: const Scaffold(
         body: MovieDetailContent(),
       ),
@@ -133,6 +134,27 @@ class MovieDetailContent extends StatelessWidget {
                     ),
                   ),
                 ),
+                
+                SliverPadding(padding:const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 24.0),
+                sliver: _showCast(state),),
+                SliverToBoxAdapter(
+                  child: FadeInUp(
+                    from: 20,
+                    duration: const Duration(milliseconds: 500),
+                    child: const Padding(
+                      padding: EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 8.0),
+                      child: Text(
+                        AppString.recommendations,
+                        style: TextStyle(
+                          fontSize: 19,
+                          fontWeight: FontWeight.w500,
+                          letterSpacing: 0.15,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
                 SliverPadding(
                   padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 24.0),
                   sliver: _showRecommendations(state),
@@ -213,20 +235,27 @@ class MovieDetailContent extends StatelessWidget {
       delegate: SliverChildBuilderDelegate(
             (context, index) {
           if (state.recommendations.isEmpty) {
-            return const Center(child: Text("No recommendations available"));
+            return  const Center(child: CustomText(text: "No Recommended Movies",color: Colors.white));
           }
           final recommendation = state.recommendations[index];
-          return FadeInUp(
-            from: 20,
-            duration: const Duration(milliseconds: 500),
-            child: ClipRRect(
-              borderRadius: const BorderRadius.all(Radius.circular(4.0)),
-              child: CachedNetworkImage(
-                imageUrl: ApiConstants.imageUr(recommendation.backdropPath ?? ''),
-                placeholder: (context, url) => _shimmerPlaceholder(),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
-                height: 180.0,
-                fit: BoxFit.cover,
+          return InkWell(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return MovieDetailScreen(id: recommendation.id);
+              }));
+            },
+            child: FadeInUp(
+              from: 20,
+              duration: const Duration(milliseconds: 500),
+              child: ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+                child: CachedNetworkImage(
+                  imageUrl: ApiConstants.imageUr(recommendation.posterPath ?? ''),
+                  placeholder: (context, url) => _shimmerPlaceholder(),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                  height: 180.0,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           );
@@ -240,6 +269,67 @@ class MovieDetailContent extends StatelessWidget {
         crossAxisCount: 3,
       ),
     );
+  }
+
+
+  Widget _showCast(MovieDetailsState state) {
+    switch (state.castState) {
+      case RequestState.loading:
+        return SliverToBoxAdapter(
+          child: SizedBox(
+            height: 120, // Adjust height as needed
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: 10,
+              itemBuilder: (context, index) => Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: _shimmerPlaceholder(),
+              ),
+            ),
+          ),
+        );
+      case RequestState.error:
+        return SliverToBoxAdapter(
+          child: Center(
+            child: Text(state.castMessage),
+          ),
+        );
+      case RequestState.loaded:
+        return SliverToBoxAdapter(
+          child: SizedBox(
+            height: 120, // Adjust height as needed
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: state.cast.length,
+              itemBuilder: (context, index) {
+                final cast = state.cast[index];
+                return FadeInUp(
+                  from: 50,
+                  duration: const Duration(milliseconds: 500),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: CircleAvatar(
+                      radius: 55.0,
+                      backgroundColor: Colors.grey[800],
+
+                      child: CircleAvatar(
+                        radius: 50,
+                        backgroundColor: Colors.grey[800],
+                        backgroundImage: cast.profilePath != null && cast.profilePath!.isNotEmpty
+                            ? CachedNetworkImageProvider(ApiConstants.imageUr(cast.profilePath!))
+                            : null,
+                        child: cast.profilePath == null || cast.profilePath!.isEmpty
+                            ? const Icon(Icons.error, size: 40)
+                            : null,
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        );
+    }
   }
 
   Widget _shimmerPlaceholder() {

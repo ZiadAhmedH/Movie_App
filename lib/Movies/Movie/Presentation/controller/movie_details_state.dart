@@ -20,6 +20,11 @@ part of 'movie_details_bloc.dart';
       this.recommendations = const [],
       this.recommendationsState = RequestState.loading,
       this.recommendationsMessage = '',
+
+
+      this.cast = const [],
+      this.castState = RequestState.loading,
+      this.castMessage = '',
     }
     );
 
@@ -28,11 +33,13 @@ part of 'movie_details_bloc.dart';
       final String movieDetailsMessage;
 
       final List<Recommendation> recommendations;
-
       final RequestState recommendationsState;
-
       final String recommendationsMessage;
 
+
+      final List<Cast> cast;
+      final RequestState castState;
+      final String castMessage;
 
       MovieDetailsState copyWith({
         MovieDetails? movieDetails,
@@ -41,6 +48,9 @@ part of 'movie_details_bloc.dart';
         List<Recommendation>? recommendations,
         RequestState? recommendationsState,
         String? recommendationsMessage,
+        List<Cast>? cast,
+        RequestState? castState,
+        String? castMessage,
       }) {
         return MovieDetailsState(
           movieDetails: movieDetails ?? this.movieDetails,
@@ -49,6 +59,9 @@ part of 'movie_details_bloc.dart';
           recommendations: recommendations ?? this.recommendations,
           recommendationsState: recommendationsState ?? this.recommendationsState,
           recommendationsMessage: recommendationsMessage ?? this.recommendationsMessage,
+          cast: cast ?? this.cast,
+          castState: castState ?? this.castState,
+          castMessage: castMessage ?? this.castMessage,
         );
       }
 
@@ -62,5 +75,8 @@ part of 'movie_details_bloc.dart';
       recommendations,
       recommendationsState,
       recommendationsMessage,
+      cast,
+      castState,
+      castMessage,
     ];
 }

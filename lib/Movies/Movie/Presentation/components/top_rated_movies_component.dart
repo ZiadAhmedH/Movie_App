@@ -8,6 +8,7 @@ import 'package:shimmer/shimmer.dart';
 
 import '../../../../Core/Constents/EndPoints.dart';
 import '../../../../Core/Constents/enums.dart';
+import '../screens/movie_detail_screen.dart';
 
 class TopRatedMoviesComponent extends StatelessWidget {
   const TopRatedMoviesComponent({super.key});
@@ -21,13 +22,16 @@ class TopRatedMoviesComponent extends StatelessWidget {
         switch(state.topRatedMoviesState){
 
           case RequestState.loading:
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return const SizedBox(
+                height: 170.0,
+                child: Center(child: CircularProgressIndicator()));
 
           case RequestState.error:
-            return Center(
-              child: Text(state.topRatedMessage),
+            return SizedBox(
+              height: 170.0,
+              child: Center(
+                child: Text(state.topRatedMessage),
+              ),
             );
 
           case RequestState.loaded:
@@ -46,7 +50,9 @@ class TopRatedMoviesComponent extends StatelessWidget {
                       padding: const EdgeInsets.only(right: 8.0),
                       child: InkWell(
                         onTap: () {
-                          /// TODO : NAVIGATE TO  MOVIE DETAILS
+                          Navigator.push(context, MaterialPageRoute(builder: (context) {
+                            return MovieDetailScreen(id: movie.id!);
+                          },));
                         },
                         child: ClipRRect(
                           borderRadius:
@@ -54,7 +60,7 @@ class TopRatedMoviesComponent extends StatelessWidget {
                           child: CachedNetworkImage(
                             width: 120.0,
                             fit: BoxFit.cover,
-                            imageUrl: ApiConstants.imageUr(movie.backdropPath!),
+                            imageUrl: ApiConstants.imageUr(movie.posterPath!),
                             placeholder: (context, url) =>
                                 Shimmer.fromColors(
                                   baseColor: Colors.grey[850]!,
