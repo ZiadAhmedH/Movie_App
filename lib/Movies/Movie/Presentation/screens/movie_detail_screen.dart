@@ -11,8 +11,11 @@ import '../../../../Core/Components/Custom_Text.dart';
 import '../../../../Core/Constents/app_string.dart';
 import '../../../../Core/Constents/enums.dart';
 import '../../../../dependancy_Injection/service_DI.dart';
+import '../../Data/Models/fav_movie_model.dart';
 import '../../domain/entities/generes.dart';
 import '../../domain/entities/movie_details.dart';
+import '../controller/fav_bloc_movie/fav_movie_bloc.dart';
+
 class MovieDetailScreen extends StatelessWidget {
   final int id;
 
@@ -20,21 +23,28 @@ class MovieDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('MovieDetailScreen: $id');
-    return BlocProvider(
-      create: (context) => sl<MovieDetailsBloc>()
-        ..add(FetchMovieDetailsEvent(id))
-        ..add(FetchMovieRecommendationsEvent(id))
-        ..add(FetchMovieCastEvent(id)),
-      child: const Scaffold(
-        body: MovieDetailContent(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => sl<FavMovieBloc>()..add(CheckIfMovieFavEvent(id)),
+        ),
+        BlocProvider(
+          create: (context) => sl<MovieDetailsBloc>()
+            ..add(FetchMovieDetailsEvent(id))
+            ..add(FetchMovieRecommendationsEvent(id))
+            ..add(FetchMovieCastEvent(id)),
+        ),
+      ],
+      child: Scaffold(
+        body: MovieDetailContent(id: id),
       ),
     );
   }
 }
 
 class MovieDetailContent extends StatelessWidget {
-  const MovieDetailContent({super.key});
+  final int id;
+  const MovieDetailContent({super.key, required this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +52,9 @@ class MovieDetailContent extends StatelessWidget {
       builder: (context, state) {
         switch (state.movieDetailsState) {
           case RequestState.loading:
-            return  Center(child:Lottie.asset('assets/lotties/loading.json',width: 200,height: 200));
+            return Center(
+              child: Lottie.asset('assets/lotties/loading.json', width: 200, height: 200),
+            );
 
           case RequestState.error:
             return Center(child: Text(state.movieDetailsMessage));
@@ -91,9 +103,7 @@ class MovieDetailContent extends StatelessWidget {
                       );
                     },
                   ),
-                ),
-
-                SliverToBoxAdapter(
+                ),                SliverToBoxAdapter(
                   child: FadeInUp(
                     from: 20,
                     duration: const Duration(milliseconds: 500),
@@ -140,42 +150,22 @@ class MovieDetailContent extends StatelessWidget {
                   child: FadeInUp(
                     from: 20,
                     duration: const Duration(milliseconds: 500),
-                    child: const Padding(
-                      padding: EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 8.0),
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 8.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Icon(Icons.movie_creation_outlined, color: Colors.white , size: 30,),
-                          Icon(Icons.share, color: Colors.white , size: 30,),
-                          Icon(Icons.favorite, color: Colors.white , size: 30,),
+                          const Icon(Icons.movie_creation_outlined, color: Colors.white, size: 30),
+                          const Icon(Icons.share, color: Colors.white, size: 30),
+                          _buildFavoriteButton(context, movieDetails),
                         ],
-                      ),
-                    ),
-                  ),
-                ),
-                SliverPadding(padding:const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 24.0),
-                sliver: _showCast(state),),
-                SliverToBoxAdapter(
-                  child: FadeInUp(
-                    from: 20,
-                    duration: const Duration(milliseconds: 500),
-                    child: const Padding(
-                      padding: EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 8.0),
-                      child: Text(
-                        AppString.recommendations,
-                        style: TextStyle(
-                          fontSize: 19,
-                          fontWeight: FontWeight.w500,
-                          letterSpacing: 0.15,
-                          color: Colors.white,
-                        ),
                       ),
                     ),
                   ),
                 ),
                 SliverPadding(
                   padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 24.0),
-                  sliver: _showRecommendations(state),
+                  sliver: _showCast(state),
                 ),
               ],
             );
@@ -184,54 +174,54 @@ class MovieDetailContent extends StatelessWidget {
     );
   }
 
+  Widget _buildFavoriteButton(BuildContext context, MovieDetails movieDetails) {
+    return BlocBuilder<FavMovieBloc, FavMovieState>(
+      builder: (context, state) {
+        bool isFavorite = state is FavMovieAdded && state.favoriteMovieModel.id == movieDetails.id;
+
+        return IconButton(
+          icon: Icon(
+            isFavorite ? Icons.favorite : Icons.favorite_border,
+            color: isFavorite ? Colors.red : Colors.white,
+            size: 30,
+          ),
+          onPressed: () {
+            final favoriteMovie = FavoriteMovieModel(
+              id: movieDetails.id!,
+              title: movieDetails.title!,
+              posterPath: movieDetails.posterPath!,
+            );
+
+            if (isFavorite) {
+              context.read<FavMovieBloc>().add(RemoveFavMovieEvent(favoriteMovie.id));
+            } else {
+              context.read<FavMovieBloc>().add(AddFavMovieEvent(favoriteMovie));
+            }
+
+            context.read<FavMovieBloc>().add(CheckIfMovieFavEvent(movieDetails.id!));
+          },
+        );
+      },
+    );
+  }
+
   Widget _buildMovieInfo(MovieDetails movieDetails) {
     return Row(
       children: [
-        Container(
-          padding: const EdgeInsets.symmetric(
-            vertical: 2.0,
-            horizontal: 8.0,
-          ),
-          decoration: BoxDecoration(
-            color: Colors.grey[800],
-            borderRadius: BorderRadius.circular(4.0),
-          ),
-          child: Text(
-            movieDetails.releaseDate?.split('-')[0] ?? "Unknown Year",
-            style: const TextStyle(
-              fontSize: 16.0,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
+        Text(
+          movieDetails.releaseDate?.split('-')[0] ?? "Unknown Year",
+          style: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500),
         ),
         const SizedBox(width: 16.0),
         Row(
           children: [
-            const Icon(
-              Icons.star,
-              color: Colors.amber,
-              size: 20.0,
-            ),
+            const Icon(Icons.star, color: Colors.amber, size: 20.0),
             const SizedBox(width: 4.0),
             Text(
-              (movieDetails.voteAverage ?? 0 / 2).toStringAsFixed(1),
-              style: const TextStyle(
-                fontSize: 16.0,
-                fontWeight: FontWeight.w500,
-                letterSpacing: 1.2,
-              ),
+              (movieDetails.voteAverage ?? 0).toStringAsFixed(1),
+              style: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500),
             ),
           ],
-        ),
-        const SizedBox(width: 16.0),
-        Text(
-          _showDuration(movieDetails.runtime ?? 0),
-          style: const TextStyle(
-            color: Colors.white70,
-            fontSize: 16.0,
-            fontWeight: FontWeight.w500,
-            letterSpacing: 1.2,
-          ),
         ),
       ],
     );
@@ -242,49 +232,17 @@ class MovieDetailContent extends StatelessWidget {
     return genres.map((genre) => genre.name).join(", ");
   }
 
-  String _showDuration(int runtime) {
-    final int hours = runtime ~/ 60;
-    final int minutes = runtime % 60;
-    return hours > 0 ? '${hours}h ${minutes}m' : '${minutes}m';
-  }
-
-  Widget _showRecommendations(MovieDetailsState state) {
-    return SliverGrid(
-      delegate: SliverChildBuilderDelegate(
-            (context, index) {
-          if (state.recommendations.isEmpty) {
-            return  const Center(child: CustomText(text: "No Recommended Movies",color: Colors.white));
-          }
-          final recommendation = state.recommendations[index];
-          return InkWell(
-            onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return MovieDetailScreen(id: recommendation.id);
-              }));
-            },
-            child: FadeInUp(
-              from: 20,
-              duration: const Duration(milliseconds: 500),
-              child: ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(4.0)),
-                child: CachedNetworkImage(
-                  imageUrl: ApiConstants.imageUr(recommendation.posterPath ?? ''),
-                  placeholder: (context, url) => _shimmerPlaceholder(),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
-                  height: 180.0,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-          );
-        },
-        childCount: state.recommendations.length,
-      ),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        mainAxisSpacing: 8.0,
-        crossAxisSpacing: 8.0,
-        childAspectRatio: 0.7,
-        crossAxisCount: 3,
+  Widget _shimmerPlaceholder() {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey[850]!,
+      highlightColor: Colors.grey[800]!,
+      child: Container(
+        height: 170.0,
+        width: 120.0,
+        decoration: BoxDecoration(
+          color: Colors.black,
+          borderRadius: BorderRadius.circular(8.0),
+        ),
       ),
     );
   }
@@ -350,18 +308,5 @@ class MovieDetailContent extends StatelessWidget {
     }
   }
 
-  Widget _shimmerPlaceholder() {
-    return Shimmer.fromColors(
-      baseColor: Colors.grey[850]!,
-      highlightColor: Colors.grey[800]!,
-      child: Container(
-        height: 170.0,
-        width: 120.0,
-        decoration: BoxDecoration(
-          color: Colors.black,
-          borderRadius: BorderRadius.circular(8.0),
-        ),
-      ),
-    );
-  }
+
 }

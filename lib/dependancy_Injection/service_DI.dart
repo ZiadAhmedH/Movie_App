@@ -46,6 +46,6 @@ class ServiceLocator{
         // Register Blocs after dependencies are available
         sl.registerFactory(() => MoviesBloc(sl(), sl(), sl()));
         sl.registerFactory(() => MovieDetailsBloc(sl(), sl() , sl()));
-        sl.registerFactory(() => FavMovieBloc(sl(), sl()));
+        sl.registerFactory(() => FavMovieBloc(sl(), sl() , sl()));
     }
 }

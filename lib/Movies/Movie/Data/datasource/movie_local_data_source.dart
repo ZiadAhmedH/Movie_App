@@ -1,5 +1,4 @@
 import 'package:hive/hive.dart';
-
 import '../Models/fav_movie_model.dart';
 
 abstract class MovieLocalDataSource {
