@@ -2,8 +2,10 @@ import 'package:dartz/dartz.dart';
 import 'package:movies_app/Core/errors/failure.dart';
 import 'package:movies_app/Core/usecase/base_Use_Case.dart';
 
-import '../entities/cast_movie.dart';
-import '../repository/base_Movie_Repository.dart';
+import '../../entities/cast_movie.dart';
+import '../../repository/base_Movie_Repository.dart';
+
+
 
 class FetchMovieCast extends BaseUseCase<List<Cast> ,CastParams >{
   final BaseMovieRepository _movieRepository;

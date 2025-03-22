@@ -4,10 +4,9 @@ import 'package:movies_app/Core/Constents/enums.dart';
 import 'package:movies_app/Movies/Movie/domain/entities/cast_movie.dart';
 import 'package:movies_app/Movies/Movie/domain/entities/movie_details.dart';
 import 'package:movies_app/Movies/Movie/domain/entities/recommendation_movie.dart';
-
-import '../../domain/usecases/fetch_Movie_Details.dart';
-import '../../domain/usecases/fetch_Movie_cast.dart';
-import '../../domain/usecases/fetch_Recommendation_Movies.dart';
+import '../../../domain/usecases/remote/fetch_Movie_Details.dart';
+import '../../../domain/usecases/remote/fetch_Movie_cast.dart';
+import '../../../domain/usecases/remote/fetch_Recommendation_Movies.dart';
 
 part 'movie_details_event.dart';
 part 'movie_details_state.dart';

@@ -2,12 +2,11 @@ import 'package:animate_do/animate_do.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/Movies/Movie/Presentation/controller/movies_bloc.dart';
-import 'package:movies_app/Movies/Movie/Presentation/controller/movies_state.dart';
+import 'package:movies_app/Movies/Movie/Presentation/controller/movie_bloc/movies_bloc.dart';
 import 'package:shimmer/shimmer.dart';
-
 import '../../../../Core/Constents/EndPoints.dart';
 import '../../../../Core/Constents/enums.dart';
+import '../controller/movie_bloc/movies_state.dart';
 import '../screens/movie_detail_screen.dart';
 
 class TopRatedMoviesComponent extends StatelessWidget {

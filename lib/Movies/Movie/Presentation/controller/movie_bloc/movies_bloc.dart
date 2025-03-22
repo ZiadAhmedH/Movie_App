@@ -1,11 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:movies_app/Core/usecase/base_Use_Case.dart';
-import 'package:movies_app/Movies/Movie/Presentation/controller/movies_state.dart';
-import 'package:movies_app/Movies/Movie/domain/usecases/fetch_Popular_Movies_Pagination.dart';
-import '../../../../Core/Constents/enums.dart';
-import '../../domain/usecases/fetch_Playing_Now_Movies.dart';
-import '../../domain/usecases/fetch_Top_Rated_Movies.dart';
+import '../../../../../Core/Constents/enums.dart';
+import '../../../domain/usecases/remote/fetch_Playing_Now_Movies.dart';
+import '../../../domain/usecases/remote/fetch_Popular_Movies_Pagination.dart';
+import '../../../domain/usecases/remote/fetch_Top_Rated_Movies.dart';
 import 'movies_event.dart';
+import 'movies_state.dart';
 
 class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
 

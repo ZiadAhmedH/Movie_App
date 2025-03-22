@@ -3,11 +3,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies_app/Movies/Movie/Presentation/controller/movies_state.dart';
 import '../../../../Core/Constents/EndPoints.dart';
 import '../../../../Core/Constents/enums.dart';
 import '../../domain/entities/Movie.dart';
-import '../controller/movies_bloc.dart';
+import '../controller/movie_bloc/movies_bloc.dart';
+import '../controller/movie_bloc/movies_state.dart';
 import '../screens/movie_detail_screen.dart';
 
 class NowPlayingComponent extends StatelessWidget {

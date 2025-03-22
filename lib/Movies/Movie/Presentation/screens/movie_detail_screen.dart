@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movies_app/Core/Constents/EndPoints.dart';
-import 'package:movies_app/Movies/Movie/Presentation/controller/movie_details_bloc.dart';
+import 'package:movies_app/Movies/Movie/Presentation/controller/movie_detail_bloc/movie_details_bloc.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:lottie/lottie.dart';
 import '../../../../Core/Components/Custom_Text.dart';
@@ -60,37 +60,39 @@ class MovieDetailContent extends StatelessWidget {
                 SliverAppBar(
                   pinned: true,
                   expandedHeight: 250.0,
-                  flexibleSpace: FlexibleSpaceBar(
-                    background: FadeIn(
-                      duration: const Duration(milliseconds: 500),
-                      child: ShaderMask(
-                        shaderCallback: (rect) {
-                          return const LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [
-                              Colors.transparent,
-                              Colors.black,
-                              Colors.black,
-                              Colors.transparent,
-                            ],
-                            stops: [0.0, 0.5, 1.0, 1.0],
-                          ).createShader(
-                            Rect.fromLTRB(0.0, 0.0, rect.width, rect.height),
-                          );
-                        },
-                        blendMode: BlendMode.dstIn,
-                        child: CachedNetworkImage(
-                          width: MediaQuery.of(context).size.width,
+                  backgroundColor: Colors.black,
+                  flexibleSpace: LayoutBuilder(
+                    builder: (context, constraints) {
+                      // Get the current app bar height
+                      double currentHeight = constraints.biggest.height;
+
+                      // Determine if the app bar is collapsed (close to the min height)
+                      bool isCollapsed = currentHeight < 150; // Adjust threshold as needed
+
+                      return FlexibleSpaceBar(
+                        titlePadding: const EdgeInsets.only(left: 16, bottom: 16),
+                        centerTitle: true,
+                        title: isCollapsed
+                            ? Text(
+                          movieDetails.title ?? " ",
+                          style: GoogleFonts.poppins(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                          ),
+                        )
+                            : null, // Hide title when expanded
+                        background: CachedNetworkImage(
                           imageUrl: ApiConstants.imageUr(movieDetails.backdropPath ?? ''),
                           fit: BoxFit.cover,
                           placeholder: (context, url) => _shimmerPlaceholder(),
                           errorWidget: (context, url, error) => const Icon(Icons.error),
                         ),
-                      ),
-                    ),
+                      );
+                    },
                   ),
                 ),
+
                 SliverToBoxAdapter(
                   child: FadeInUp(
                     from: 20,
@@ -134,7 +136,23 @@ class MovieDetailContent extends StatelessWidget {
                     ),
                   ),
                 ),
-                
+                SliverToBoxAdapter(
+                  child: FadeInUp(
+                    from: 20,
+                    duration: const Duration(milliseconds: 500),
+                    child: const Padding(
+                      padding: EdgeInsets.fromLTRB(16.0, 24.0, 16.0, 8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Icon(Icons.movie_creation_outlined, color: Colors.white , size: 30,),
+                          Icon(Icons.share, color: Colors.white , size: 30,),
+                          Icon(Icons.favorite, color: Colors.white , size: 30,),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
                 SliverPadding(padding:const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 24.0),
                 sliver: _showCast(state),),
                 SliverToBoxAdapter(

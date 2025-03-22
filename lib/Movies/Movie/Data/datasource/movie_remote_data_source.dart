@@ -6,12 +6,12 @@ import 'package:movies_app/Movies/Movie/Data/Models/cast_movie_model.dart';
 import 'package:movies_app/Movies/Movie/Data/Models/movie_Details_model.dart';
 import 'package:movies_app/Movies/Movie/Data/Models/recommendation_model.dart';
 import 'package:movies_app/Movies/Movie/domain/entities/movie_details.dart';
-import 'package:movies_app/Movies/Movie/domain/usecases/fetch_Movie_Details.dart';
-import 'package:movies_app/Movies/Movie/domain/usecases/fetch_Movie_cast.dart';
-import 'package:movies_app/Movies/Movie/domain/usecases/fetch_Popular_Movies_Pagination.dart';
+import 'package:movies_app/Movies/Movie/domain/usecases/remote/fetch_Movie_Details.dart';
 
 import '../../../../Core/network/error_message_model.dart';
-import '../../domain/usecases/fetch_Recommendation_Movies.dart';
+import '../../domain/usecases/remote/fetch_Movie_cast.dart';
+import '../../domain/usecases/remote/fetch_Popular_Movies_Pagination.dart';
+import '../../domain/usecases/remote/fetch_Recommendation_Movies.dart';
 
 abstract class BaseMovieRemoteDataSource{
   Future<List<MovieModel>> fetchPlayingNowMovies();
