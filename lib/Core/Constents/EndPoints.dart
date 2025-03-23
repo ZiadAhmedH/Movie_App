@@ -16,5 +16,5 @@ class ApiConstants {
    static movieDetails(int id) => '$baseUrl$id$apiKey';
     static recommendationMovies(int id) => '$baseUrl$id$recommendation$apiKey';
     static movieCast(int id) => '$baseUrl$id/credits$apiKey';
-    static searchMovie(String query) => '$baseUrl$apiKey&query=$query';
+    static searchMovie(String query) => 'https://api.themoviedb.org/3/search/movie$apiKey&query=$query';
 }

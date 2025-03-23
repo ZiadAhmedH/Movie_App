@@ -139,6 +139,7 @@ class MovieRemoteDataSource extends BaseMovieRemoteDataSource{
 
     if(response.statusCode == 200){
       List<dynamic> data = response.data['results'];
+      print(response.data['results']);
       return data.map((movieJson) => MovieModel.fromJson(movieJson)).toList();
     }
     else{

@@ -25,6 +25,8 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
 
     on<FetchTopRatedMoviesEvent>(_getTopRatedMovies);
 
+    on<FetchSearchMoviesEvent>(_searchMovies);
+
   }
 
   _getPlayingNowMovies(FetchPlayingNowMoviesEvent event, Emitter<MoviesState> emit)  async {
@@ -59,5 +61,18 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
             topRatedMoviesState: RequestState.loaded,
             topRatedMovies: movies)));
   }
+
+  _searchMovies(FetchSearchMoviesEvent event, Emitter<MoviesState> emit) async {
+    final result = await searchMovieUseCase(event.query);
+    result.fold(
+            (failure) => emit(state.copyWith(
+            searchMoviesState: RequestState.error,
+            searchMessage: failure.message)),
+            (movies) => emit(state.copyWith(
+            searchMoviesState: RequestState.loaded,
+            searchMovies: movies)));
+  }
+
+
 
 }
