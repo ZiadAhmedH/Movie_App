@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/Movies/Movie/Presentation/controller/movie_bloc/movies_bloc.dart';
 import 'package:shimmer/shimmer.dart';
-import '../../../../Core/Constents/EndPoints.dart';
-import '../../../../Core/Constents/enums.dart';
-import '../controller/movie_bloc/movies_state.dart';
-import '../screens/movie_detail_screen.dart';
+import '../../../../../Core/Constents/EndPoints.dart';
+import '../../../../../Core/Constents/enums.dart';
+import '../../controller/movie_bloc/movies_state.dart';
+import '../../screens/movie_detail_screen.dart';
 
 class PopularMoviesComponent extends StatelessWidget {
   const PopularMoviesComponent({super.key});
@@ -58,7 +58,7 @@ class PopularMoviesComponent extends StatelessWidget {
                           child: CachedNetworkImage(
                             width: 120.0,
                             fit: BoxFit.cover,
-                            imageUrl: ApiConstants.imageUr(movie.posterPath ?? ""),
+                            imageUrl: ApiMovie.imageUr(movie.posterPath ?? ""),
                             placeholder: (context, url) =>
                                 Shimmer.fromColors(
                                   baseColor: Colors.grey[850]!,

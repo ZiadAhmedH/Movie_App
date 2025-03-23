@@ -3,12 +3,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../Core/Constents/EndPoints.dart';
-import '../../../../Core/Constents/enums.dart';
-import '../../domain/entities/Movie.dart';
-import '../controller/movie_bloc/movies_bloc.dart';
-import '../controller/movie_bloc/movies_state.dart';
-import '../screens/movie_detail_screen.dart';
+import '../../../../../Core/Constents/EndPoints.dart';
+import '../../../../../Core/Constents/enums.dart';
+import '../../../domain/entities/Movie.dart';
+import '../../controller/movie_bloc/movies_bloc.dart';
+import '../../controller/movie_bloc/movies_state.dart';
+import '../../screens/movie_detail_screen.dart';
 
 class NowPlayingComponent extends StatelessWidget {
   const NowPlayingComponent({super.key});
@@ -69,7 +69,7 @@ class NowPlayingComponent extends StatelessWidget {
                           child: CachedNetworkImage(
                             height: 560.0,
                             imageUrl: item.backdropPath != null
-                                ? ApiConstants.imageUr(item.backdropPath!)
+                                ? ApiMovie.imageUr(item.backdropPath!)
                                 : 'https://www.google.com.eg/url?sa=i&url=https%3A%2F%2Fwww.freepik.com%2Ffree-photos-vectors%2Fopps&psig=AOvVaw1s8TKGKHuJ87K2KyT86Zhu&ust=1741979373217000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCPiY97zhh4wDFQAAAAAdAAAAABAE', // Placeholder image
                             fadeOutCurve: Curves.easeIn,
                             fit: BoxFit.cover,

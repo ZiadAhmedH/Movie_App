@@ -4,9 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:movies_app/Movies/Movie/Presentation/controller/movie_bloc/movies_bloc.dart';
 import '../../../../Core/Constents/app_string.dart';
 import '../../../../dependancy_Injection/service_DI.dart';
-import '../components/now_palying_component.dart';
-import '../components/popular_movies_component.dart';
-import '../components/top_rated_movies_component.dart';
+import '../components/home_components/now_palying_component.dart';
+import '../components/home_components/popular_movies_component.dart';
+import '../components/home_components/top_rated_movies_component.dart';
 import '../controller/movie_bloc/movies_event.dart';
 class MoviesScreen extends StatelessWidget {
   const MoviesScreen({super.key});

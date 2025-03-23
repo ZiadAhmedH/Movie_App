@@ -36,7 +36,7 @@ class MovieRemoteDataSource extends BaseMovieRemoteDataSource{
   // make an Contract BaseMovieReomteDataSource and extends it in this class
   @override
   Future<List<MovieModel>> fetchPlayingNowMovies() async {
-    final response = await Dio().get(ApiConstants.nowPlayingApi);
+    final response = await Dio().get(ApiMovie.nowPlayingApi);
 
     if(response.statusCode == 200){
       print("response");
@@ -71,7 +71,7 @@ class MovieRemoteDataSource extends BaseMovieRemoteDataSource{
 
   @override
   Future<List<MovieModel>> fetchTopRatedMovies() async {
-     final response = await Dio().get(ApiConstants.topRatedApi);
+     final response = await Dio().get(ApiMovie.topRatedApi);
 
       if(response.statusCode == 200){
         List<dynamic> data = response.data['results'];
@@ -85,7 +85,7 @@ class MovieRemoteDataSource extends BaseMovieRemoteDataSource{
   @override
   Future<MovieDetails> fetchMovieDetails(MovieDetailsParams movieDetailsParams) async {
     try {
-      final response = await Dio().get(ApiConstants.movieDetails(movieDetailsParams.movieId));
+      final response = await Dio().get(ApiMovie.movieDetails(movieDetailsParams.movieId));
 
       if (response.statusCode == 200) {
         if (response.data != null && response.data.isNotEmpty) {
@@ -106,7 +106,7 @@ class MovieRemoteDataSource extends BaseMovieRemoteDataSource{
 
   @override
   Future<List<RecommendationMovieModel>> fetchRecommendationMovies(RecommendationParams recommendationParams) async {
-    final response = await Dio().get(ApiConstants.recommendationMovies(recommendationParams.id));
+    final response = await Dio().get(ApiMovie.recommendationMovies(recommendationParams.id));
 
     if(response.statusCode == 200){
       List<dynamic> data = response.data['results'];
@@ -119,7 +119,7 @@ class MovieRemoteDataSource extends BaseMovieRemoteDataSource{
 
   @override
   Future<List<CastMovieModel>> fetchMovieCast(CastParams castParams)async {
-    final response = await Dio().get(ApiConstants.movieCast(castParams.movieId));
+    final response = await Dio().get(ApiMovie.movieCast(castParams.movieId));
 
     if(response.statusCode == 200){
       List<dynamic> data = response.data['cast'];
@@ -135,7 +135,7 @@ class MovieRemoteDataSource extends BaseMovieRemoteDataSource{
 
   @override
   Future<List<MovieModel>> fetchSearchMovies(String query)async {
-   final response =await Dio().get(ApiConstants.searchMovie(query));
+   final response =await Dio().get(ApiMovie.searchMovie(query));
 
     if(response.statusCode == 200){
       List<dynamic> data = response.data['results'];
