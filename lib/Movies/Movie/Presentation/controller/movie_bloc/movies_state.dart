@@ -16,6 +16,13 @@ class MoviesState extends Equatable {
   final RequestState topRatedMoviesState;
   final String topRatedMessage;
 
+
+  // search
+
+  final List<Movie> searchMovies;
+  final RequestState searchMoviesState;
+  final String searchMessage;
+
   MoviesState copyWith(
       {List<Movie>? playingNowMovies,
       RequestState? nowPlayingMoviesState,
@@ -25,7 +32,12 @@ class MoviesState extends Equatable {
       String? popularMessage,
       List<Movie>? topRatedMovies,
       RequestState? topRatedMoviesState,
-      String? topRatedMessage}) {
+      String? topRatedMessage,
+
+      List<Movie>? searchMovies,
+      RequestState? searchMoviesState,
+      String? searchMessage,
+      }) {
     return MoviesState(
         playingNowMovies: playingNowMovies ?? this.playingNowMovies,
         nowPlayingMoviesState:
@@ -36,30 +48,48 @@ class MoviesState extends Equatable {
         popularMessage: popularMessage ?? this.popularMessage,
         topRatedMovies: topRatedMovies ?? this.topRatedMovies,
         topRatedMoviesState: topRatedMoviesState ?? this.topRatedMoviesState,
-        topRatedMessage: topRatedMessage ?? this.topRatedMessage);
+        topRatedMessage: topRatedMessage ?? this.topRatedMessage,
+
+        searchMovies: searchMovies ?? this.searchMovies,
+        searchMoviesState: searchMoviesState ?? this.searchMoviesState,
+        searchMessage: searchMessage ?? this.searchMessage,
+    );
   }
 
   const MoviesState(
       {this.playingNowMovies = const [],
       this.nowPlayingMoviesState = RequestState.loading,
       this.nowPlayingMessage = '',
+
       this.popularMovies = const [],
       this.popularMoviesState = RequestState.loading,
       this.popularMessage = '',
+
       this.topRatedMovies = const [],
       this.topRatedMoviesState = RequestState.loading,
-      this.topRatedMessage = ''});
+      this.topRatedMessage = '',
+
+      this.searchMovies = const [],
+      this.searchMoviesState = RequestState.loading,
+      this.searchMessage = '',
+      });
 
   @override
   List<Object> get props => [
         playingNowMovies,
         nowPlayingMoviesState,
         nowPlayingMessage,
+
         popularMovies,
         popularMoviesState,
         popularMessage,
+
         topRatedMovies,
         topRatedMoviesState,
-        topRatedMessage
+        topRatedMessage,
+
+        searchMovies,
+        searchMoviesState,
+        searchMessage,
       ];
 }

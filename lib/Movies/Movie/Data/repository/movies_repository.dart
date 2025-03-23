@@ -138,6 +138,18 @@ class MoviesRepository extends BaseMovieRepository {
     }
   }
 
+  @override
+  Future<Either<Failure, List<Movie>>> fetchSearchMovies(String query)async {
+
+    try {
+      final result = await remoteDataSource.fetchSearchMovies(query);
+      return Right(result);
+    } on ServerException catch (failure) {
+      return Left(
+          ServerFailure(message: failure.errorMessageModel.statusMessage));
+    }
+  }
+
   
 
 

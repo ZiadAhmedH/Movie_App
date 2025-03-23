@@ -1,6 +1,8 @@
 import 'package:get_it/get_it.dart';
 import 'package:movies_app/Movies/Movie/Presentation/controller/movie_detail_bloc/movie_details_bloc.dart';
 import 'package:movies_app/Movies/Movie/domain/usecases/local/save_fav_Movie.dart';
+import 'package:movies_app/Movies/Movie/domain/usecases/remote/search_movie.dart';
+import 'package:movies_app/main/controller/screen_cubit.dart';
 import '../Movies/Movie/Data/datasource/movie_local_data_source.dart';
 import '../Movies/Movie/Data/datasource/movie_remote_data_source.dart';
 import '../Movies/Movie/Data/repository/movies_repository.dart';
@@ -31,6 +33,7 @@ class ServiceLocator{
         sl.registerLazySingleton(() => FetchMovieDetailsUseCase(sl()));
         sl.registerLazySingleton(() => FetchRecommendationMovies(sl()));
         sl.registerLazySingleton(() => FetchMovieCast(sl()));
+        sl.registerLazySingleton(() => SearchMovieUseCase(sl()));
 
         // Register use cases first  local
 
@@ -44,8 +47,10 @@ class ServiceLocator{
         sl.registerLazySingleton<MovieLocalDataSource>(() => MovieLocalDataSourceImpl());
 
         // Register Blocs after dependencies are available
-        sl.registerFactory(() => MoviesBloc(sl(), sl(), sl()));
+        sl.registerFactory(() => MoviesBloc(sl(), sl(), sl(),sl()));
         sl.registerFactory(() => MovieDetailsBloc(sl(), sl() , sl()));
         sl.registerFactory(() => FavMovieBloc(sl(), sl() , sl()));
+
+        sl.registerFactory(()=>ScreenCubit());
     }
 }

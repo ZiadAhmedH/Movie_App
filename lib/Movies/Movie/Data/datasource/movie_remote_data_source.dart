@@ -2,16 +2,15 @@ import 'package:dio/dio.dart';
 import 'package:movies_app/Core/Constents/EndPoints.dart';
 import 'package:movies_app/Core/errors/exceptions.dart';
 import 'package:movies_app/Movies/Movie/Data/Models/Movie_Model.dart';
-import 'package:movies_app/Movies/Movie/Data/Models/cast_movie_model.dart';
-import 'package:movies_app/Movies/Movie/Data/Models/movie_Details_model.dart';
-import 'package:movies_app/Movies/Movie/Data/Models/recommendation_model.dart';
-import 'package:movies_app/Movies/Movie/domain/entities/movie_details.dart';
-import 'package:movies_app/Movies/Movie/domain/usecases/remote/fetch_Movie_Details.dart';
-
-import '../../../../Core/network/error_message_model.dart';
+import '../../../../../Core/network/error_message_model.dart';
+import '../../domain/entities/movie_details.dart';
+import '../../domain/usecases/remote/fetch_Movie_Details.dart';
 import '../../domain/usecases/remote/fetch_Movie_cast.dart';
 import '../../domain/usecases/remote/fetch_Popular_Movies_Pagination.dart';
 import '../../domain/usecases/remote/fetch_Recommendation_Movies.dart';
+import '../Models/cast_movie_model.dart';
+import '../Models/movie_Details_model.dart';
+import '../Models/recommendation_model.dart';
 
 abstract class BaseMovieRemoteDataSource{
   Future<List<MovieModel>> fetchPlayingNowMovies();
@@ -25,6 +24,8 @@ abstract class BaseMovieRemoteDataSource{
   Future<List<RecommendationMovieModel>> fetchRecommendationMovies(RecommendationParams recommendationParams);
 
   Future<List<CastMovieModel>> fetchMovieCast(CastParams castParams);
+
+  Future<List<MovieModel>> fetchSearchMovies(String query);
 
 
 }
@@ -130,6 +131,19 @@ class MovieRemoteDataSource extends BaseMovieRemoteDataSource{
       throw ServerException(errorMessageModel:ErrorMessageModel.fromJson(response.data));
     }
 
+  }
+
+  @override
+  Future<List<MovieModel>> fetchSearchMovies(String query)async {
+   final response =await Dio().get(ApiConstants.searchMovie(query));
+
+    if(response.statusCode == 200){
+      List<dynamic> data = response.data['results'];
+      return data.map((movieJson) => MovieModel.fromJson(movieJson)).toList();
+    }
+    else{
+      throw ServerException(errorMessageModel:ErrorMessageModel.fromJson(response.data));
+    }
   }
 
 }

@@ -1,9 +1,6 @@
 import 'package:dartz/dartz.dart';
-
 import 'package:movies_app/Core/errors/failure.dart';
-import 'package:movies_app/Movies/Movie/Data/Models/fav_movie_model.dart';
-
-import '../../../../../Core/usecase/base_Use_Case.dart';
+import '../../../Data/Models/fav_movie_model.dart';
 import '../../repository/base_Movie_Repository.dart';
 
 class SaveFavMovie   {

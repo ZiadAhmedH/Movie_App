@@ -19,3 +19,14 @@ class FetchPopularMoviesEvent extends MoviesEvent {
   @override
   List<Object> get props => [page];
 }
+
+
+class FetchSearchMoviesEvent extends MoviesEvent {
+  final String query;
+
+  const FetchSearchMoviesEvent(this.query);
+
+  @override
+  List<Object> get props => [query];
+}
+

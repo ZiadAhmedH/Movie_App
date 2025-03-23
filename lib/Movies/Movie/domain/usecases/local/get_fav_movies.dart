@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:movies_app/Movies/Movie/Data/Models/fav_movie_model.dart';
-
+import '../../../Data/Models/fav_movie_model.dart';
 import '../../repository/base_Movie_Repository.dart';
 
 class GetFavMovies {

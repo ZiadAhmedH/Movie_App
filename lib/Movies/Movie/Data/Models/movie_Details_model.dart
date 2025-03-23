@@ -1,4 +1,4 @@
-import 'package:movies_app/Movies/Movie/domain/entities/movie_details.dart';
+import '../../domain/entities/movie_details.dart';
 import 'genres_model.dart';
 
 class MovieDetailsModel extends MovieDetails {

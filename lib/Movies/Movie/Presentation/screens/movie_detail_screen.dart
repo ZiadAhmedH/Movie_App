@@ -103,7 +103,8 @@ class MovieDetailContent extends StatelessWidget {
                       );
                     },
                   ),
-                ),                SliverToBoxAdapter(
+                ),
+                SliverToBoxAdapter(
                   child: FadeInUp(
                     from: 20,
                     duration: const Duration(milliseconds: 500),
@@ -167,6 +168,13 @@ class MovieDetailContent extends StatelessWidget {
                   padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 24.0),
                   sliver: _showCast(state),
                 ),
+
+                // recommendations
+                SliverPadding(
+                  padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 24.0),
+                  sliver: _showRecommendations(state),
+                ),
+
               ],
             );
         }
@@ -243,6 +251,47 @@ class MovieDetailContent extends StatelessWidget {
           color: Colors.black,
           borderRadius: BorderRadius.circular(8.0),
         ),
+      ),
+    );
+  }
+
+  Widget _showRecommendations(MovieDetailsState state) {
+    return SliverGrid(
+      delegate: SliverChildBuilderDelegate(
+            (context, index) {
+          if (state.recommendations.isEmpty) {
+            return  const Center(child: CustomText(text: "No Recommended Movies",color: Colors.white));
+          }
+          final recommendation = state.recommendations[index];
+          return InkWell(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return MovieDetailScreen(id: recommendation.id);
+              }));
+            },
+            child: FadeInUp(
+              from: 20,
+              duration: const Duration(milliseconds: 500),
+              child: ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+                child: CachedNetworkImage(
+                  imageUrl: ApiConstants.imageUr(recommendation.posterPath ?? ''),
+                  placeholder: (context, url) => _shimmerPlaceholder(),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                  height: 180.0,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          );
+        },
+        childCount: state.recommendations.length,
+      ),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        mainAxisSpacing: 8.0,
+        crossAxisSpacing: 8.0,
+        childAspectRatio: 0.7,
+        crossAxisCount: 3,
       ),
     );
   }
