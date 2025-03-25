@@ -67,6 +67,13 @@ class MovieDetailContent extends StatelessWidget {
 
               ],
             );
+          case RequestState.idle:
+            return const Center(
+              child: Text(
+                'Search for movies',
+                style: TextStyle(fontSize: 18, color: Colors.grey),
+              ),
+            );
         }
       },
     );

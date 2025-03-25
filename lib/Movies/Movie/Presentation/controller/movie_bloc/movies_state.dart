@@ -49,7 +49,6 @@ class MoviesState extends Equatable {
         topRatedMovies: topRatedMovies ?? this.topRatedMovies,
         topRatedMoviesState: topRatedMoviesState ?? this.topRatedMoviesState,
         topRatedMessage: topRatedMessage ?? this.topRatedMessage,
-
         searchMovies: searchMovies ?? this.searchMovies,
         searchMoviesState: searchMoviesState ?? this.searchMoviesState,
         searchMessage: searchMessage ?? this.searchMessage,
@@ -70,7 +69,7 @@ class MoviesState extends Equatable {
       this.topRatedMessage = '',
 
       this.searchMovies = const [],
-      this.searchMoviesState = RequestState.loading,
+      this.searchMoviesState = RequestState.idle,
       this.searchMessage = '',
       });
 

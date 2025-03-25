@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../../../../../Core/Constents/EndPoints.dart';
 import '../../../../../Core/Constents/enums.dart';
 import '../../../domain/entities/Movie.dart';
@@ -20,9 +21,9 @@ class NowPlayingComponent extends StatelessWidget {
       builder: (context, state) {
         switch (state.nowPlayingMoviesState) {
           case RequestState.loading:
-            return const SizedBox(
+            return  SizedBox(
                 height: 400.0,
-                child:  Center(child: CircularProgressIndicator()));
+                child:  Center(child: LoadingAnimationWidget.staggeredDotsWave(color: Colors.orangeAccent, size: 50),));
 
           case RequestState.error:
             return  SizedBox(
@@ -37,8 +38,9 @@ class NowPlayingComponent extends StatelessWidget {
               duration: const Duration(milliseconds: 500),
               child: CarouselSlider(
                 options: CarouselOptions(
-                  height: 400.0,
+                  height: 400,
                   viewportFraction: 1.0,
+                  autoPlay: true,
                   onPageChanged: (index, reason) {},
                 ),
                 items: state.playingNowMovies.map((item) {
@@ -124,8 +126,24 @@ class NowPlayingComponent extends StatelessWidget {
                 }).toList(),
               ),
             );
+          case RequestState.idle:
+            return const SizedBox(
+              height: 400.0,
+            );
         }
       },
     );
   }
 }
+
+// shimmer effect
+
+// Shimmer.fromColors(
+// baseColor: Colors.grey[300]!,
+// highlightColor: Colors.grey[100]!,
+// child: Container(
+// height: 400.0,
+// width: double.infinity,
+// color: Colors.white,
+// ),
+// );

@@ -80,6 +80,9 @@ class MovieRecommendations extends StatelessWidget {
             ),
           ),
         );
+      case RequestState.idle:
+        // TODO: Handle this case.
+        throw UnimplementedError();
     }
   }
 }

@@ -21,6 +21,7 @@ class ScreenCubit extends Cubit<ScreenState> {
       create: (context) => sl<MoviesBloc>(),
       child: const SearchScreen(),
     ),
+    const Center(child: Text('Settings')),
   ];
 
   void changeScreen(int index) {

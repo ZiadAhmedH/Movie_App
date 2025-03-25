@@ -21,7 +21,7 @@ class FavoriteButton extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.all(10.0),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 const FaIcon(FontAwesomeIcons.video,
                     color: Colors.white, size: 30),

@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:movies_app/Movies/Movie/Presentation/controller/movie_bloc/movies_bloc.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../../../Core/Constents/EndPoints.dart';
@@ -18,12 +19,11 @@ class PopularMoviesComponent extends StatelessWidget {
       buildWhen: (previous, current) => previous.popularMoviesState != current.popularMoviesState,
       builder: (context, state) {
 
-
         switch(state.popularMoviesState) {
           case RequestState.loading:
-            return  const SizedBox(
+            return   SizedBox(
                 height: 170.0,
-                child: Center(child: CircularProgressIndicator()));
+                child: Center(child: LoadingAnimationWidget.staggeredDotsWave(color: Colors.orangeAccent, size: 50),));
           case RequestState.error:
             return SizedBox(
               height: 170.0,
@@ -83,7 +83,11 @@ class PopularMoviesComponent extends StatelessWidget {
                 ),
               ),
             );
+          case RequestState.idle:
+           return const SizedBox(
+                height: 170.0,);
         }
+
       },
     );
   }
