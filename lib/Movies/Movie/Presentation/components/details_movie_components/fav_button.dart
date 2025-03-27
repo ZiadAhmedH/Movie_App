@@ -1,7 +1,10 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:movies_app/Movies/Movie/Presentation/components/details_movie_components/video_player/youtube_player_screen.dart';
+import 'package:video_player/video_player.dart';
 import '../../../Data/Models/fav_movie_model.dart';
 import '../../../domain/entities/movie_details.dart';
 import '../../controller/fav_bloc_movie/fav_movie_bloc.dart';
@@ -17,8 +20,6 @@ class FavoriteButton extends StatelessWidget {
       duration: const Duration(milliseconds: 500),
       child: BlocBuilder<FavMovieBloc, FavMovieState>(
         builder: (context, state) {
-
-
           bool isFavorite = state.favoriteMovies.any((movie) => movie.id == movieDetails.id);
 
           return Padding(
@@ -26,7 +27,10 @@ class FavoriteButton extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                const FaIcon(FontAwesomeIcons.video, color: Colors.white, size: 30),
+                IconButton(
+                  icon: const FaIcon(FontAwesomeIcons.video, color: Colors.white, size: 30),
+                  onPressed: () => _showTrailer(context , videoUrl:"https://www.youtube.com/watch?v=muUgLcfl9Sk"),
+                ),
                 const FaIcon(FontAwesomeIcons.share, color: Colors.white, size: 30),
                 IconButton(
                   icon: Icon(
@@ -47,7 +51,6 @@ class FavoriteButton extends StatelessWidget {
                       context.read<FavMovieBloc>().add(AddFavMovieEvent(favoriteMovie));
                     }
 
-                    // ✅ Immediately refresh the favorite list
                     context.read<FavMovieBloc>().add(FetchFavMoviesEvent());
                   },
                 ),
@@ -55,6 +58,28 @@ class FavoriteButton extends StatelessWidget {
             ),
           );
         },
+      ),
+    );
+  }
+
+  void _showTrailer(BuildContext context ,{required String videoUrl}) {
+
+    showDialog(
+      context: context,
+      barrierDismissible: true, // Allows dismissing by tapping outside
+      builder: (context) => Dialog(
+        backgroundColor: Colors.black,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height * 0.5,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: YouTubePlayerScreen(videoUrl: videoUrl),
+          ),
+        ),
       ),
     );
   }

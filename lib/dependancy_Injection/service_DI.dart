@@ -12,6 +12,7 @@ import '../Movies/Movie/domain/repository/base_Movie_Repository.dart';
 import '../Movies/Movie/domain/usecases/local/get_fav_movies.dart';
 import '../Movies/Movie/domain/usecases/remote/fetch_Movie_Details.dart';
 
+import '../Movies/Movie/domain/usecases/remote/fetch_Movie_Video.dart';
 import '../Movies/Movie/domain/usecases/remote/fetch_Movie_cast.dart';
 import '../Movies/Movie/domain/usecases/remote/fetch_Playing_Now_Movies.dart';
 import '../Movies/Movie/domain/usecases/remote/fetch_Popular_Movies_Pagination.dart';
@@ -34,6 +35,7 @@ class ServiceLocator{
         sl.registerLazySingleton(() => FetchRecommendationMovies(sl()));
         sl.registerLazySingleton(() => FetchMovieCast(sl()));
         sl.registerLazySingleton(() => SearchMovieUseCase(sl()));
+        sl.registerLazySingleton(() => FetchMovieVideo(sl()));
 
         // Register use cases first  local
 
@@ -48,7 +50,7 @@ class ServiceLocator{
 
         // Register Blocs after dependencies are available
         sl.registerFactory(() => MoviesBloc(sl(), sl(), sl(),sl()));
-        sl.registerFactory(() => MovieDetailsBloc(sl(), sl() , sl()));
+        sl.registerFactory(() => MovieDetailsBloc(sl(), sl() , sl() , sl()));
         sl.registerLazySingleton(() => FavMovieBloc(sl(), sl() , sl())..add(FetchFavMoviesEvent()));
 
         sl.registerFactory(()=>ScreenCubit());

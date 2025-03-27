@@ -10,6 +10,8 @@ import 'package:movies_app/Movies/Movie/domain/usecases/remote/fetch_Movie_Detai
 
 import 'package:movies_app/Movies/Movie/domain/usecases/remote/fetch_Recommendation_Movies.dart';
 import '../../../../Core/errors/failure.dart';
+import '../../domain/entities/video.dart';
+import '../../domain/usecases/remote/fetch_Movie_Video.dart';
 import '../../domain/usecases/remote/fetch_Movie_cast.dart';
 import '../../domain/usecases/remote/fetch_Popular_Movies_Pagination.dart';
 import '../datasource/movie_local_data_source.dart';
@@ -150,6 +152,16 @@ class MoviesRepository extends BaseMovieRepository {
     }
   }
 
+  @override
+  Future<Either<Failure, Video>> fetchMovieVideo(MovieVideoParams params)async {
+    try {
+      final result = await remoteDataSource.fetchMovieVideo(params);
+      return Right(result);
+    } on ServerException catch (failure) {
+      return Left(
+          ServerFailure(message: failure.errorMessageModel.statusMessage));
+    }
+  }
   
 
 

@@ -7,6 +7,7 @@ import 'package:movies_app/Movies/Movie/Presentation/controller/movie_bloc/movie
 import 'package:movies_app/Movies/Movie/Presentation/screens/search_screen.dart';
 
 import '../../Movies/Movie/Presentation/screens/movies_screen.dart';
+import '../../Tv_series/presentation/tv_screen.dart';
 import '../../dependancy_Injection/service_DI.dart';
 
 part 'screen_state.dart';
@@ -17,6 +18,7 @@ class ScreenCubit extends Cubit<ScreenState> {
 
   List<Widget> screens = [
     const MoviesScreen(),
+    const TvScreen(),
     BlocProvider(
       create: (context) => sl<MoviesBloc>(),
       child: const SearchScreen(),

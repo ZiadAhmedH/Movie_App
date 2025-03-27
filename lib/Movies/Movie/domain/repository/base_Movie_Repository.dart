@@ -5,7 +5,9 @@ import '../entities/Movie.dart';
 import '../entities/cast_movie.dart';
 import '../entities/movie_details.dart';
 import '../entities/recommendation_movie.dart';
+import '../entities/video.dart';
 import '../usecases/remote/fetch_Movie_Details.dart';
+import '../usecases/remote/fetch_Movie_Video.dart';
 import '../usecases/remote/fetch_Movie_cast.dart';
 import '../usecases/remote/fetch_Popular_Movies_Pagination.dart';
 import '../usecases/remote/fetch_Recommendation_Movies.dart';
@@ -19,6 +21,7 @@ abstract class BaseMovieRepository {
   Future <Either<Failure , List<Recommendation>>> fetchRecommendationMovies(RecommendationParams params);
   Future <Either<Failure , List<Cast>>> fetchMovieCast(CastParams params);
   Future <Either<Failure , List<Movie>>> fetchSearchMovies(String query);
+  Future <Either<Failure , Video>> fetchMovieVideo(MovieVideoParams params);
 // local methods
   Future<Either<Exception, void>> saveFavoriteMovie(FavoriteMovieModel movie);
   Future<Either<Exception, List<FavoriteMovieModel>>> getFavoriteMovies();

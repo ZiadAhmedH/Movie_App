@@ -2,9 +2,11 @@ import 'package:dio/dio.dart';
 import 'package:movies_app/Core/Constents/EndPoints.dart';
 import 'package:movies_app/Core/errors/exceptions.dart';
 import 'package:movies_app/Movies/Movie/Data/Models/Movie_Model.dart';
+import 'package:movies_app/Movies/Movie/Data/Models/video_model.dart';
 import '../../../../../Core/network/error_message_model.dart';
 import '../../domain/entities/movie_details.dart';
 import '../../domain/usecases/remote/fetch_Movie_Details.dart';
+import '../../domain/usecases/remote/fetch_Movie_Video.dart';
 import '../../domain/usecases/remote/fetch_Movie_cast.dart';
 import '../../domain/usecases/remote/fetch_Popular_Movies_Pagination.dart';
 import '../../domain/usecases/remote/fetch_Recommendation_Movies.dart';
@@ -26,6 +28,8 @@ abstract class BaseMovieRemoteDataSource{
   Future<List<CastMovieModel>> fetchMovieCast(CastParams castParams);
 
   Future<List<MovieModel>> fetchSearchMovies(String query);
+
+  Future<VideoModel> fetchMovieVideo(MovieVideoParams movieId);
 
 
 }
@@ -145,6 +149,20 @@ class MovieRemoteDataSource extends BaseMovieRemoteDataSource{
     else{
       throw ServerException(errorMessageModel:ErrorMessageModel.fromJson(response.data));
     }
+  }
+
+  @override
+  Future<VideoModel> fetchMovieVideo(MovieVideoParams movieId)async {
+    final response = await Dio().get(ApiMovie.movieVideo(movieId.id));
+
+    if(response.statusCode == 200){
+      List<dynamic> data = response.data['results'];
+      return VideoModel.fromJson(data[0]);
+    }
+    else{
+      throw ServerException(errorMessageModel:ErrorMessageModel.fromJson(response.data));
+    }
+
   }
 
 }

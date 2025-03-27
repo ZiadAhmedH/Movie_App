@@ -1,10 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:movies_app/Core/Constents/enums.dart';
+import 'package:movies_app/Movies/Movie/Data/Models/video_model.dart';
 import 'package:movies_app/Movies/Movie/domain/entities/cast_movie.dart';
 import 'package:movies_app/Movies/Movie/domain/entities/movie_details.dart';
 import 'package:movies_app/Movies/Movie/domain/entities/recommendation_movie.dart';
+import '../../../domain/entities/video.dart';
 import '../../../domain/usecases/remote/fetch_Movie_Details.dart';
+import '../../../domain/usecases/remote/fetch_Movie_Video.dart';
 import '../../../domain/usecases/remote/fetch_Movie_cast.dart';
 import '../../../domain/usecases/remote/fetch_Recommendation_Movies.dart';
 
@@ -15,7 +18,8 @@ class MovieDetailsBloc extends Bloc<MovieDetailsEvent, MovieDetailsState> {
   final FetchMovieDetailsUseCase fetchMovieDetailsUseCase;
   final FetchRecommendationMovies fetchRecommendationMovies;
   final FetchMovieCast fetchMovieCast;
-  MovieDetailsBloc(this.fetchMovieDetailsUseCase, this.fetchRecommendationMovies , this.fetchMovieCast) : super(const MovieDetailsState()) {
+  final FetchMovieVideo fetchMovieVideo;
+  MovieDetailsBloc(this.fetchMovieDetailsUseCase, this.fetchRecommendationMovies , this.fetchMovieCast , this.fetchMovieVideo) : super(const MovieDetailsState()) {
     on<FetchMovieDetailsEvent>((event, emit)async {
      final result = await  fetchMovieDetailsUseCase(MovieDetailsParams(event.movieId));
 
@@ -51,5 +55,18 @@ class MovieDetailsBloc extends Bloc<MovieDetailsEvent, MovieDetailsState> {
               castState: RequestState.loaded,
               cast: cast)));
     });
+
+    on<FetchMovieVideoEvent>((event , emit) async {
+      final result = await fetchMovieVideo(MovieVideoParams(event.movieId));
+      result.fold(
+              (failure) => emit(state.copyWith(
+              videoState: RequestState.error,
+              videoMessage: failure.message)),
+              (video) => emit(state.copyWith(
+              videoState: RequestState.loaded,
+              video: video)));
+    });
   }
+
+
 }

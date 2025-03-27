@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter/services.dart';
 import '../../dependancy_Injection/service_DI.dart';
 import '../controller/screen_cubit.dart';
 
@@ -15,25 +16,43 @@ class MainScreen extends StatelessWidget {
         builder: (context, state) {
           final screenCubit = context.read<ScreenCubit>();
           int currentIndex = (state is ScreenChanged) ? state.index : 0;
+
           return Scaffold(
-            body: screenCubit.screens[currentIndex],
-            bottomNavigationBar: BottomNavigationBar(
-              currentIndex: currentIndex,
-              onTap: (index) => screenCubit.changeScreen(index),
-              items: const [
-                BottomNavigationBarItem(
-                  icon: FaIcon(FontAwesomeIcons.home),
-                  label: 'home',
+            body: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 300),
+              child: screenCubit.screens[currentIndex],
+            ),
+            bottomNavigationBar: NavigationBar(
+              selectedIndex: currentIndex,
+              onDestinationSelected: (index) {
+                HapticFeedback.lightImpact();
+                screenCubit.changeScreen(index);
+              },
+              destinations: const [
+                NavigationDestination(
+                  icon: FaIcon(FontAwesomeIcons.home , size: 20),
+                  selectedIcon: FaIcon(FontAwesomeIcons.home , size: 15),
+                  label: 'Home',
                 ),
-                BottomNavigationBarItem(
-                  icon: FaIcon(FontAwesomeIcons.magnifyingGlass),
-                  label: 'search',
+                NavigationDestination(
+                  icon: FaIcon(FontAwesomeIcons.tv , size: 20),
+                  selectedIcon: FaIcon(FontAwesomeIcons.tv , size: 15),
+                  label: 'tv Shows',
                 ),
-                BottomNavigationBarItem(
-                  icon: FaIcon(FontAwesomeIcons.gear),
-                  label: 'settings',
+                NavigationDestination(
+                  icon: FaIcon(FontAwesomeIcons.magnifyingGlass , size: 20),
+                  selectedIcon: FaIcon(FontAwesomeIcons.magnifyingGlass , size: 15),
+                  label: 'Search',
                 ),
+                NavigationDestination(
+                    icon:FaIcon(FontAwesomeIcons.user , size: 20),
+                    label: 'Profile',
+                )
               ],
+              indicatorColor: Colors.orange,
+              backgroundColor: Colors.grey[900],
+              height: MediaQuery.of(context).size.height * 0.08,
+              animationDuration: const Duration(milliseconds: 500),
             ),
           );
         },

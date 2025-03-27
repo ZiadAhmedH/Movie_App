@@ -27,7 +27,7 @@ class MovieDetailScreen extends StatelessWidget {
             create: (context) => sl<MovieDetailsBloc>()
               ..add(FetchMovieDetailsEvent(id))
               ..add(FetchMovieRecommendationsEvent(id))
-              ..add(FetchMovieCastEvent(id))),
+              ..add(FetchMovieCastEvent(id))..add(FetchMovieVideoEvent(id))),
       ],
       child: Scaffold(body: MovieDetailContent(id: id)),
     );

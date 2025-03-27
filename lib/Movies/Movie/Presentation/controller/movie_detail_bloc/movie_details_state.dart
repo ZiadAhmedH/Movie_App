@@ -25,6 +25,11 @@ part of 'movie_details_bloc.dart';
       this.cast = const [],
       this.castState = RequestState.loading,
       this.castMessage = '',
+
+      this.video,
+      this.videoState = RequestState.loading,
+      this.videoMessage = '',
+
     }
     );
 
@@ -41,6 +46,11 @@ part of 'movie_details_bloc.dart';
       final RequestState castState;
       final String castMessage;
 
+
+      final Video? video;
+      final RequestState videoState;
+      final String videoMessage;
+
       MovieDetailsState copyWith({
         MovieDetails? movieDetails,
         RequestState? movieDetailsState,
@@ -51,6 +61,10 @@ part of 'movie_details_bloc.dart';
         List<Cast>? cast,
         RequestState? castState,
         String? castMessage,
+
+        Video? video,
+        RequestState? videoState,
+        String? videoMessage,
       }) {
         return MovieDetailsState(
           movieDetails: movieDetails ?? this.movieDetails,
@@ -62,6 +76,9 @@ part of 'movie_details_bloc.dart';
           cast: cast ?? this.cast,
           castState: castState ?? this.castState,
           castMessage: castMessage ?? this.castMessage,
+          video: video ?? this.video,
+          videoState: videoState ?? this.videoState,
+          videoMessage: videoMessage ?? this.videoMessage,
         );
       }
 
@@ -78,5 +95,8 @@ part of 'movie_details_bloc.dart';
       cast,
       castState,
       castMessage,
+      video!,
+      videoState,
+      videoMessage,
     ];
 }
