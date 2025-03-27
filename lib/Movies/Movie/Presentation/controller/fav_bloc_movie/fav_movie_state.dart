@@ -1,28 +1,49 @@
-part of 'fav_movie_bloc.dart';
+import 'package:equatable/equatable.dart';
+import '../../../../../Core/Constents/enums.dart';
+import '../../../Data/Models/fav_movie_model.dart';
 
-@immutable
-sealed class FavMovieState {}
+class FavMovieState extends Equatable {
+  const FavMovieState({
+    this.favoriteMovies = const [],
+    this.favMoviesState = RequestState.idle,
+    this.favMoviesMessage = '',
+    this.addedMovie,
+    this.deletedMovieId,
+    this.isFavorite = false,
+  });
 
-final class FavMovieInitial extends FavMovieState {}
-
-final class FavMoviesLoading extends FavMovieState {}
-
-final class FavMoviesLoaded extends FavMovieState {
   final List<FavoriteMovieModel> favoriteMovies;
-  FavMoviesLoaded(this.favoriteMovies);
-}
+  final RequestState favMoviesState;
+  final String favMoviesMessage;
+  final FavoriteMovieModel? addedMovie;
+  final int? deletedMovieId;
+  final bool isFavorite;
 
-final class FavMoviesError extends FavMovieState {
-  final String message;
-  FavMoviesError(this.message);
-}
+  FavMovieState copyWith({
+    List<FavoriteMovieModel>? favoriteMovies,
+    RequestState? favMoviesState,
+    String? favMoviesMessage,
+    FavoriteMovieModel? addedMovie,
+    int? deletedMovieId,
+    bool? isFavorite,
+  }) {
+    return FavMovieState(
+      favoriteMovies: favoriteMovies ?? this.favoriteMovies,
+      favMoviesState: favMoviesState ?? this.favMoviesState,
+      favMoviesMessage: favMoviesMessage ?? this.favMoviesMessage,
+      addedMovie: addedMovie ?? this.addedMovie,
+      deletedMovieId: deletedMovieId ?? this.deletedMovieId,
+      isFavorite: isFavorite ?? this.isFavorite,
+    );
+  }
 
-final class FavMovieAdded extends FavMovieState {
-  final FavoriteMovieModel favoriteMovieModel;
-  FavMovieAdded(this.favoriteMovieModel);
-}
-
-final class FavMovieDeleted extends FavMovieState {
-  final int movieId;
-  FavMovieDeleted(this.movieId);
+  @override
+  List<Object?> get props => [
+    favoriteMovies,
+    favMoviesState,
+    favMoviesMessage,
+    addedMovie,
+    deletedMovieId,
+    isFavorite,
+  ];
 }

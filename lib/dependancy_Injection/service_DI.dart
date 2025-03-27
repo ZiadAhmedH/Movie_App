@@ -49,7 +49,7 @@ class ServiceLocator{
         // Register Blocs after dependencies are available
         sl.registerFactory(() => MoviesBloc(sl(), sl(), sl(),sl()));
         sl.registerFactory(() => MovieDetailsBloc(sl(), sl() , sl()));
-        sl.registerFactory(() => FavMovieBloc(sl(), sl() , sl()));
+        sl.registerLazySingleton(() => FavMovieBloc(sl(), sl() , sl())..add(FetchFavMoviesEvent()));
 
         sl.registerFactory(()=>ScreenCubit());
     }

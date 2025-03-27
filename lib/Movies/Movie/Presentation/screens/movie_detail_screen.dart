@@ -21,8 +21,9 @@ class MovieDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => sl<FavMovieBloc>()..add(CheckIfMovieFavEvent(id))),
-        BlocProvider(
+        BlocProvider.value(
+          value: sl<FavMovieBloc>()..add(CheckIfMovieFavEvent(id)),
+        ),        BlocProvider(
             create: (context) => sl<MovieDetailsBloc>()
               ..add(FetchMovieDetailsEvent(id))
               ..add(FetchMovieRecommendationsEvent(id))

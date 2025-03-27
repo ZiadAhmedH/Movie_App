@@ -1,12 +1,14 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import '../../../../../Core/Constents/enums.dart';
 import '../../../Data/Models/fav_movie_model.dart';
 import '../../../domain/usecases/local/get_fav_movies.dart';
 import '../../../domain/usecases/local/save_fav_Movie.dart';
 import '../../../Data/datasource/movie_local_data_source.dart';
+import 'fav_movie_state.dart';
 
 part 'fav_movie_event.dart';
-part 'fav_movie_state.dart';
+
 
 class FavMovieBloc extends Bloc<FavMovieEvent, FavMovieState> {
   final GetFavMovies getFavMovies;
@@ -14,40 +16,44 @@ class FavMovieBloc extends Bloc<FavMovieEvent, FavMovieState> {
   final MovieLocalDataSource movieLocalDataSource;
 
   FavMovieBloc(this.getFavMovies, this.saveFavMovie, this.movieLocalDataSource)
-      : super(FavMovieInitial()) {
+      : super(const FavMovieState()) {
 
-    // Load Favorite Movies
     on<FetchFavMoviesEvent>((event, emit) async {
       final result = await getFavMovies();
       result.fold(
-            (l) => emit(FavMoviesError(l.toString())),
-            (r) => emit(FavMoviesLoaded(r)),
+            (l) => emit(state.copyWith(favMoviesState: RequestState.error, favMoviesMessage: l.toString())),
+            (r) => emit(state.copyWith(favoriteMovies: r, favMoviesState: RequestState.loaded)),
       );
     });
 
-    // Add Favorite Movie
     on<AddFavMovieEvent>((event, emit) async {
-      final result = await saveFavMovie(event.favoriteMovieModel);
-      result.fold(
-            (l) => emit(FavMoviesError(l.toString())),
-            (r) => emit(FavMovieAdded(event.favoriteMovieModel)),
-      );
+      await movieLocalDataSource.saveFavoriteMovie(event.favoriteMovieModel);
+
+      final updatedList = List<FavoriteMovieModel>.from(state.favoriteMovies)
+        ..add(event.favoriteMovieModel);
+
+      emit(state.copyWith(favoriteMovies: updatedList));
+
+      final newList = await movieLocalDataSource.getFavoriteMovies();
+      emit(state.copyWith(favoriteMovies: newList));
     });
 
-    // Remove Favorite Movie
     on<RemoveFavMovieEvent>((event, emit) async {
       await movieLocalDataSource.removeFavoriteMovie(event.movieId);
-      emit(FavMovieDeleted(event.movieId));
+
+      final updatedList = state.favoriteMovies
+          .where((movie) => movie.id != event.movieId)
+          .toList();
+
+      emit(state.copyWith(favoriteMovies: updatedList));
+
+      final newList = await movieLocalDataSource.getFavoriteMovies();
+      emit(state.copyWith(favoriteMovies: newList));
     });
 
-    // Check if Movie is Favorite
     on<CheckIfMovieFavEvent>((event, emit) async {
       final isFavorite = await movieLocalDataSource.isMovieFavorite(event.movieId);
-      if (isFavorite) {
-        emit(FavMovieAdded(FavoriteMovieModel(id: event.movieId, title: "", posterPath: "")));
-      } else {
-        emit(FavMovieInitial());
-      }
+      emit(state.copyWith(isFavorite: isFavorite));
     });
   }
 }
